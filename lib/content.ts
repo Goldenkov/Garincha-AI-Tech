@@ -1,6 +1,5 @@
 import {
   BarChart3,
-  Bot,
   BrainCircuit,
   BriefcaseBusiness,
   CheckCircle2,
