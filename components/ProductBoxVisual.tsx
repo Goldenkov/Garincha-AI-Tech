@@ -1,72 +1,149 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bot, Layers3, Sparkles } from "lucide-react";
+import { Bot, FileText, Layers3, MessageSquareText, Sparkles, Target, Zap } from "lucide-react";
 
 import { productBoxTags, siteConfig } from "@/lib/content";
 
-const cardPositions = [
-  "left-2 top-6 rotate-[-8deg]",
-  "right-0 top-10 rotate-[7deg]",
-  "left-0 top-32 rotate-[5deg]",
-  "right-3 top-36 rotate-[-6deg]",
-  "left-6 bottom-16 rotate-[-4deg]",
-  "right-8 bottom-12 rotate-[5deg]",
-  "left-1/2 top-2 -translate-x-1/2 rotate-[2deg]",
+const floatingCards = [
+  {
+    label: productBoxTags[0],
+    detail: "AI prompts",
+    icon: Bot,
+    position: "left-0 top-9 rotate-[-8deg] sm:left-1",
+    accent: "from-cyan-300 to-blue-400",
+  },
+  {
+    label: productBoxTags[1],
+    detail: "30 дней",
+    icon: FileText,
+    position: "right-0 top-12 rotate-[7deg]",
+    accent: "from-blue-300 to-violet-400",
+  },
+  {
+    label: productBoxTags[2],
+    detail: "offers",
+    icon: Target,
+    position: "left-1 top-[8.8rem] rotate-[5deg]",
+    accent: "from-fuchsia-300 to-cyan-300",
+  },
+  {
+    label: productBoxTags[3],
+    detail: "sales flow",
+    icon: MessageSquareText,
+    position: "right-2 top-[9.8rem] rotate-[-6deg]",
+    accent: "from-cyan-200 to-emerald-300",
+  },
+  {
+    label: productBoxTags[4],
+    detail: "лиды",
+    icon: Zap,
+    position: "left-4 bottom-24 rotate-[-4deg]",
+    accent: "from-amber-200 to-cyan-300",
+  },
+  {
+    label: productBoxTags[5],
+    detail: "финансы",
+    icon: Layers3,
+    position: "right-5 bottom-20 rotate-[5deg]",
+    accent: "from-sky-300 to-indigo-300",
+  },
+  {
+    label: productBoxTags[6],
+    detail: "структура",
+    icon: Sparkles,
+    position: "left-1/2 top-1 -translate-x-1/2 rotate-[2deg]",
+    accent: "from-violet-300 to-cyan-300",
+  },
 ];
 
 export function ProductBoxVisual() {
   return (
-    <div className="relative mx-auto min-h-[420px] w-full max-w-[520px]" aria-label="Визуал цифрового комплекта">
-      <div className="absolute inset-0 rounded-[48px] bg-cyan-400/10 blur-3xl" aria-hidden="true" />
-      <div className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/20 bg-cyan-300/5 blur-sm" />
+    <div
+      className="relative mx-auto min-h-[390px] w-full max-w-[540px] sm:min-h-[470px]"
+      aria-label="Визуал цифрового комплекта"
+    >
+      <div className="absolute inset-6 rounded-[54px] bg-cyan-400/10 blur-3xl" aria-hidden="true" />
+      <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/15 bg-cyan-300/5 blur-sm sm:h-96 sm:w-96" />
+      <div className="absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 opacity-70 [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] sm:h-[27rem] sm:w-[27rem]" />
+      <div className="absolute left-1/2 top-1/2 h-56 w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/15 opacity-70 [transform:rotateX(66deg)]" />
 
-      {productBoxTags.map((tag, index) => (
+      {floatingCards.map((card, index) => (
         <motion.div
-          key={tag}
-          initial={{ opacity: 0, scale: 0.85, y: 12 }}
+          key={card.label}
+          initial={{ opacity: 0, scale: 0.86, y: 14 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ delay: 0.12 * index, duration: 0.45, ease: "easeOut" }}
-          className={`absolute z-20 rounded-2xl border border-white/15 bg-white/[0.08] px-3 py-2 text-xs font-semibold text-cyan-50 shadow-cyan-glow backdrop-blur-xl ${cardPositions[index]}`}
+          className={`absolute z-30 min-w-28 rounded-2xl border border-white/15 bg-slate-950/55 p-2.5 text-xs text-cyan-50 shadow-cyan-glow backdrop-blur-2xl sm:min-w-32 sm:p-3 ${card.position}`}
         >
-          {tag}
+          <div className="flex items-center gap-2">
+            <span className={`flex size-7 items-center justify-center rounded-xl bg-gradient-to-br ${card.accent} text-slate-950`}>
+              <card.icon className="size-3.5" aria-hidden="true" />
+            </span>
+            <span>
+              <span className="block font-semibold leading-none text-white">{card.label}</span>
+              <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.16em] text-slate-400">
+                {card.detail}
+              </span>
+            </span>
+          </div>
+          <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+            <div className={`h-full rounded-full bg-gradient-to-r ${card.accent}`} style={{ width: `${58 + index * 5}%` }} />
+          </div>
         </motion.div>
       ))}
 
       <motion.div
         animate={{ y: [0, -12, 0] }}
         transition={{ repeat: Infinity, duration: 5.4, ease: "easeInOut" }}
-        className="absolute left-1/2 top-1/2 z-10 h-[270px] w-[220px] -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 top-1/2 z-20 h-[255px] w-[210px] -translate-x-1/2 -translate-y-1/2 [perspective:1100px] sm:h-[310px] sm:w-[248px]"
       >
-        <div className="absolute inset-0 skew-y-[-8deg] rounded-[28px] border border-cyan-200/40 bg-gradient-to-br from-slate-800 via-slate-950 to-cyan-950 shadow-[0_0_70px_rgba(34,211,238,0.32)]" />
-        <div className="absolute -right-9 top-8 h-[238px] w-16 skew-y-[28deg] rounded-r-[24px] border border-cyan-200/25 bg-gradient-to-b from-cyan-900/70 to-slate-950" />
-        <div className="absolute -top-6 left-8 h-12 w-[190px] skew-x-[-42deg] rounded-t-[22px] border border-cyan-200/25 bg-gradient-to-r from-cyan-700/50 to-slate-900" />
+        <div className="absolute -inset-12 rounded-full bg-cyan-300/15 blur-3xl" aria-hidden="true" />
+        <div className="absolute -bottom-12 left-1/2 h-16 w-72 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-2xl" />
 
-        <div className="absolute inset-0 flex flex-col justify-between p-7">
+        <div className="absolute inset-0 [transform:rotateY(-18deg)_rotateX(6deg)] [transform-style:preserve-3d]">
+          <div className="absolute -left-5 top-5 h-full w-full rounded-[30px] border border-cyan-200/10 bg-cyan-950/20 blur-sm" />
+          <div className="absolute inset-0 rounded-[30px] border border-cyan-200/45 bg-[linear-gradient(145deg,rgba(51,65,85,0.98),rgba(2,6,23,0.98)_45%,rgba(8,47,73,0.96))] shadow-[0_32px_90px_rgba(8,145,178,0.34)]" />
+          <div className="absolute -right-10 top-8 h-[calc(100%-34px)] w-14 skew-y-[25deg] rounded-r-[24px] border border-cyan-200/25 bg-[linear-gradient(160deg,rgba(14,116,144,0.82),rgba(2,6,23,0.96))] shadow-[18px_26px_60px_rgba(0,0,0,0.45)] sm:-right-12 sm:w-16" />
+          <div className="absolute -top-7 left-8 h-12 w-[calc(100%-18px)] skew-x-[-42deg] rounded-t-[22px] border border-cyan-200/25 bg-[linear-gradient(90deg,rgba(34,211,238,0.42),rgba(15,23,42,0.98))]" />
+          <div className="absolute inset-0 rounded-[30px] bg-[radial-gradient(circle_at_28%_18%,rgba(125,211,252,0.38),transparent_24%),linear-gradient(110deg,transparent_0%,rgba(255,255,255,0.12)_46%,transparent_54%)]" />
+          <div className="absolute inset-[1px] rounded-[29px] border border-white/10" />
+        </div>
+
+        <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-7">
           <div>
-            <div className="mb-5 inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 p-3 text-cyan-200">
-              <Bot className="h-7 w-7" aria-hidden="true" />
+            <div className="mb-5 inline-flex rounded-2xl border border-cyan-300/35 bg-cyan-300/10 p-3 text-cyan-200 shadow-cyan-glow">
+              <Bot className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
             </div>
-            <p className="text-xs uppercase tracking-[0.34em] text-cyan-200/80">Digital Kit</p>
-            <h3 className="mt-2 text-2xl font-black leading-tight text-white">{siteConfig.product}</h3>
+            <p className="text-[0.65rem] uppercase tracking-[0.34em] text-cyan-200/80 sm:text-xs">Digital Kit</p>
+            <h3 className="mt-2 text-[1.7rem] font-black leading-[0.95] tracking-[-0.06em] text-white sm:text-3xl">
+              {siteConfig.product}
+            </h3>
           </div>
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-sm text-slate-300">
-              <Layers3 className="h-4 w-4 text-cyan-200" aria-hidden="true" />
-              Prompts + templates
+
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3 backdrop-blur">
+            <div className="flex items-center justify-between gap-3 text-xs text-slate-300 sm:text-sm">
+              <span className="flex items-center gap-2">
+                <Layers3 className="h-4 w-4 text-cyan-200" aria-hidden="true" />
+                Prompts + templates
+              </span>
+              <span className="text-cyan-200">7 блоков</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-300">
-              <Sparkles className="h-4 w-4 text-fuchsia-200" aria-hidden="true" />
+            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-fuchsia-400" />
+            </div>
+            <div className="flex items-center gap-2 text-xs text-slate-300 sm:text-sm">
+              <Layers3 className="h-4 w-4 text-cyan-200" aria-hidden="true" />
               2026 AI workflow
             </div>
           </div>
         </div>
 
         <div className="absolute inset-x-8 top-24 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-        <div className="absolute bottom-8 left-7 right-7 h-1.5 rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-fuchsia-400" />
+        <div className="absolute bottom-7 left-7 right-7 h-1 rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-fuchsia-400" />
       </motion.div>
 
-      <div className="absolute bottom-6 left-1/2 h-12 w-64 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-2xl" />
+      <div className="absolute bottom-4 left-1/2 h-12 w-72 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-2xl" />
       <div className="sr-only">Placeholder can be replaced with a future SplineScene component.</div>
     </div>
   );

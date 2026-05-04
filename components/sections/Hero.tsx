@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
@@ -30,10 +30,18 @@ export function Hero() {
             без агентства, сложной теории и лишних расходов.
           </p>
 
-          <div className="mt-8 grid gap-3 sm:flex">
-            <ButtonLink href="#lead" className="w-full sm:w-auto">
-              {siteConfig.preorderCta}
-              <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+          <div className="mt-8 grid gap-3 sm:flex sm:items-center">
+            <ButtonLink
+              href="#lead"
+              size="lg"
+              className="group relative w-full overflow-hidden px-5 py-4 text-base shadow-[0_0_42px_rgba(103,232,249,0.42)] sm:w-auto sm:px-6"
+            >
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition duration-700 group-hover:translate-x-full" />
+              <span className="relative flex w-full items-center justify-center">
+                <span className="hidden sm:inline">{siteConfig.preorderCta}</span>
+                <span className="sm:hidden">Забронировать за {siteConfig.price}</span>
+                <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+              </span>
             </ButtonLink>
             <ButtonLink href="#inside" variant="secondary" className="w-full sm:w-auto">
               Посмотреть, что внутри
@@ -41,10 +49,12 @@ export function Hero() {
             </ButtonLink>
           </div>
 
-          <p className="mt-5 max-w-xl text-sm text-slate-500">
-            Без подключения оплаты на первом этапе: заявка фиксирует интерес к раннему доступу
-            и запусковой цене.
-          </p>
+          <div className="mt-4 flex max-w-xl items-start gap-2 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-3 text-sm leading-6 text-cyan-50/90 sm:inline-flex">
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-cyan-200" aria-hidden="true" />
+            <span>
+              Без оплаты сейчас: заявка фиксирует интерес к раннему доступу и запусковой цене {siteConfig.price}.
+            </span>
+          </div>
         </FadeIn>
 
         <FadeIn delay={0.15} className="lg:justify-self-end">
