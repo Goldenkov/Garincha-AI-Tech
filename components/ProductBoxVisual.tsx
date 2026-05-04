@@ -60,13 +60,13 @@ const floatingCards = [
 export function ProductBoxVisual() {
   return (
     <div
-      className="relative mx-auto min-h-[390px] w-full max-w-[540px] sm:min-h-[470px]"
+      className="relative mx-auto min-h-[360px] w-full max-w-[min(100%,34rem)] scale-[0.92] sm:min-h-[430px] sm:scale-95 xl:min-h-[470px] xl:scale-100"
       aria-label="Визуал цифрового комплекта"
     >
       <div className="absolute inset-6 rounded-[54px] bg-cyan-400/10 blur-3xl" aria-hidden="true" />
       <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/15 bg-cyan-300/5 blur-sm sm:h-96 sm:w-96" />
       <div className="absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 opacity-70 [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] sm:h-[27rem] sm:w-[27rem]" />
-      <div className="absolute left-1/2 top-1/2 h-56 w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/15 opacity-70 [transform:rotateX(66deg)]" />
+      <div className="absolute left-1/2 top-1/2 h-56 w-[min(26rem,82vw)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/15 opacity-70 [transform:rotateX(66deg)]" />
 
       {floatingCards.map((card, index) => (
         <motion.div

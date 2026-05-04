@@ -14,14 +14,14 @@ export function Hero() {
         className="absolute inset-0 -z-10 bg-hero-grid bg-[length:42px_42px] [mask-image:radial-gradient(circle_at_center,black,transparent_74%)]"
         aria-hidden="true"
       />
-      <Container className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
-        <FadeIn className="max-w-3xl">
+      <Container className="grid items-center gap-10 xl:grid-cols-[minmax(0,1.02fr)_minmax(430px,0.98fr)] xl:gap-12">
+        <FadeIn className="max-w-3xl xl:max-w-none">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
             <Sparkles className="h-4 w-4" aria-hidden="true" />
             {siteConfig.fullProductName}
           </div>
 
-          <h1 className="max-w-4xl text-balance text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl lg:text-7xl">
+          <h1 className="max-w-4xl text-balance text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl lg:text-6xl xl:text-7xl">
             Соберите основу продвижения бизнеса с помощью ИИ за 1–2 вечера
           </h1>
           <p className="mt-6 max-w-2xl text-pretty text-base leading-8 text-slate-300 sm:text-lg">
@@ -57,7 +57,7 @@ export function Hero() {
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.15} className="lg:justify-self-end">
+        <FadeIn delay={0.15} className="w-full min-w-0 xl:justify-self-end">
           <ProductBoxVisual />
         </FadeIn>
       </Container>
