@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
 
+import { MobileStickyCTA } from "@/components/MobileStickyCTA";
+import { PremiumBackground } from "@/components/PremiumBackground";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { siteConfig } from "@/lib/content";
@@ -31,10 +33,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ru" className="dark scroll-smooth">
-      <body className="min-h-screen bg-slate-950 font-sans text-slate-100 antialiased">
+      <body className="min-h-screen bg-slate-950 pb-24 font-sans text-slate-100 antialiased sm:pb-0">
+        <PremiumBackground />
         <SiteHeader />
         {children}
         <SiteFooter />
+        <MobileStickyCTA />
       </body>
     </html>
   );

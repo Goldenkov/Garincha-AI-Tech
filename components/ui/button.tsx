@@ -9,12 +9,12 @@ type ButtonSize = "sm" | "default" | "lg";
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-cyan-300 text-slate-950 shadow-[0_0_35px_rgba(103,232,249,0.35)] hover:bg-cyan-200",
+    "bg-cyan-300 text-slate-950 shadow-[0_0_35px_rgba(103,232,249,0.35)] hover:-translate-y-0.5 hover:bg-cyan-200 hover:shadow-[0_0_48px_rgba(103,232,249,0.48)] active:translate-y-0",
   secondary:
-    "border border-white/15 bg-white/[0.08] text-white hover:border-cyan-200/40 hover:bg-white/[0.12]",
+    "border border-white/15 bg-white/[0.08] text-white hover:-translate-y-0.5 hover:border-cyan-200/40 hover:bg-white/[0.12] active:translate-y-0",
   outline:
-    "border border-white/15 bg-white/[0.04] text-white hover:border-cyan-200/40 hover:bg-white/[0.10]",
-  ghost: "text-slate-200 hover:bg-white/[0.08] hover:text-white",
+    "border border-white/15 bg-white/[0.04] text-white hover:-translate-y-0.5 hover:border-cyan-200/40 hover:bg-white/[0.10] active:translate-y-0",
+  ghost: "text-slate-200 hover:-translate-y-0.5 hover:bg-white/[0.08] hover:text-white active:translate-y-0",
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -24,7 +24,7 @@ const sizes: Record<ButtonSize, string> = {
 };
 
 const baseClasses =
-  "inline-flex items-center justify-center rounded-full font-semibold transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-60";
+  "inline-flex items-center justify-center rounded-full font-semibold transition duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-60";
 
 type SharedProps = {
   children: ReactNode;

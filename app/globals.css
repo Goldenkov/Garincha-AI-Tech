@@ -38,11 +38,68 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection {
+body::selection {
   background: rgba(103, 232, 249, 0.35);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    background-size: 140% 140%, 130% 130%, auto;
+  }
+}
+
 @layer utilities {
+  .premium-noise {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.24) 1px, transparent 0);
+    background-size: 4px 4px;
+  }
+
+  .bg-premium-mesh {
+    background:
+      radial-gradient(circle at 16% 14%, rgba(34, 211, 238, 0.18), transparent 28%),
+      radial-gradient(circle at 84% 8%, rgba(168, 85, 247, 0.16), transparent 30%),
+      radial-gradient(circle at 58% 46%, rgba(59, 130, 246, 0.12), transparent 34%),
+      radial-gradient(circle at 84% 74%, rgba(20, 184, 166, 0.12), transparent 26%),
+      linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.84));
+  }
+
+  .premium-card-hover {
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 220ms ease,
+      border-color 220ms ease,
+      background-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .premium-card-hover::before {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background:
+      radial-gradient(circle at 24% 0%, rgba(103, 232, 249, 0.16), transparent 34%),
+      linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+    transition: opacity 220ms ease;
+  }
+
+  .premium-card-hover:hover {
+    transform: translateY(-3px);
+    border-color: rgba(103, 232, 249, 0.28);
+    box-shadow: 0 22px 70px rgba(8, 145, 178, 0.16);
+  }
+
+  .premium-card-hover:hover::before {
+    opacity: 1;
+  }
+
+  .tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   .perspective-premium {
     perspective: 1200px;
   }

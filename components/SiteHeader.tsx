@@ -14,7 +14,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/75 backdrop-blur-2xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 shadow-[0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-2xl">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link href="/" className="group inline-flex items-center gap-3" aria-label="Garincha AI-Tech home">
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-glow">
@@ -28,7 +28,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-slate-300 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              className="rounded-full px-1 py-2 text-sm text-slate-300 transition duration-200 hover:-translate-y-0.5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
             >
               {item.label}
             </Link>
@@ -36,7 +36,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link href="/en" className="text-sm text-slate-400 transition hover:text-white">
+          <Link href="/en" className="text-sm text-slate-400 transition duration-200 hover:-translate-y-0.5 hover:text-white">
             EN
           </Link>
           <ButtonLink href="/#lead" className="min-h-10 px-4 py-2">
