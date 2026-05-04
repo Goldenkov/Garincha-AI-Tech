@@ -1,5 +1,3 @@
-import { CheckCircle2 } from "lucide-react";
-
 import { FadeIn } from "@/components/Animated";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -20,9 +18,11 @@ export function Outcome() {
           <FadeIn>
             <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-5 shadow-glow backdrop-blur-xl sm:p-7">
               <ul className="grid gap-4">
-                {outcomes.map((outcome) => (
+                {outcomes.map((outcome, index) => (
                   <li key={outcome} className="flex gap-3 rounded-2xl bg-white/[0.04] p-4">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-cyan-200" aria-hidden="true" />
+                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full border border-cyan-200/30 bg-cyan-300/10 text-center text-[0.65rem] font-semibold leading-5 text-cyan-100">
+                      {index + 1}
+                    </span>
                     <span className="text-sm leading-6 text-slate-200 sm:text-base">{outcome}</span>
                   </li>
                 ))}

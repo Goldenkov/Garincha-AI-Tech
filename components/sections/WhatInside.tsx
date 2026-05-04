@@ -1,5 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
-
 import { FadeIn } from "@/components/Animated";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -21,13 +19,10 @@ export function WhatInside() {
               <Card className="group h-full overflow-hidden">
                 <CardContent className="relative flex h-full flex-col gap-5 p-6">
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-200/25 bg-cyan-300/10 text-cyan-100">
-                      <item.icon className="h-6 w-6" aria-hidden="true" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-200/25 bg-cyan-300/10 text-xs font-semibold tracking-[0.22em] text-cyan-100">
+                      {String(index + 1).padStart(2, "0")}
                     </div>
-                    <ArrowUpRight
-                      className="h-5 w-5 text-slate-500 transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-cyan-200"
-                      aria-hidden="true"
-                    />
+                    <div className="mt-4 h-px w-16 bg-gradient-to-r from-cyan-200/60 to-transparent transition group-hover:w-24" />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white">{item.title}</h3>

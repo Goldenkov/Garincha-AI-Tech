@@ -1,5 +1,3 @@
-import { ArrowRight, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
-
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
 import { FadeIn } from "@/components/Animated";
@@ -16,8 +14,8 @@ export function Hero() {
       />
       <Container className="grid items-center gap-10 xl:grid-cols-[minmax(0,1.02fr)_minmax(430px,0.98fr)] xl:gap-12">
         <FadeIn className="max-w-3xl xl:max-w-none">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
-            <Sparkles className="h-4 w-4" aria-hidden="true" />
+          <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
+            <span className="h-px w-6 bg-gradient-to-r from-transparent to-cyan-200" aria-hidden="true" />
             {siteConfig.fullProductName}
           </div>
 
@@ -40,17 +38,21 @@ export function Hero() {
               <span className="relative flex w-full items-center justify-center">
                 <span className="hidden sm:inline">{siteConfig.preorderCta}</span>
                 <span className="sm:hidden">Забронировать за {siteConfig.price}</span>
-                <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+                <span className="ml-2 transition group-hover:translate-x-0.5" aria-hidden="true">
+                  →
+                </span>
               </span>
             </ButtonLink>
             <ButtonLink href="#inside" variant="secondary" className="w-full sm:w-auto">
               Посмотреть, что внутри
-              <ChevronDown className="ml-2 h-4 w-4" aria-hidden="true" />
+              <span className="ml-2" aria-hidden="true">
+                ↓
+              </span>
             </ButtonLink>
           </div>
 
           <div className="mt-4 flex max-w-xl items-start gap-2 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.06] px-4 py-3 text-sm leading-6 text-cyan-50/90 sm:inline-flex">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-cyan-200" aria-hidden="true" />
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-200 shadow-[0_0_18px_rgba(103,232,249,0.8)]" aria-hidden="true" />
             <span>
               Без оплаты сейчас: заявка фиксирует интерес к раннему доступу и запусковой цене {siteConfig.price}.
             </span>

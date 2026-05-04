@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ArrowRight, BadgePercent, Handshake } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { PartnerForm } from "@/components/forms/PartnerForm";
@@ -21,7 +20,7 @@ export default function PartnersPage() {
         <Container className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
-              <Handshake className="size-4" aria-hidden="true" />
+              <span className="h-px w-6 bg-cyan-200/70" aria-hidden="true" />
               Партнёрам Garincha AI-Tech
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -34,7 +33,6 @@ export default function PartnersPage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="#partner-form" size="lg">
                 Стать партнёром
-                <ArrowRight className="ml-2 size-4" aria-hidden="true" />
               </ButtonLink>
               <ButtonLink href="/" variant="outline" size="lg">
                 Посмотреть продукт
@@ -44,7 +42,7 @@ export default function PartnersPage() {
 
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-glow backdrop-blur-2xl">
             <div className="rounded-[1.5rem] border border-cyan-300/20 bg-slate-950/70 p-6">
-              <BadgePercent className="size-10 text-cyan-200" aria-hidden="true" />
+              <div className="h-px w-20 bg-gradient-to-r from-cyan-200 to-transparent" aria-hidden="true" />
               <p className="mt-6 text-sm uppercase tracking-[0.3em] text-slate-500">Partner kit</p>
               <h2 className="mt-3 text-2xl font-semibold text-white">{siteConfig.product}</h2>
               <p className="mt-4 text-sm leading-6 text-slate-300">

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CheckCircle2, Mail, MessageCircle } from "lucide-react";
 
 import { Container } from "@/components/Container";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,7 @@ export default function ThanksPage() {
         <Container className="mx-auto max-w-3xl text-center">
           <Card className="p-8 sm:p-12">
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl border border-cyan-300/30 bg-cyan-300/10 text-cyan-200 shadow-cyan-glow">
-              <CheckCircle2 className="h-8 w-8" aria-hidden="true" />
+              <span className="h-2.5 w-8 rounded-full bg-cyan-200 shadow-cyan-glow" aria-hidden="true" />
             </div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200">
               Заявка принята
@@ -32,14 +31,14 @@ export default function ThanksPage() {
             </p>
             <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <Mail className="mb-3 h-5 w-5 text-cyan-200" aria-hidden="true" />
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Email</p>
                 <p className="text-sm font-semibold text-white">Проверьте email</p>
                 <p className="mt-1 text-sm text-slate-400">
                   После реальной интеграции письмо или уведомление можно отправлять автоматически.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <MessageCircle className="mb-3 h-5 w-5 text-cyan-200" aria-hidden="true" />
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Telegram</p>
                 <p className="text-sm font-semibold text-white">Telegram для связи</p>
                 <p className="mt-1 text-sm text-slate-400">
                   Поле Telegram уже есть в формах для быстрого контакта с заявкой.

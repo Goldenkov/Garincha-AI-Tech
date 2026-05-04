@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import type { InputHTMLAttributes } from "react";
-import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,9 +19,9 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         )}
         {...props}
       />
-      <Check
+      <span
         aria-hidden="true"
-        className="pointer-events-none absolute size-3.5 text-slate-950 opacity-0 transition peer-checked:opacity-100"
+        className="pointer-events-none absolute h-2.5 w-2.5 rounded-sm bg-slate-950 opacity-0 transition peer-checked:opacity-100"
       />
     </span>
   ),

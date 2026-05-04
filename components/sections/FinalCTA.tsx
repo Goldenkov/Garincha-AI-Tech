@@ -1,5 +1,3 @@
-import { ArrowRight } from "lucide-react";
-
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
 import { siteConfig } from "@/lib/content";
@@ -23,7 +21,6 @@ export function FinalCTA() {
             </div>
             <ButtonLink href="/#lead" className="w-full gap-2 sm:w-auto">
               Оставить заявку
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </ButtonLink>
           </div>
         </div>

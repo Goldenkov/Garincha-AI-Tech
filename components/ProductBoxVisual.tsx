@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bot, FileText, Layers3, MessageSquareText, Sparkles, Target, Zap } from "lucide-react";
 
 import { productBoxTags, siteConfig } from "@/lib/content";
 
@@ -9,49 +8,42 @@ const floatingCards = [
   {
     label: productBoxTags[0],
     detail: "AI prompts",
-    icon: Bot,
     position: "left-0 top-9 rotate-[-8deg] sm:left-1",
     accent: "from-cyan-300 to-blue-400",
   },
   {
     label: productBoxTags[1],
     detail: "30 дней",
-    icon: FileText,
     position: "right-0 top-12 rotate-[7deg]",
     accent: "from-blue-300 to-violet-400",
   },
   {
     label: productBoxTags[2],
     detail: "offers",
-    icon: Target,
     position: "left-1 top-[8.8rem] rotate-[5deg]",
     accent: "from-fuchsia-300 to-cyan-300",
   },
   {
     label: productBoxTags[3],
     detail: "sales flow",
-    icon: MessageSquareText,
     position: "right-2 top-[9.8rem] rotate-[-6deg]",
     accent: "from-cyan-200 to-emerald-300",
   },
   {
     label: productBoxTags[4],
     detail: "лиды",
-    icon: Zap,
     position: "left-4 bottom-24 rotate-[-4deg]",
     accent: "from-amber-200 to-cyan-300",
   },
   {
     label: productBoxTags[5],
     detail: "финансы",
-    icon: Layers3,
     position: "right-5 bottom-20 rotate-[5deg]",
     accent: "from-sky-300 to-indigo-300",
   },
   {
     label: productBoxTags[6],
     detail: "структура",
-    icon: Sparkles,
     position: "left-1/2 top-1 -translate-x-1/2 rotate-[2deg]",
     accent: "from-violet-300 to-cyan-300",
   },
@@ -77,9 +69,7 @@ export function ProductBoxVisual() {
           className={`absolute z-30 min-w-28 rounded-2xl border border-white/15 bg-slate-950/55 p-2.5 text-xs text-cyan-50 shadow-cyan-glow backdrop-blur-2xl sm:min-w-32 sm:p-3 ${card.position}`}
         >
           <div className="flex items-center gap-2">
-            <span className={`flex size-7 items-center justify-center rounded-xl bg-gradient-to-br ${card.accent} text-slate-950`}>
-              <card.icon className="size-3.5" aria-hidden="true" />
-            </span>
+            <span className={`h-8 w-1.5 rounded-full bg-gradient-to-b ${card.accent}`} aria-hidden="true" />
             <span>
               <span className="block font-semibold leading-none text-white">{card.label}</span>
               <span className="mt-1 block text-[0.65rem] uppercase tracking-[0.16em] text-slate-400">
@@ -113,7 +103,7 @@ export function ProductBoxVisual() {
         <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-7">
           <div>
             <div className="mb-5 inline-flex rounded-2xl border border-cyan-300/35 bg-cyan-300/10 p-3 text-cyan-200 shadow-cyan-glow">
-              <Bot className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden="true" />
+              <span className="text-sm font-black tracking-[-0.04em] text-cyan-50 sm:text-base">AI</span>
             </div>
             <p className="text-[0.65rem] uppercase tracking-[0.34em] text-cyan-200/80 sm:text-xs">Digital Kit</p>
             <h3 className="mt-2 text-[1.7rem] font-black leading-[0.95] tracking-[-0.06em] text-white sm:text-3xl">
@@ -123,19 +113,13 @@ export function ProductBoxVisual() {
 
           <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3 backdrop-blur">
             <div className="flex items-center justify-between gap-3 text-xs text-slate-300 sm:text-sm">
-              <span className="flex items-center gap-2">
-                <Layers3 className="h-4 w-4 text-cyan-200" aria-hidden="true" />
-                Prompts + templates
-              </span>
+              <span>Prompts + templates</span>
               <span className="text-cyan-200">7 блоков</span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
               <div className="h-full w-[78%] rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-fuchsia-400" />
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-300 sm:text-sm">
-              <Layers3 className="h-4 w-4 text-cyan-200" aria-hidden="true" />
-              2026 AI workflow
-            </div>
+            <div className="text-xs text-slate-300 sm:text-sm">2026 AI workflow</div>
           </div>
         </div>
 

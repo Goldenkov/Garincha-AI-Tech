@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 import { navItems } from "@/lib/content";
@@ -51,7 +50,20 @@ export function SiteHeader() {
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
         >
-          {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+          <span className="relative h-4 w-5" aria-hidden="true">
+            <span
+              className={cn(
+                "absolute left-0 top-1/2 h-px w-full bg-current transition",
+                open ? "rotate-45" : "-translate-y-1.5"
+              )}
+            />
+            <span
+              className={cn(
+                "absolute left-0 top-1/2 h-px w-full bg-current transition",
+                open ? "-rotate-45" : "translate-y-1.5"
+              )}
+            />
+          </span>
         </button>
       </Container>
 

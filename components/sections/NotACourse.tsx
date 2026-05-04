@@ -1,5 +1,3 @@
-import { CheckCircle2, Layers3 } from "lucide-react";
-
 import { Container } from "@/components/Container";
 import { FadeIn } from "@/components/Animated";
 
@@ -17,7 +15,7 @@ export function NotACourse() {
           <div className="grid gap-8 rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 shadow-glow backdrop-blur-xl md:grid-cols-[0.8fr_1.2fr] md:p-10">
             <div className="flex items-start gap-4">
               <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl border border-violet-300/30 bg-violet-300/10 text-violet-100">
-                <Layers3 className="size-6" aria-hidden="true" />
+                <span className="h-5 w-5 rounded-full border border-violet-200/60" aria-hidden="true" />
               </div>
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Важно</p>
@@ -35,7 +33,7 @@ export function NotACourse() {
               <ul className="space-y-3">
                 {bullets.map((item) => (
                   <li key={item} className="flex gap-3">
-                    <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-cyan-200" aria-hidden="true" />
+                    <span className="mt-2 h-px w-5 shrink-0 bg-cyan-200" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}

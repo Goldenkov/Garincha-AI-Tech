@@ -17,7 +17,9 @@ export function Audience() {
           {audienceItems.map((item, index) => (
             <FadeIn key={item.title} delay={index * 0.04}>
               <Card className="h-full p-5">
-                <item.icon className="mb-5 size-7 text-cyan-200" aria-hidden="true" />
+                <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-200">
+                  0{index + 1}
+                </p>
                 <h3 className="text-base font-semibold text-white">{item.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-slate-400">{item.description}</p>
               </Card>

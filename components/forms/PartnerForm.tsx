@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Send } from "lucide-react";
 
 import { submitPartnerForm } from "@/lib/form-submit";
 import { Button } from "@/components/ui/button";
@@ -90,7 +89,6 @@ export function PartnerForm() {
 
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-fit">
         {isSubmitting ? "Отправляем..." : "Отправить заявку партнёра"}
-        <Send className="ml-2 h-4 w-4" aria-hidden="true" />
       </Button>
     </form>
   );

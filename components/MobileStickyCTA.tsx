@@ -1,5 +1,3 @@
-import { ArrowRight, Sparkles } from "lucide-react";
-
 import { ButtonLink } from "@/components/ui/button";
 import { siteConfig } from "@/lib/content";
 
@@ -9,7 +7,7 @@ export function MobileStickyCTA() {
       <div className="mx-auto flex max-w-md items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-cyan-200">
-            <Sparkles className="size-3" aria-hidden="true" />
+            <span className="h-px w-4 bg-cyan-200/70" aria-hidden="true" />
             Ранний доступ
           </p>
           <p className="mt-0.5 truncate text-xs text-slate-400">Без оплаты сейчас</p>
@@ -22,7 +20,9 @@ export function MobileStickyCTA() {
           <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition duration-700 group-hover:translate-x-full" />
           <span className="relative flex items-center justify-center">
             Забронировать за {siteConfig.price}
-            <ArrowRight className="ml-2 size-4 transition group-hover:translate-x-0.5" aria-hidden="true" />
+            <span className="ml-2 transition group-hover:translate-x-0.5" aria-hidden="true">
+              →
+            </span>
           </span>
         </ButtonLink>
       </div>

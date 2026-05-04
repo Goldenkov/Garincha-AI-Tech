@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowRight, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -123,13 +122,14 @@ export function LeadForm() {
             <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                  <span
+                    className="mr-2 inline-block size-4 animate-spin rounded-full border-2 border-slate-950/30 border-t-slate-950"
+                    aria-hidden="true"
+                  />
                   Отправляем
                 </>
               ) : (
-                <>
-                  Оставить заявку <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                </>
+                "Оставить заявку"
               )}
             </Button>
 
