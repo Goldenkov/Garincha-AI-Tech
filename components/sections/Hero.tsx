@@ -2,7 +2,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
 import { FadeIn } from "@/components/Animated";
 import { ProductBoxVisual } from "@/components/ProductBoxVisual";
-import { siteConfig } from "@/lib/content";
+import { heroMetrics, siteConfig } from "@/lib/content";
 
 export function Hero() {
   return (
@@ -56,6 +56,17 @@ export function Hero() {
             <span>
               Без оплаты сейчас: заявка фиксирует интерес к раннему доступу и запусковой цене {siteConfig.price}.
             </span>
+          </div>
+
+          <div className="mt-8 grid max-w-2xl grid-cols-3 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.035] backdrop-blur-xl">
+            {heroMetrics.map((metric) => (
+              <div key={metric.label} className="border-r border-white/10 px-4 py-4 last:border-r-0 sm:px-5">
+                <p className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{metric.value}</p>
+                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-slate-500 sm:text-xs">
+                  {metric.label}
+                </p>
+              </div>
+            ))}
           </div>
         </FadeIn>
 
