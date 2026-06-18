@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { MissionDrawer } from "@/components/journey/MissionDrawer";
 import { Button } from "@/components/ui/button";
 import {
   journeyStorageKeys,
@@ -52,6 +53,7 @@ export function JourneyExperience() {
       activeMissionId: active && missions.some((mission) => mission.id === active) ? active : defaultState.activeMissionId,
     };
   });
+  const [drawerMissionId, setDrawerMissionId] = useState<string | null>(null);
 
   useEffect(() => {
     window.localStorage.setItem(journeyStorageKeys.selectedNiche, state.selectedNiche);
@@ -60,9 +62,9 @@ export function JourneyExperience() {
   }, [state]);
 
   const selectedNiche = niches.find((niche) => niche.id === state.selectedNiche) ?? niches[0];
-  const activeMission = missions.find((mission) => mission.id === state.activeMissionId) ?? missions[0];
+  const drawerMission = missions.find((mission) => mission.id === drawerMissionId) ?? missions[0];
   const progressPercent = Math.round((state.completedMissions.length / missions.length) * 100);
-  const currentIndex = missions.findIndex((mission) => mission.id === state.activeMissionId);
+  const drawerMissionIndex = missions.findIndex((mission) => mission.id === drawerMission.id);
   const nextMission = missions.find((mission) => !state.completedMissions.includes(mission.id));
 
   function selectNiche(nicheId: NicheId) {
@@ -75,7 +77,7 @@ export function JourneyExperience() {
 
   function startMission(missionId: string) {
     setState((current) => ({ ...current, activeMissionId: missionId }));
-    document.getElementById("mission-detail")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setDrawerMissionId(missionId);
   }
 
   function completeMission(missionId: string) {
@@ -154,14 +156,6 @@ export function JourneyExperience() {
               onStartMission={startMission}
               onCompleteMission={completeMission}
             />
-            <MissionDetail
-              mission={activeMission}
-              niche={selectedNiche}
-              missionIndex={currentIndex}
-              status={statusFor(activeMission)}
-              onComplete={() => completeMission(activeMission.id)}
-              onNext={() => nextMission && startMission(nextMission.id)}
-            />
           </div>
 
           <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
@@ -176,6 +170,19 @@ export function JourneyExperience() {
             <LaunchReadinessScore progressPercent={progressPercent} missingItems={missingItems} />
           </aside>
         </div>
+
+        <MissionDrawer
+          key={`${selectedNiche.id}-${drawerMission.id}`}
+          open={drawerMissionId !== null}
+          mission={drawerMission}
+          missionIndex={drawerMissionIndex}
+          niche={selectedNiche}
+          status={statusFor(drawerMission)}
+          nextMission={nextMission}
+          onClose={() => setDrawerMissionId(null)}
+          onComplete={() => completeMission(drawerMission.id)}
+          onNext={startMission}
+        />
       </div>
     </main>
   );
@@ -374,89 +381,6 @@ function MissionCard({
   );
 }
 
-function MissionDetail({
-  mission,
-  niche,
-  missionIndex,
-  status,
-  onComplete,
-  onNext,
-}: {
-  mission: Mission;
-  niche: Niche;
-  missionIndex: number;
-  status: MissionStatus;
-  onComplete: () => void;
-  onNext: () => void;
-}) {
-  const nicheExample = getMissionExample(mission, niche);
-
-  return (
-    <section id="mission-detail" className="scroll-mt-28 rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
-            Миссия {(missionIndex + 1).toString().padStart(2, "0")}
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">{mission.title}</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-400">{mission.goal}</p>
-        </div>
-        <span className="rounded-full border border-white/10 bg-slate-950/45 px-4 py-2 text-xs uppercase tracking-[0.18em] text-slate-300">
-          {status}
-        </span>
-      </div>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/35 p-5">
-          <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Inputs</p>
-          <div className="mt-4 grid gap-3">
-            {mission.inputs.map((input) => (
-              <label key={input} className="grid gap-2">
-                <span className="text-sm text-slate-300">{input}</span>
-                <input
-                  className="h-11 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40"
-                  placeholder="Заполните коротко"
-                />
-              </label>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-4">
-          <div className="rounded-3xl border border-cyan-300/15 bg-cyan-300/[0.06] p-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-cyan-200">Prompt preview</p>
-            <p className="mt-3 text-sm leading-7 text-slate-200">
-              {mission.promptTemplate.replace("[ниша]", niche.title).replace("[возражения]", niche.objections.join(", ")).replace("[quiz-поля]", niche.quiz.join(", "))}
-            </p>
-            <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-xs text-slate-400">
-              Полный промпт, варианты и дополнительные примеры — доступно в PRO.
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-slate-950/35 p-5">
-            <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Пример для ниши</p>
-            <p className="mt-3 text-sm leading-7 text-slate-300">{nicheExample}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-5 rounded-3xl border border-emerald-300/15 bg-emerald-300/[0.06] p-5">
-        <p className="text-xs uppercase tracking-[0.22em] text-emerald-200">Expected result</p>
-        <p className="mt-2 text-sm leading-6 text-slate-200">{mission.expectedResult}</p>
-      </div>
-
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <Button type="button" onClick={onComplete} disabled={status === "completed"}>
-          {status === "completed" ? "Миссия завершена" : "Отметить как готово"}
-        </Button>
-        <Button type="button" variant="secondary" onClick={onNext}>
-          Следующая миссия
-        </Button>
-      </div>
-    </section>
-  );
-}
-
 function ProgressPanel({
   selectedNiche,
   progressPercent,
@@ -554,14 +478,4 @@ function LaunchReadinessScore({ progressPercent, missingItems }: { progressPerce
       </div>
     </section>
   );
-}
-
-function getMissionExample(mission: Mission, niche: Niche) {
-  if (mission.id === "offer-packaging") return `Оффер: ${niche.offer}.`;
-  if (mission.id === "objection-battle") return `Возражения: ${niche.objections.join(", ")}.`;
-  if (mission.id === "quiz-lead") return `Квиз: ${niche.quiz.join(", ")}.`;
-  if (mission.id === "content-boost") return `Контент: ${niche.content.join(", ")}.`;
-  if (mission.id === "landing-route") return `Лендинг строится вокруг оффера: ${niche.offer}.`;
-  if (mission.id === "market-signals") return `Сигналы рынка: ответы, вопросы, заявки, сохранения, переходы и запросы цены.`;
-  return `Ниша: ${niche.title}. Рекомендуемый пакет: ${niche.recommendedPackage}.`;
 }
