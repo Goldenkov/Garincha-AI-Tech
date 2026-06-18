@@ -4,6 +4,7 @@ import { LeadForm } from "@/components/forms/LeadForm";
 import { Container } from "@/components/Container";
 import { HeroSection } from "@/components/product/HeroSection";
 import { NicheRoutes } from "@/components/product/NicheRoutes";
+import { PageLinkGrid } from "@/components/product/PageLinkGrid";
 import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { ButtonLink } from "@/components/ui/button";
@@ -159,6 +160,23 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+        </Container>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <Container>
+          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Навигация</p>
+              <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+                Все страницы продукта в одном месте
+              </h2>
+            </div>
+            <ButtonLink href="/site-map" variant="outline" className="w-full sm:w-auto">
+              Полная карта сайта
+            </ButtonLink>
+          </div>
+          <PageLinkGrid compact />
         </Container>
       </section>
 

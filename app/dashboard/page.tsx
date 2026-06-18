@@ -6,6 +6,7 @@ import { ProgressOverview } from "@/components/product/ProgressOverview";
 import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { NicheRoutes } from "@/components/product/NicheRoutes";
+import { PageLinkGrid } from "@/components/product/PageLinkGrid";
 import { ButtonLink } from "@/components/ui/button";
 import { businessRebootConfig } from "@/lib/business-reboot-content";
 
@@ -67,6 +68,17 @@ export default function DashboardPage() {
             </div>
             <ButtonLink href="/tools" size="lg">Перейти к инструментам</ButtonLink>
           </div>
+        </section>
+
+        <section className="space-y-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Все разделы</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Быстрые переходы</h2>
+            </div>
+            <ButtonLink href="/site-map" variant="outline">Полная карта</ButtonLink>
+          </div>
+          <PageLinkGrid compact />
         </section>
 
         <FeedbackBlock />
