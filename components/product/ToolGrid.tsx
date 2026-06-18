@@ -5,6 +5,17 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toolCards } from "@/lib/business-reboot-content";
 
+const businessXpLabels = [
+  "+10 к ясности бизнеса",
+  "+15 к ясности оффера",
+  "+15 к контент-системе",
+  "+10 к структуре контакта",
+  "+15 к устойчивости продаж",
+  "+20 к качеству заявок",
+  "+20 к структуре продаж",
+  "+15 к готовности запуска",
+];
+
 type ToolGridProps = {
   limit?: number;
 };
@@ -48,6 +59,9 @@ export function ToolCard({ tool, index }: ToolCardProps) {
         <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300">
           {tool.time}
         </span>
+      </div>
+      <div className="mb-4 inline-flex w-fit rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1 text-xs text-cyan-100">
+        {businessXpLabels[index] ?? "+10 к готовности"}
       </div>
       <h3 className="text-lg font-semibold text-white">{tool.title}</h3>
       <p className="mt-3 text-sm leading-6 text-slate-400">{tool.description}</p>

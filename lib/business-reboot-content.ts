@@ -10,8 +10,8 @@ export const businessRebootConfig = {
 
 export const dashboardNav = [
   { label: "Главная", href: "/" },
+  { label: "AI-карта", href: "/journey" },
   { label: "PRO", href: "/pro" },
-  { label: "Бесплатно", href: "/free" },
   { label: "Дашборд", href: "/dashboard" },
   { label: "Инструменты", href: "/tools" },
   { label: "Ниши", href: "/niches" },
@@ -26,6 +26,7 @@ export const siteMapGroups = [
       { label: "Главная", href: "/", description: "Премиальный интерфейс и ценность продукта." },
       { label: "PRO", href: "/pro", description: "Что внутри PRO-доступа и зачем он нужен." },
       { label: "Бесплатно", href: "/free", description: "Free lead magnet для первого шага." },
+      { label: "AI-карта запуска", href: "/journey", description: "Выбор ниши и прохождение миссий запуска." },
       { label: "Партнёрам", href: "/partners", description: "Заявка для авторов каналов и сообществ." },
       { label: "Спасибо", href: "/thanks", description: "Страница после отправки формы." },
     ],
@@ -36,6 +37,8 @@ export const siteMapGroups = [
     links: [
       { label: "Dashboard", href: "/dashboard", description: "Главный интерфейс покупателя после доступа." },
       { label: "Быстрый старт", href: "/quick-start", description: "Маршрут на 60 минут к первому черновику." },
+      { label: "Game alias", href: "/game", description: "Короткий alias на AI-карту запуска." },
+      { label: "Map alias", href: "/map", description: "Короткий alias на AI-карту запуска." },
       { label: "Инструменты", href: "/tools", description: "Карточки инструментов, промпты и действия." },
       { label: "Ниши", href: "/niches", description: "Нишевые маршруты и рекомендуемые инструменты." },
       { label: "Прогресс", href: "/progress", description: "Визуальная карта прохождения и completion tracker." },
