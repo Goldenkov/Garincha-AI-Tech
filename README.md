@@ -1,6 +1,6 @@
-# ИИ-Комплект для бизнеса 2026 — MVP лендинга
+# Бизнес Перезагрузка с AI — MVP интерфейса
 
-Next.js App Router MVP for Garincha AI-Tech preorder lead capture.
+Next.js App Router MVP for a premium AI business toolkit interface and lead capture.
 
 ## Development
 

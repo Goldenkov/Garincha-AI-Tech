@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Заявка получена | Garincha AI-Tech",
+  title: "Заявка получена | Бизнес Перезагрузка с AI",
 };
 
 export default function ThanksPage() {

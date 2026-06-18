@@ -4,7 +4,7 @@ import { Container } from "@/components/Container";
 import { PartnerForm } from "@/components/forms/PartnerForm";
 import { PartnerBenefits } from "@/components/sections/PartnerBenefits";
 import { ButtonLink } from "@/components/ui/button";
-import { siteConfig } from "@/lib/content";
+import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 export const metadata: Metadata = {
   title: "Партнёрская программа",
@@ -21,10 +21,10 @@ export default function PartnersPage() {
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
               <span className="h-px w-6 bg-cyan-200/70" aria-hidden="true" />
-              Партнёрам Garincha AI-Tech
+              Партнёрам проекта
             </div>
             <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Зарабатывайте на продвижении ИИ-Комплекта для бизнеса 2026
+              Помогайте аудитории запускать Бизнес Перезагрузку с AI
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
               Партнёрская программа для авторов каналов, сообществ, экспертов и владельцев аудиторий
@@ -44,7 +44,7 @@ export default function PartnersPage() {
             <div className="rounded-[1.5rem] border border-cyan-300/20 bg-slate-950/70 p-6">
               <div className="h-px w-20 bg-gradient-to-r from-cyan-200 to-transparent" aria-hidden="true" />
               <p className="mt-6 text-sm uppercase tracking-[0.3em] text-slate-500">Partner kit</p>
-              <h2 className="mt-3 text-2xl font-semibold text-white">{siteConfig.product}</h2>
+              <h2 className="mt-3 text-2xl font-semibold text-white">{businessRebootConfig.publicName}</h2>
               <p className="mt-4 text-sm leading-6 text-slate-300">
                 Заложены места под партнёрские метки, UTM, аналитику, отчётность и готовые промо-материалы
                 после запуска программы.

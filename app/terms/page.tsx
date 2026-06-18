@@ -5,7 +5,7 @@ import { termsSections } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Условия предзаказа",
-  description: "Шаблонная структура условий предзаказа ИИ-Комплекта для бизнеса 2026.",
+  description: "Шаблонная структура условий предзаказа Бизнес Перезагрузка с AI.",
 };
 
 export default function TermsPage() {

@@ -3,7 +3,7 @@ import { privacySections } from "@/lib/content";
 
 export const metadata = {
   title: "Политика конфиденциальности",
-  description: "Шаблонная структура политики конфиденциальности для Garincha AI-Tech.",
+  description: "Шаблонная структура политики конфиденциальности для Бизнес Перезагрузка с AI.",
 };
 
 export default function PrivacyPage() {

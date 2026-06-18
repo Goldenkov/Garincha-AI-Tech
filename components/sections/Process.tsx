@@ -19,7 +19,7 @@ export function Process() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(34,211,238,0.18),transparent_34%),radial-gradient(circle_at_88%_82%,rgba(168,85,247,0.16),transparent_32%)]" />
               <div className="relative z-10">
                 <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200">
-                  Garincha method
+                  AI reboot method
                 </p>
                 <h3 className="mt-5 max-w-lg text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                   Сначала смысл. Потом контент. Затем заявка.

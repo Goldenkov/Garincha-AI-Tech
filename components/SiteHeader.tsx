@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 
-import { navItems } from "@/lib/content";
+import { businessRebootConfig, dashboardNav } from "@/lib/business-reboot-content";
 import { cn } from "@/lib/utils";
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
@@ -15,15 +14,17 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 shadow-[0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-2xl">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="group inline-flex items-center gap-3" aria-label="Garincha AI-Tech home">
+        <Link href="/" className="group inline-flex items-center gap-3" aria-label="Бизнес Перезагрузка с AI home">
           <span className="flex h-9 w-9 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-glow">
-            <Image src="/garincha-mark.svg" alt="" width={26} height={26} priority />
+            <span className="text-xs font-black tracking-tight text-cyan-100">AI</span>
           </span>
-          <span className="text-sm font-semibold tracking-[0.24em] text-white sm:text-base">Garincha AI-Tech</span>
+          <span className="text-sm font-semibold tracking-[0.14em] text-white sm:text-base">
+            {businessRebootConfig.publicName}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
-          {navItems.map((item) => (
+          {dashboardNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -39,7 +40,7 @@ export function SiteHeader() {
             EN
           </Link>
           <ButtonLink href="/#lead" className="min-h-10 px-4 py-2">
-            Оставить заявку
+            {businessRebootConfig.primaryCta}
           </ButtonLink>
         </div>
 
@@ -75,7 +76,7 @@ export function SiteHeader() {
       >
         <div className="overflow-hidden">
           <Container className="flex flex-col gap-3 py-4">
-            {navItems.map((item) => (
+            {dashboardNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -90,7 +91,7 @@ export function SiteHeader() {
                 EN
               </ButtonLink>
               <ButtonLink href="/#lead" onClick={() => setOpen(false)}>
-                Оставить заявку
+                {businessRebootConfig.primaryCta}
               </ButtonLink>
             </div>
           </Container>

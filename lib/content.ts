@@ -1,13 +1,13 @@
-export const siteUrl = "https://garincha-ai-tech.example";
+export const siteUrl = "https://business-reboot-ai.example";
 
 export const siteConfig = {
-  brand: "Garincha AI-Tech",
-  product: "ИИ-Комплект для бизнеса 2026",
-  fullProductName: "ИИ-Комплект для бизнеса 2026 от Garincha AI-Tech",
+  brand: "Бизнес Перезагрузка с AI",
+  product: "Бизнес Перезагрузка с AI",
+  fullProductName: "Бизнес Перезагрузка с AI",
   mainCta: "Оставить заявку",
-  preorderCta: "Оставить заявку / предзаказ",
+  preorderCta: "Получить PRO-доступ",
   price: "990 ₽",
-  email: "hello@garincha.ai",
+  email: "hello@example.com",
 };
 
 export const navItems = [
@@ -202,7 +202,7 @@ export const privacySections = [
   },
   {
     title: "2. Цели обработки",
-    body: "Данные нужны для ответа на заявку, отправки информации о составе продукта, условиях раннего доступа, партнёрской программе и будущих материалах Garincha AI-Tech.",
+    body: "Данные нужны для ответа на заявку, отправки информации о составе продукта, условиях раннего доступа, партнёрской программе и будущих материалах проекта.",
   },
   {
     title: "3. Хранение и передача",
@@ -225,7 +225,7 @@ export const privacySections = [
 export const termsSections = [
   {
     title: "1. Статус продукта",
-    body: "ИИ-Комплект для бизнеса 2026 находится на этапе подготовки MVP и первого потока. Состав материалов, формат выдачи и дополнительные блоки могут уточняться до запуска.",
+    body: "Бизнес Перезагрузка с AI находится на этапе подготовки MVP и первого потока. Состав материалов, формат выдачи и дополнительные блоки могут уточняться до запуска.",
   },
   {
     title: "2. Заявка и предзаказ",

@@ -1,5 +1,5 @@
 import { ButtonLink } from "@/components/ui/button";
-import { siteConfig } from "@/lib/content";
+import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 export function MobileStickyCTA() {
   return (
@@ -19,7 +19,7 @@ export function MobileStickyCTA() {
         >
           <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition duration-700 group-hover:translate-x-full" />
           <span className="relative flex items-center justify-center">
-            Забронировать за {siteConfig.price}
+            PRO за {businessRebootConfig.price}
             <span className="ml-2 transition group-hover:translate-x-0.5" aria-hidden="true">
               →
             </span>

@@ -5,22 +5,20 @@ import { MobileStickyCTA } from "@/components/MobileStickyCTA";
 import { PremiumBackground } from "@/components/PremiumBackground";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { siteConfig } from "@/lib/content";
+import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://garincha.ai"),
+  metadataBase: new URL("https://business-reboot-ai.example"),
   title: {
-    default: `${siteConfig.fullProductName} | Предзаказ`,
-    template: `%s | ${siteConfig.brand}`,
+    default: `${businessRebootConfig.publicName} | AI-комплект для бизнеса`,
+    template: `%s | ${businessRebootConfig.publicName}`,
   },
-  description:
-    "Готовый цифровой набор для владельцев малого бизнеса и самозанятых: промпты, контент-план, офферы, скрипты продаж, квизы, таблицы и структура лендинга.",
+  description: businessRebootConfig.description,
   openGraph: {
-    title: siteConfig.fullProductName,
-    description:
-      "Соберите основу продвижения бизнеса с помощью ИИ за 1–2 вечера.",
+    title: businessRebootConfig.publicName,
+    description: businessRebootConfig.description,
     type: "website",
     locale: "ru_RU",
   },
