@@ -11,6 +11,7 @@ export const businessRebootConfig = {
 export const dashboardNav = [
   { label: "Главная", href: "/" },
   { label: "AI-карта", href: "/journey" },
+  { label: "Пакет", href: "/launch-kit" },
   { label: "PRO", href: "/pro" },
   { label: "Дашборд", href: "/dashboard" },
   { label: "Инструменты", href: "/tools" },
@@ -27,6 +28,7 @@ export const siteMapGroups = [
       { label: "PRO", href: "/pro", description: "Что внутри PRO-доступа и зачем он нужен." },
       { label: "Бесплатно", href: "/free", description: "Free lead magnet для первого шага." },
       { label: "AI-карта запуска", href: "/journey", description: "Выбор ниши и прохождение миссий запуска." },
+      { label: "Пакет запуска", href: "/launch-kit", description: "Итоговый workspace с сохранёнными результатами миссий." },
       { label: "Партнёрам", href: "/partners", description: "Заявка для авторов каналов и сообществ." },
       { label: "Спасибо", href: "/thanks", description: "Страница после отправки формы." },
     ],

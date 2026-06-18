@@ -3,6 +3,12 @@
 import { useMemo, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  getMissionResults,
+  missionResultPlaceholders,
+  saveMissionResult,
+  type MissionResult,
+} from "@/lib/launch-kit";
 import { type Mission, type MissionStatus, type Niche } from "@/lib/journey";
 
 type MissionDrawerProps = {
@@ -12,9 +18,11 @@ type MissionDrawerProps = {
   niche: Niche;
   status: MissionStatus;
   nextMission?: Mission;
+  initialResult?: MissionResult;
   onClose: () => void;
   onComplete: () => void;
   onNext: (missionId: string) => void;
+  onResultSaved: (result: MissionResult) => void;
 };
 
 export function MissionDrawer({
@@ -24,13 +32,17 @@ export function MissionDrawer({
   niche,
   status,
   nextMission,
+  initialResult,
   onClose,
   onComplete,
   onNext,
+  onResultSaved,
 }: MissionDrawerProps) {
   const [inputs, setInputs] = useState<Record<string, string>>({});
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
+  const [resultText, setResultText] = useState(() => initialResult?.resultText ?? getMissionResults()[mission.id]?.resultText ?? "");
+  const [resultSaved, setResultSaved] = useState(Boolean(initialResult?.resultText));
   const [success, setSuccess] = useState(false);
 
   const prompt = useMemo(() => buildPrompt(mission, niche), [mission, niche]);
@@ -58,6 +70,19 @@ export function MissionDrawer({
   function complete() {
     onComplete();
     setSuccess(true);
+  }
+
+  function saveResult() {
+    const result: MissionResult = {
+      missionId: mission.id,
+      nicheId: niche.id,
+      title: mission.title,
+      resultText,
+      updatedAt: new Date().toISOString(),
+    };
+    saveMissionResult(result);
+    onResultSaved(result);
+    setResultSaved(true);
   }
 
   function goNext() {
@@ -141,6 +166,14 @@ export function MissionDrawer({
                   </div>
                 </div>
               </MissionBlock>
+
+              <MissionResultEditor
+                mission={mission}
+                resultText={resultText}
+                resultSaved={resultSaved}
+                onChange={setResultText}
+                onSave={saveResult}
+              />
 
               <MissionBlock label="Expected output" title="После миссии у вас должно быть">
                 <div className="grid gap-3 text-sm leading-7 text-slate-300">
@@ -261,6 +294,39 @@ function MissionChecklist({
             </button>
           );
         })}
+      </div>
+    </MissionBlock>
+  );
+}
+
+function MissionResultEditor({
+  mission,
+  resultText,
+  resultSaved,
+  onChange,
+  onSave,
+}: {
+  mission: Mission;
+  resultText: string;
+  resultSaved: boolean;
+  onChange: (value: string) => void;
+  onSave: () => void;
+}) {
+  return (
+    <MissionBlock label="Mission output" title="Ваш результат по миссии">
+      <textarea
+        value={resultText}
+        onChange={(event) => onChange(event.target.value)}
+        className="min-h-28 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40"
+        placeholder={missionResultPlaceholders[mission.id] ?? "Вставьте результат миссии..."}
+      />
+      <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className={resultSaved ? "text-sm text-emerald-200" : "text-sm text-slate-500"}>
+          {resultSaved ? "Результат сохранён в пакет запуска" : "Можно завершить миссию без текста, но пакет запуска будет полнее с результатом."}
+        </p>
+        <Button type="button" variant="secondary" onClick={onSave}>
+          Сохранить результат
+        </Button>
       </div>
     </MissionBlock>
   );

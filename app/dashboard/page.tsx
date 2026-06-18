@@ -66,7 +66,10 @@ export default function DashboardPage() {
                 Эти два блока улучшают качество контента, скриптов, квиза и структуры лендинга.
               </p>
             </div>
-            <ButtonLink href="/tools" size="lg">Перейти к инструментам</ButtonLink>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <ButtonLink href="/tools" size="lg">Перейти к инструментам</ButtonLink>
+              <ButtonLink href="/launch-kit" variant="secondary" size="lg">Открыть пакет запуска</ButtonLink>
+            </div>
           </div>
         </section>
 

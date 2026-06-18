@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { MissionDrawer } from "@/components/journey/MissionDrawer";
 import { Button } from "@/components/ui/button";
+import { getMissionResults, type MissionResult, type MissionResultsMap } from "@/lib/launch-kit";
 import {
   journeyStorageKeys,
   launchReadinessLevels,
@@ -53,7 +55,14 @@ export function JourneyExperience() {
       activeMissionId: active && missions.some((mission) => mission.id === active) ? active : defaultState.activeMissionId,
     };
   });
-  const [drawerMissionId, setDrawerMissionId] = useState<string | null>(null);
+  const [drawerMissionId, setDrawerMissionId] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    const missionId = new URLSearchParams(window.location.search).get("mission");
+    return missionId && missions.some((mission) => mission.id === missionId) ? missionId : null;
+  });
+  const [missionResults, setMissionResults] = useState<MissionResultsMap>(() =>
+    typeof window === "undefined" ? {} : getMissionResults(),
+  );
 
   useEffect(() => {
     window.localStorage.setItem(journeyStorageKeys.selectedNiche, state.selectedNiche);
@@ -64,6 +73,8 @@ export function JourneyExperience() {
   const selectedNiche = niches.find((niche) => niche.id === state.selectedNiche) ?? niches[0];
   const drawerMission = missions.find((mission) => mission.id === drawerMissionId) ?? missions[0];
   const progressPercent = Math.round((state.completedMissions.length / missions.length) * 100);
+  const savedResultsCount = Object.values(missionResults).filter((result) => result.resultText.trim()).length;
+  const readinessPercent = Math.round(((state.completedMissions.length + savedResultsCount) / (missions.length * 2)) * 100);
   const drawerMissionIndex = missions.findIndex((mission) => mission.id === drawerMission.id);
   const nextMission = missions.find((mission) => !state.completedMissions.includes(mission.id));
 
@@ -103,6 +114,13 @@ export function JourneyExperience() {
     }));
   }
 
+  function handleResultSaved(result: MissionResult) {
+    setMissionResults((current) => ({
+      ...current,
+      [result.missionId]: result,
+    }));
+  }
+
   function statusFor(mission: Mission): MissionStatus {
     if (state.completedMissions.includes(mission.id)) return "completed";
     const firstIncompleteIndex = missions.findIndex((item) => !state.completedMissions.includes(item.id));
@@ -134,6 +152,9 @@ export function JourneyExperience() {
             <div className="rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.08] p-5 text-center">
               <p className="text-4xl font-black text-white">{progressPercent}%</p>
               <p className="mt-1 text-xs uppercase tracking-[0.2em] text-cyan-100">готовность</p>
+              <Link href="/launch-kit" className="mt-3 inline-flex text-xs font-semibold text-cyan-100 hover:text-white">
+                Открыть пакет →
+              </Link>
             </div>
           </div>
         </section>
@@ -151,6 +172,7 @@ export function JourneyExperience() {
             <JourneyMap
               selectedNiche={selectedNiche}
               completedMissions={state.completedMissions}
+              missionResults={missionResults}
               activeMissionId={state.activeMissionId}
               statusFor={statusFor}
               onStartMission={startMission}
@@ -162,12 +184,18 @@ export function JourneyExperience() {
             <ProgressPanel
               selectedNiche={selectedNiche}
               progressPercent={progressPercent}
+              savedResultsCount={savedResultsCount}
               completedCount={state.completedMissions.length}
               nextMission={nextMission}
               onReset={resetProgress}
             />
             <BadgeGrid completedMissions={state.completedMissions} />
-            <LaunchReadinessScore progressPercent={progressPercent} missingItems={missingItems} />
+            <LaunchReadinessScore
+              progressPercent={readinessPercent}
+              completedCount={state.completedMissions.length}
+              savedResultsCount={savedResultsCount}
+              missingItems={missingItems}
+            />
           </aside>
         </div>
 
@@ -179,9 +207,11 @@ export function JourneyExperience() {
           niche={selectedNiche}
           status={statusFor(drawerMission)}
           nextMission={nextMission}
+          initialResult={missionResults[drawerMission.id]}
           onClose={() => setDrawerMissionId(null)}
           onComplete={() => completeMission(drawerMission.id)}
           onNext={startMission}
+          onResultSaved={handleResultSaved}
         />
       </div>
     </main>
@@ -273,6 +303,7 @@ function NicheSelector({ selectedNiche, onSelect }: { selectedNiche: Niche; onSe
 function JourneyMap({
   selectedNiche,
   completedMissions,
+  missionResults,
   activeMissionId,
   statusFor,
   onStartMission,
@@ -280,6 +311,7 @@ function JourneyMap({
 }: {
   selectedNiche: Niche;
   completedMissions: string[];
+  missionResults: MissionResultsMap;
   activeMissionId: string;
   statusFor: (mission: Mission) => MissionStatus;
   onStartMission: (missionId: string) => void;
@@ -306,6 +338,10 @@ function JourneyMap({
             index={index}
             status={statusFor(mission)}
             active={activeMissionId === mission.id}
+            hasSavedResult={Boolean(missionResults[mission.id]?.resultText?.trim())}
+            completedWithoutResult={
+              completedMissions.includes(mission.id) && !missionResults[mission.id]?.resultText?.trim()
+            }
             onStart={() => onStartMission(mission.id)}
             onComplete={() => onCompleteMission(mission.id)}
           />
@@ -320,6 +356,8 @@ function MissionCard({
   index,
   status,
   active,
+  hasSavedResult,
+  completedWithoutResult,
   onStart,
   onComplete,
 }: {
@@ -327,6 +365,8 @@ function MissionCard({
   index: number;
   status: MissionStatus;
   active: boolean;
+  hasSavedResult: boolean;
+  completedWithoutResult: boolean;
   onStart: () => void;
   onComplete: () => void;
 }) {
@@ -357,6 +397,15 @@ function MissionCard({
           <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-2.5 py-1 text-xs text-cyan-100">
             {mission.xpLabel}
           </span>
+          {hasSavedResult ? (
+            <span className="rounded-full border border-emerald-300/20 bg-emerald-300/[0.08] px-2.5 py-1 text-xs text-emerald-100">
+              результат сохранён
+            </span>
+          ) : completedWithoutResult ? (
+            <span className="rounded-full border border-amber-300/20 bg-amber-300/[0.08] px-2.5 py-1 text-xs text-amber-100">
+              без результата
+            </span>
+          ) : null}
         </div>
         <p className="mt-2 text-sm leading-6 text-slate-400">{mission.description}</p>
         <p className="mt-2 text-sm text-slate-300">Результат: {mission.expectedResult}</p>
@@ -384,12 +433,14 @@ function MissionCard({
 function ProgressPanel({
   selectedNiche,
   progressPercent,
+  savedResultsCount,
   completedCount,
   nextMission,
   onReset,
 }: {
   selectedNiche: Niche;
   progressPercent: number;
+  savedResultsCount: number;
   completedCount: number;
   nextMission?: Mission;
   onReset: () => void;
@@ -413,6 +464,10 @@ function ProgressPanel({
           <p className="text-3xl font-black text-white">{completedCount}/{missions.length}</p>
           <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">миссий</p>
         </div>
+      </div>
+      <div className="mt-3 rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+        <p className="text-3xl font-black text-white">{savedResultsCount}/{missions.length}</p>
+        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">сохранено результатов</p>
       </div>
       <div className="mt-5 rounded-2xl border border-cyan-300/15 bg-cyan-300/[0.06] p-4">
         <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Следующий шаг</p>
@@ -453,7 +508,17 @@ function BadgeGrid({ completedMissions }: { completedMissions: string[] }) {
   );
 }
 
-function LaunchReadinessScore({ progressPercent, missingItems }: { progressPercent: number; missingItems: string[] }) {
+function LaunchReadinessScore({
+  progressPercent,
+  completedCount,
+  savedResultsCount,
+  missingItems,
+}: {
+  progressPercent: number;
+  completedCount: number;
+  savedResultsCount: number;
+  missingItems: string[];
+}) {
   const level =
     launchReadinessLevels.find((item) => progressPercent >= item.min && progressPercent <= item.max) ??
     launchReadinessLevels[0];
@@ -465,6 +530,16 @@ function LaunchReadinessScore({ progressPercent, missingItems }: { progressPerce
       <p className="mt-4 text-5xl font-black tracking-tight text-white">{progressPercent}%</p>
       <p className="mt-2 text-lg font-semibold text-cyan-100">{level.label}</p>
       <p className="mt-3 text-sm leading-6 text-slate-400">{level.description}</p>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Выполнено миссий</p>
+          <p className="mt-2 text-2xl font-semibold text-white">{completedCount}/{missions.length}</p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Сохранено результатов</p>
+          <p className="mt-2 text-2xl font-semibold text-white">{savedResultsCount}/{missions.length}</p>
+        </div>
+      </div>
       <div className="mt-5 rounded-2xl border border-white/10 bg-slate-950/35 p-4">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Чего не хватает</p>
         <ul className="mt-3 grid gap-2 text-sm text-slate-300">
