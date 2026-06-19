@@ -1,9 +1,9 @@
 "use client";
 
-import { useSyncExternalStore, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
+import { type ReactNode } from "react";
 
-import { LockedProScreen } from "@/components/access/LockedProScreen";
-import { clearProAccess, hasProAccess, subscribeToProAccess } from "@/lib/access";
+import { logoutProAccess } from "@/lib/access";
 
 type RequireProAccessProps = {
   children: ReactNode;
@@ -11,23 +11,20 @@ type RequireProAccessProps = {
 };
 
 export function RequireProAccess({ children, mode = "journey" }: RequireProAccessProps) {
-  const unlocked = useSyncExternalStore(subscribeToProAccess, hasProAccess, () => false);
-
-  if (!unlocked) {
-    return <LockedProScreen mode={mode} />;
-  }
-
   return (
     <>
-      <ProAccessActions />
+      <ProAccessActions mode={mode} />
       {children}
     </>
   );
 }
 
-function ProAccessActions() {
-  function logout() {
-    clearProAccess();
+function ProAccessActions({ mode }: { mode: "journey" | "launch-kit" | "dashboard" }) {
+  const pathname = usePathname();
+
+  async function logout() {
+    await logoutProAccess();
+    window.location.href = `/access?next=${encodeURIComponent(pathname || `/${mode}`)}`;
   }
 
   return (

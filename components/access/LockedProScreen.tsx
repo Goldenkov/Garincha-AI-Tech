@@ -31,7 +31,7 @@ export function LockedProScreen({ mode = "journey" }: LockedProScreenProps) {
             <ButtonLink href={`/access?next=${mode === "launch-kit" ? "/launch-kit" : mode === "dashboard" ? "/dashboard" : "/journey"}`} variant="secondary" size="lg">
               У меня уже есть код
             </ButtonLink>
-            <ButtonLink href={showDemo ? "#demo" : "/journey#demo"} variant="outline" size="lg">
+            <ButtonLink href={showDemo ? "#demo" : "/demo"} variant="outline" size="lg">
               Посмотреть демо
             </ButtonLink>
           </div>

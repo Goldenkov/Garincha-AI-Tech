@@ -29,6 +29,7 @@ export const siteMapGroups = [
       { label: "PRO", href: "/pro", description: "Что внутри PRO-доступа и зачем он нужен." },
       { label: "Бесплатно", href: "/free", description: "Free lead magnet для первого шага." },
       { label: "AI-карта запуска", href: "/journey", description: "Выбор ниши и прохождение миссий запуска." },
+      { label: "Демо AI-карты", href: "/demo", description: "Публичный предпросмотр ниш и первой миссии." },
       { label: "Пакет запуска", href: "/launch-kit", description: "Итоговый workspace с сохранёнными результатами миссий." },
       { label: "Партнёрам", href: "/partners", description: "Заявка для авторов каналов и сообществ." },
       { label: "Спасибо", href: "/thanks", description: "Страница после отправки формы." },

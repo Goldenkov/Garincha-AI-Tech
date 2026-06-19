@@ -54,3 +54,10 @@ export async function verifyAccessCode(code: string) {
 
   return (await response.json()) as { success: boolean };
 }
+
+export async function logoutProAccess() {
+  await fetch("/api/logout", {
+    method: "POST",
+  }).catch(() => undefined);
+  clearProAccess();
+}
