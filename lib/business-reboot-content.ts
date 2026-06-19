@@ -16,6 +16,7 @@ export const dashboardNav = [
   { label: "Дашборд", href: "/dashboard" },
   { label: "Инструменты", href: "/tools" },
   { label: "Ниши", href: "/niches" },
+  { label: "Вход", href: "/access" },
   { label: "Карта", href: "/site-map" },
 ];
 
@@ -52,6 +53,7 @@ export const siteMapGroups = [
     description: "Юридические шаблоны, языковые заглушки и карта сайта.",
     links: [
       { label: "Карта сайта", href: "/site-map", description: "Все страницы и ссылки в одном месте." },
+      { label: "Вход в PRO", href: "/access", description: "Ввод кода доступа после оплаты." },
       { label: "Privacy", href: "/privacy", description: "Шаблон политики конфиденциальности." },
       { label: "Terms", href: "/terms", description: "Шаблон условий предзаказа." },
       { label: "English", href: "/en", description: "Заглушка английской версии." },

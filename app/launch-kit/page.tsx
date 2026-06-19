@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { RequireProAccess } from "@/components/access/RequireProAccess";
 import { LaunchKitClient } from "@/components/launch-kit/LaunchKitClient";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function LaunchKitPage() {
-  return <LaunchKitClient />;
+  return (
+    <RequireProAccess mode="launch-kit">
+      <LaunchKitClient />
+    </RequireProAccess>
+  );
 }

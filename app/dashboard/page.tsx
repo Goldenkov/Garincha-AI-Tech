@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { RequireProAccess } from "@/components/access/RequireProAccess";
 import { Container } from "@/components/Container";
 import { FeedbackBlock } from "@/components/product/FeedbackBlock";
 import { ProgressOverview } from "@/components/product/ProgressOverview";
@@ -17,8 +18,9 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
   return (
-    <main className="py-12 sm:py-16">
-      <Container className="space-y-10">
+    <RequireProAccess mode="dashboard">
+      <main className="py-12 sm:py-16">
+        <Container className="space-y-10">
         <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 shadow-glow backdrop-blur-xl sm:p-10">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">PRO dashboard</p>
           <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -85,7 +87,8 @@ export default function DashboardPage() {
         </section>
 
         <FeedbackBlock />
-      </Container>
-    </main>
+        </Container>
+      </main>
+    </RequireProAccess>
   );
 }

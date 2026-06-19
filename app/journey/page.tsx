@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { RequireProAccess } from "@/components/access/RequireProAccess";
 import { JourneyExperience } from "@/components/journey/JourneyExperience";
 
 export const metadata: Metadata = {
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function JourneyPage() {
-  return <JourneyExperience />;
+  return (
+    <RequireProAccess mode="journey">
+      <JourneyExperience />
+    </RequireProAccess>
+  );
 }
