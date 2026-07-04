@@ -13,7 +13,7 @@ export const dashboardNav = [
   { label: "AI-карта", href: "/journey" },
   { label: "Пакет", href: "/launch-kit" },
   { label: "PRO", href: "/pro" },
-  { label: "Дашборд", href: "/dashboard" },
+  { label: "PRO-дэшборд", href: "/dashboard" },
   { label: "Инструменты", href: "/tools" },
   { label: "Ниши", href: "/niches" },
   { label: "Вход", href: "/access" },
@@ -39,7 +39,7 @@ export const siteMapGroups = [
     title: "Product interface",
     description: "Demo-страницы, которые показывают продукт как рабочий AI cockpit.",
     links: [
-      { label: "Dashboard", href: "/dashboard", description: "Главный интерфейс покупателя после доступа." },
+      { label: "PRO Dashboard", href: "/dashboard", description: "Главный интерфейс покупателя после доступа." },
       { label: "Быстрый старт", href: "/quick-start", description: "Маршрут на 60 минут к первому черновику." },
       { label: "Game alias", href: "/game", description: "Короткий alias на AI-карту запуска." },
       { label: "Map alias", href: "/map", description: "Короткий alias на AI-карту запуска." },

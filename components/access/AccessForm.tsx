@@ -5,10 +5,11 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { setProAccess, verifyAccessCode } from "@/lib/access";
+import { sanitizeAccessRedirect } from "@/lib/safe-redirect";
 
 export function AccessForm() {
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/journey";
+  const next = sanitizeAccessRedirect(searchParams.get("next"));
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

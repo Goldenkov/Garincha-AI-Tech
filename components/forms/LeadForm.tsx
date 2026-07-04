@@ -16,6 +16,7 @@ import { FormField } from "./FormField";
 export function LeadForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -27,9 +28,10 @@ export function LeadForm() {
 
     const data = new FormData(form);
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
-      await submitLeadForm({
+      const result = await submitLeadForm({
         name: String(data.get("name") ?? ""),
         email: String(data.get("email") ?? ""),
         telegram: String(data.get("telegram") ?? ""),
@@ -37,6 +39,10 @@ export function LeadForm() {
         mainGoal: String(data.get("mainGoal") ?? ""),
         consent: data.get("consent") === "on",
       });
+      if (!result.ok) {
+        setSubmitError(result.error ?? "Не удалось отправить заявку. Попробуйте позже.");
+        return;
+      }
       router.push("/thanks");
     } finally {
       setIsSubmitting(false);
@@ -132,6 +138,12 @@ export function LeadForm() {
                 "Оставить заявку"
               )}
             </Button>
+
+            {submitError ? (
+              <div className="rounded-2xl border border-red-300/20 bg-red-300/[0.08] p-4 text-sm text-red-100">
+                {submitError}
+              </div>
+            ) : null}
 
             <p className="text-xs leading-6 text-slate-500">
               Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности и даёте согласие на

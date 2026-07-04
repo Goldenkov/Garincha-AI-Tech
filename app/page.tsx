@@ -57,7 +57,7 @@ export default function HomePage() {
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
-                Demo dashboard preview
+                Demo preview
               </p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
                 PRO ощущается как рабочий cockpit, а не как папка с документами
@@ -67,8 +67,8 @@ export default function HomePage() {
                 рекомендуемый шаг. Закрытые Google Drive материалы не публикуются в открытом доступе.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/dashboard" size="lg">
-                  Открыть demo dashboard
+                <ButtonLink href="/demo" size="lg">
+                  Открыть демо
                 </ButtonLink>
                 <ButtonLink href="/quick-start" variant="secondary" size="lg">
                   Начать за 60 минут
@@ -187,11 +187,11 @@ export default function HomePage() {
               Начните не с длинного курса, а с понятного следующего действия
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400">
-              Откройте demo dashboard, выберите маршрут и посмотрите, как продукт будет работать как интерфейс
+              Откройте демо, выберите маршрут и посмотрите, как продукт будет работать как интерфейс
               над вашей базой знаний.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <ButtonLink href="/dashboard" size="lg">Открыть dashboard</ButtonLink>
+              <ButtonLink href="/dashboard" size="lg">Открыть PRO dashboard</ButtonLink>
               <Link href="/feedback" className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-slate-300 hover:text-white">
                 Оставить обратную связь
               </Link>

@@ -10,7 +10,7 @@ import { businessRebootConfig } from "@/lib/business-reboot-content";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://business-reboot-ai.example"),
+  metadataBase: new URL("https://garincha-ai-tech.vercel.app"),
   title: {
     default: `${businessRebootConfig.publicName} | AI-комплект для бизнеса`,
     template: `%s | ${businessRebootConfig.publicName}`,

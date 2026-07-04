@@ -21,7 +21,7 @@ export function HeroSection() {
               {businessRebootConfig.startCta}
             </ButtonLink>
             <ButtonLink href="/dashboard#routes" variant="secondary" size="lg" className="w-full sm:w-auto">
-              {businessRebootConfig.routeCta}
+              Выбрать маршрут в PRO
             </ButtonLink>
           </div>
           <p className="mt-5 max-w-xl text-sm leading-6 text-slate-500">

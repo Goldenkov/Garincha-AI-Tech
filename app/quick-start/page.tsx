@@ -24,7 +24,7 @@ export default function QuickStartPage() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col">
             <ButtonLink href="/tools" size="lg">Открыть инструменты</ButtonLink>
-            <ButtonLink href="/dashboard" variant="secondary" size="lg">Вернуться в dashboard</ButtonLink>
+            <ButtonLink href="/dashboard" variant="secondary" size="lg">Открыть PRO dashboard</ButtonLink>
           </div>
         </section>
         <QuickStartTimeline />

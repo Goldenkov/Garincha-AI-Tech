@@ -27,7 +27,7 @@ export default function ProPage() {
               Не обещаем гарантированный доход; даём понятный способ подготовить первые материалы.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/dashboard" size="lg">Открыть demo dashboard</ButtonLink>
+              <ButtonLink href="/demo" size="lg">Открыть демо</ButtonLink>
               <ButtonLink href="/#lead" variant="secondary" size="lg">{businessRebootConfig.primaryCta}</ButtonLink>
             </div>
           </div>
