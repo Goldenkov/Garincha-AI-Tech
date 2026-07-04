@@ -13,12 +13,15 @@ export const dashboardNav = [
   { label: "AI-карта", href: "/journey" },
   { label: "Пакет", href: "/launch-kit" },
   { label: "PRO", href: "/pro" },
-  { label: "PRO-дэшборд", href: "/dashboard" },
+  { label: "Dashboard", href: "/dashboard" },
   { label: "Инструменты", href: "/tools" },
   { label: "Ниши", href: "/niches" },
   { label: "Вход", href: "/access" },
   { label: "Карта", href: "/site-map" },
 ];
+
+export const primaryHeaderNav = dashboardNav.slice(0, 5);
+export const secondaryHeaderNav = dashboardNav.slice(5);
 
 export const siteMapGroups = [
   {
