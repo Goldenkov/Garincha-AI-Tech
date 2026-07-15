@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { LockedProScreen } from "@/components/access/LockedProScreen";
+import { DemoExperience } from "@/components/demo/DemoExperience";
 
 export const metadata: Metadata = {
   title: "Демо AI-карты запуска",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function DemoPage() {
-  return <LockedProScreen mode="journey" />;
+  return <DemoExperience />;
 }
