@@ -13,12 +13,13 @@ export default function ProgressPage() {
     <main className="py-12 sm:py-16">
       <Container className="space-y-8">
         <div className="max-w-4xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Progress tracker</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Progress tracker · демонстрация</p>
           <h1 className="mt-4 text-4xl font-black tracking-[-0.04em] text-white sm:text-6xl">
             Визуальная карта прохождения
           </h1>
           <p className="mt-5 text-base leading-8 text-slate-300">
-            Для MVP используется local React state. Позже этот прогресс можно связать с аккаунтом пользователя.
+            Это демонстрация механики прогресса. Рабочий трекер с миссиями, сохранением результатов
+            и readiness score находится в PRO-зоне на AI-карте запуска.
           </p>
         </div>
         <ProgressOverview />

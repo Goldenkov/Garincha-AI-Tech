@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { DashboardPreview } from "@/components/product/HeroSection";
 import { ProAccessSteps } from "@/components/product/ProAccessSteps";
+import { ProExpectations } from "@/components/product/ProExpectations";
 import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { ButtonLink } from "@/components/ui/button";
@@ -44,6 +45,8 @@ export default function ProPage() {
           </div>
           <ToolGrid limit={4} />
         </section>
+
+        <ProExpectations />
 
         <ProAccessSteps compact />
       </Container>

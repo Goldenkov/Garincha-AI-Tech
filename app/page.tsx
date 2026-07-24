@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/product/HeroSection";
 import { NicheRoutes } from "@/components/product/NicheRoutes";
 import { PageLinkGrid } from "@/components/product/PageLinkGrid";
 import { ProAccessSteps } from "@/components/product/ProAccessSteps";
+import { ProExpectations } from "@/components/product/ProExpectations";
 import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { ButtonLink } from "@/components/ui/button";
@@ -117,6 +118,8 @@ export default function HomePage() {
           <NicheRoutes limit={3} />
         </Container>
       </section>
+
+      <ProExpectations />
 
       <section className="py-16 sm:py-24" id="price">
         <Container>
