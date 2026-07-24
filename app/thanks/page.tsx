@@ -25,32 +25,41 @@ export default function ThanksPage() {
               Спасибо! Мы зафиксировали ваш интерес.
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-300">
-              Это MVP-форма без реальной отправки данных. При подключении API, Supabase,
-              n8n webhook или Telegram bot здесь можно будет показывать следующий шаг,
-              ссылку на оплату или материалы раннего доступа.
+              Следующий шаг — мы свяжемся с вами, отправим условия первого запуска и инструкцию,
+              как получить код доступа к PRO-зоне после оплаты.
             </p>
-            <div className="mt-8 grid gap-3 text-left sm:grid-cols-2">
+            <div className="mt-8 grid gap-3 text-left sm:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Email</p>
-                <p className="text-sm font-semibold text-white">Проверьте email</p>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">01</p>
+                <p className="text-sm font-semibold text-white">Проверим заявку</p>
                 <p className="mt-1 text-sm text-slate-400">
-                  После реальной интеграции письмо или уведомление можно отправлять автоматически.
+                  Посмотрим нишу и главную цель, чтобы отправить релевантные условия доступа.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Telegram</p>
-                <p className="text-sm font-semibold text-white">Telegram для связи</p>
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">02</p>
+                <p className="text-sm font-semibold text-white">Отправим оплату</p>
                 <p className="mt-1 text-sm text-slate-400">
-                  Поле Telegram уже есть в формах для быстрого контакта с заявкой.
+                  На первом запуске доступ выдаётся вручную: без сложной корзины и лишнего шума.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">03</p>
+                <p className="text-sm font-semibold text-white">Выдадим PRO-код</p>
+                <p className="mt-1 text-sm text-slate-400">
+                  После оплаты вы сможете открыть AI-карту, миссии и пакет первого запуска.
                 </p>
               </div>
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
               <Button asChild>
-                <Link href="/">Вернуться на главную</Link>
+                <Link href="/demo">Посмотреть демо</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/partners">Партнёрская программа</Link>
+                <Link href="/access">У меня уже есть код</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/">Вернуться на главную</Link>
               </Button>
             </div>
           </Card>

@@ -2,9 +2,11 @@ import Link from "next/link";
 
 import { LeadForm } from "@/components/forms/LeadForm";
 import { Container } from "@/components/Container";
+import { BeforeAfter } from "@/components/product/BeforeAfter";
 import { HeroSection } from "@/components/product/HeroSection";
 import { NicheRoutes } from "@/components/product/NicheRoutes";
 import { PageLinkGrid } from "@/components/product/PageLinkGrid";
+import { ProAccessSteps } from "@/components/product/ProAccessSteps";
 import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { ButtonLink } from "@/components/ui/button";
@@ -28,6 +30,8 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      <BeforeAfter />
 
       <section className="py-16 sm:py-24" id="inside">
         <Container>
@@ -139,6 +143,8 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      <ProAccessSteps />
 
       <Container>
         <LeadForm />
