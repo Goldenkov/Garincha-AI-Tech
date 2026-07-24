@@ -1,10 +1,12 @@
 import { ButtonLink } from "@/components/ui/button";
+import { HeroSpotlight } from "@/components/effects/HeroSpotlight";
 import { businessRebootConfig, heroStats } from "@/lib/business-reboot-content";
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 xl:grid-cols-[1fr_0.95fr]">
+      <HeroSpotlight />
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 xl:grid-cols-[1fr_0.95fr]">
         <div>
           <div className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100 backdrop-blur-xl">
             Premium AI toolkit
@@ -49,7 +51,7 @@ export function DashboardPreview() {
   return (
     <div className="relative mx-auto w-full max-w-xl">
       <div className="absolute -inset-8 rounded-[3rem] bg-cyan-300/10 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-slate-950/78 p-4 shadow-[0_40px_120px_rgba(8,145,178,0.25)] backdrop-blur-2xl">
+      <div className="gg-animated-border relative overflow-hidden rounded-[2rem] border border-white/12 bg-slate-950/78 p-4 shadow-[0_40px_120px_rgba(8,145,178,0.25)] backdrop-blur-2xl">
         <div className="flex items-center justify-between rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-3">
           <div>
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboard</p>

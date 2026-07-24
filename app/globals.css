@@ -2,6 +2,33 @@
 
 :root {
   color-scheme: dark;
+
+  /* GG design system — semantic product tokens */
+  --gg-bg: #050713;
+  --gg-bg-deep: #020617;
+  --gg-surface: #0b1020;
+  --gg-surface-raised: rgba(255, 255, 255, 0.055);
+  --gg-surface-soft: rgba(255, 255, 255, 0.04);
+  --gg-border: rgba(255, 255, 255, 0.1);
+  --gg-border-strong: rgba(255, 255, 255, 0.16);
+  --gg-primary: #67e8f9;
+  --gg-primary-strong: #22d3ee;
+  --gg-secondary: #7c3aed;
+  --gg-accent: #f472b6;
+  --gg-success: #22c55e;
+  --gg-warning: #f97316;
+  --gg-text: #f8fafc;
+  --gg-text-muted: #94a3b8;
+  --gg-text-subtle: #64748b;
+  --gg-glow-cyan: rgba(34, 211, 238, 0.26);
+  --gg-glow-violet: rgba(124, 58, 237, 0.2);
+  --gg-radius-card: 1.5rem;
+  --gg-radius-panel: 2rem;
+  --gg-duration-fast: 180ms;
+  --gg-duration-base: 300ms;
+  --gg-ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* shadcn-compatible aliases */
   --background: 222 47% 5%;
   --foreground: 210 40% 98%;
   --card: 222 47% 7%;
@@ -32,8 +59,8 @@ body {
   background:
     radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 32rem),
     radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 30rem),
-    #020617;
-  color: rgb(248 250 252);
+    var(--gg-bg-deep);
+  color: var(--gg-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
 }
@@ -45,8 +72,8 @@ body::selection {
 .premium-button-3d {
   --button-c: #ffffff;
   --button-bg: #004dff;
-  --button-border: rgba(255, 255, 255, 0.14);
-  --button-glow: rgba(34, 211, 238, 0.28);
+  --button-border: var(--gg-border-strong);
+  --button-glow: var(--gg-glow-cyan);
   --button-p: 100%;
   --button-i: -1;
   position: relative;
@@ -96,8 +123,8 @@ body::selection {
 }
 
 .button-3d-primary {
-  --button-c: #020617;
-  --button-bg: linear-gradient(135deg, #67e8f9, #22d3ee 45%, #60a5fa);
+  --button-c: var(--gg-bg-deep);
+  --button-bg: linear-gradient(135deg, var(--gg-primary), var(--gg-primary-strong) 45%, #60a5fa);
   --button-border: rgba(165, 243, 252, 0.48);
   --button-glow: rgba(103, 232, 249, 0.42);
 }
@@ -143,6 +170,58 @@ body::selection {
 }
 
 @layer utilities {
+  .gg-glass {
+    border: 1px solid var(--gg-border);
+    background: var(--gg-surface-raised);
+    box-shadow: 0 24px 80px rgba(2, 6, 23, 0.28);
+    backdrop-filter: blur(20px);
+  }
+
+  .gg-card {
+    border-radius: var(--gg-radius-card);
+    border: 1px solid var(--gg-border);
+    background: var(--gg-surface-raised);
+    transition:
+      transform var(--gg-duration-base) var(--gg-ease-premium),
+      border-color var(--gg-duration-base) ease,
+      box-shadow var(--gg-duration-base) ease;
+  }
+
+  .gg-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(103, 232, 249, 0.26);
+    box-shadow: 0 24px 72px rgba(8, 145, 178, 0.15);
+  }
+
+  .gg-animated-border {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .gg-animated-border::before {
+    position: absolute;
+    z-index: 2;
+    inset: -1px;
+    padding: 1px;
+    pointer-events: none;
+    content: "";
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--gg-border-angle, 0deg),
+      transparent 0deg,
+      var(--gg-primary) 50deg,
+      transparent 105deg,
+      transparent 220deg,
+      var(--gg-secondary) 280deg,
+      transparent 340deg
+    );
+    opacity: 0.62;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
   .premium-noise {
     background-image:
       radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.24) 1px, transparent 0);
@@ -221,5 +300,23 @@ body::selection {
 
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@property --gg-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes gg-border-spin {
+  to {
+    --gg-border-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gg-animated-border::before {
+    animation: gg-border-spin 8s linear infinite;
   }
 }
