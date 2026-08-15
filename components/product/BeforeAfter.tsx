@@ -18,7 +18,7 @@ export function BeforeAfter() {
 
         <div className="grid gap-4 lg:grid-cols-2">
           {beforeAfterItems.map((item, index) => (
-            <article key={item.before} className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl">
+            <article key={item.before} className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5">
               <div className="mb-5 flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
                   {(index + 1).toString().padStart(2, "0")}

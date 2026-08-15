@@ -8,7 +8,7 @@ export function HeroSection() {
       <HeroSpotlight />
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 xl:grid-cols-[1fr_0.95fr]">
         <div>
-          <div className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100 backdrop-blur-xl">
+          <div className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100">
             Premium AI toolkit
           </div>
           <h1 className="max-w-5xl text-balance text-5xl font-black tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
@@ -33,7 +33,7 @@ export function HeroSection() {
 
           <div className="mt-10 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
             {heroStats.map((stat) => (
-              <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/[0.045] p-4 backdrop-blur-xl">
+              <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/[0.045] p-4">
                 <p className="text-2xl font-semibold tracking-tight text-white">{stat.value}</p>
                 <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">{stat.label}</p>
               </div>
@@ -50,8 +50,10 @@ export function HeroSection() {
 export function DashboardPreview() {
   return (
     <div className="relative mx-auto w-full max-w-xl">
-      <div className="absolute -inset-8 rounded-[3rem] bg-cyan-300/10 blur-3xl" />
-      <div className="gg-animated-border relative overflow-hidden rounded-[2rem] border border-white/12 bg-slate-950/78 p-4 shadow-[0_40px_120px_rgba(8,145,178,0.25)] backdrop-blur-2xl">
+      <div className="absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle,rgba(103,232,249,0.16)_0%,transparent_70%)]" />
+      <div className="gg-animated-border relative rounded-[2rem] p-px shadow-[0_40px_120px_rgba(8,145,178,0.25)]">
+        <span className="gg-animated-border-spin" aria-hidden="true" />
+        <div className="relative overflow-hidden rounded-[calc(2rem-1px)] border border-white/12 bg-slate-950/90 p-4">
         <div className="flex items-center justify-between rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-3">
           <div>
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboard</p>
@@ -84,6 +86,7 @@ export function DashboardPreview() {
           <p className="mt-2 text-sm leading-6 text-slate-200">
             Выберите маршрут и начните с брифа — это улучшает качество всех следующих AI-черновиков.
           </p>
+        </div>
         </div>
       </div>
     </div>

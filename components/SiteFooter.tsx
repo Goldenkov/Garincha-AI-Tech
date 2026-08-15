@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/Container";
 import { businessRebootConfig, siteMapGroups } from "@/lib/business-reboot-content";
+import { heavyPrefetchRoutes } from "@/lib/nav";
 
 export function SiteFooter() {
   return (
@@ -23,7 +24,12 @@ export function SiteFooter() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">{group.title}</p>
               <div className="mt-3 grid gap-2">
                 {group.links.map((link) => (
-                  <Link key={link.href} href={link.href} className="text-sm text-slate-400 transition hover:text-white">
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    prefetch={heavyPrefetchRoutes.has(link.href) ? false : undefined}
+                    className="text-sm text-slate-400 transition hover:text-white"
+                  >
                     {link.label}
                   </Link>
                 ))}

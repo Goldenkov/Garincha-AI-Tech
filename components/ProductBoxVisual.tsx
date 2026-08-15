@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 import { productBoxTags, siteConfig } from "@/lib/content";
 
 const floatingCards = [
@@ -55,18 +51,16 @@ export function ProductBoxVisual() {
       className="relative mx-auto min-h-[360px] w-full max-w-[min(100%,34rem)] scale-[0.92] sm:min-h-[430px] sm:scale-95 xl:min-h-[470px] xl:scale-100"
       aria-label="Визуал цифрового комплекта"
     >
-      <div className="absolute inset-6 rounded-[54px] bg-cyan-400/10 blur-3xl" aria-hidden="true" />
+      <div className="absolute inset-6 rounded-[54px] bg-[radial-gradient(circle,rgba(34,211,238,0.16)_0%,transparent_70%)]" aria-hidden="true" />
       <div className="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-300/15 bg-cyan-300/5 blur-sm sm:h-96 sm:w-96" />
       <div className="absolute left-1/2 top-1/2 h-[21rem] w-[21rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 opacity-70 [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] sm:h-[27rem] sm:w-[27rem]" />
       <div className="absolute left-1/2 top-1/2 h-56 w-[min(26rem,82vw)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/15 opacity-70 [transform:rotateX(66deg)]" />
 
       {floatingCards.map((card, index) => (
-        <motion.div
+        <div
           key={card.label}
-          initial={{ opacity: 0, scale: 0.86, y: 14 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ delay: 0.12 * index, duration: 0.45, ease: "easeOut" }}
-          className={`absolute z-30 min-w-28 rounded-2xl border border-white/15 bg-slate-950/55 p-2.5 text-xs text-cyan-50 shadow-cyan-glow backdrop-blur-2xl sm:min-w-32 sm:p-3 ${card.position}`}
+          className={`gg-fade-in absolute z-30 min-w-28 rounded-2xl border border-white/15 bg-slate-950/55 p-2.5 text-xs text-cyan-50 shadow-cyan-glow sm:min-w-32 sm:p-3 ${card.position}`}
+          style={{ animationDelay: `${0.12 * index}s` }}
         >
           <div className="flex items-center gap-2">
             <span className={`h-8 w-1.5 rounded-full bg-gradient-to-b ${card.accent}`} aria-hidden="true" />
@@ -80,16 +74,13 @@ export function ProductBoxVisual() {
           <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
             <div className={`h-full rounded-full bg-gradient-to-r ${card.accent}`} style={{ width: `${58 + index * 5}%` }} />
           </div>
-        </motion.div>
+        </div>
       ))}
 
-      <motion.div
-        animate={{ y: [0, -12, 0] }}
-        transition={{ repeat: Infinity, duration: 5.4, ease: "easeInOut" }}
-        className="absolute left-1/2 top-1/2 z-20 h-[255px] w-[210px] -translate-x-1/2 -translate-y-1/2 [perspective:1100px] sm:h-[310px] sm:w-[248px]"
-      >
-        <div className="absolute -inset-12 rounded-full bg-cyan-300/15 blur-3xl" aria-hidden="true" />
-        <div className="absolute -bottom-12 left-1/2 h-16 w-72 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-2xl" />
+      <div className="absolute left-1/2 top-1/2 z-20 h-[255px] w-[210px] -translate-x-1/2 -translate-y-1/2 [perspective:1100px] sm:h-[310px] sm:w-[248px]">
+        <div className="gg-float-y absolute inset-0">
+        <div className="absolute -inset-12 rounded-full bg-[radial-gradient(circle,rgba(103,232,249,0.18)_0%,transparent_70%)]" aria-hidden="true" />
+        <div className="absolute -bottom-12 left-1/2 h-16 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(103,232,249,0.2)_0%,transparent_70%)]" />
 
         <div className="absolute inset-0 [transform:rotateY(-18deg)_rotateX(6deg)] [transform-style:preserve-3d]">
           <div className="absolute -left-5 top-5 h-full w-full rounded-[30px] border border-cyan-200/10 bg-cyan-950/20 blur-sm" />
@@ -111,7 +102,7 @@ export function ProductBoxVisual() {
             </h3>
           </div>
 
-          <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3 backdrop-blur">
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-white/[0.045] p-3">
             <div className="flex items-center justify-between gap-3 text-xs text-slate-300 sm:text-sm">
               <span>Prompts + templates</span>
               <span className="text-cyan-200">7 блоков</span>
@@ -125,9 +116,10 @@ export function ProductBoxVisual() {
 
         <div className="absolute inset-x-8 top-24 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
         <div className="absolute bottom-7 left-7 right-7 h-1 rounded-full bg-gradient-to-r from-cyan-300 via-blue-400 to-fuchsia-400" />
-      </motion.div>
+        </div>
+      </div>
 
-      <div className="absolute bottom-4 left-1/2 h-12 w-72 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-2xl" />
+      <div className="absolute bottom-4 left-1/2 h-12 w-72 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(103,232,249,0.2)_0%,transparent_70%)]" />
       <div className="sr-only">Placeholder can be replaced with a future SplineScene component.</div>
     </div>
   );

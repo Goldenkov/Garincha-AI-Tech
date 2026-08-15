@@ -3,7 +3,7 @@ import { proIncluded, proNotIncluded } from "@/lib/business-reboot-content";
 
 export function ProExpectations() {
   return (
-    <section className="py-16 sm:py-24" id="expectations">
+    <section className="scroll-mt-24 py-16 sm:py-24" id="expectations">
       <Container>
         <div className="mb-10 max-w-4xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Честные ожидания</p>
@@ -17,7 +17,7 @@ export function ProExpectations() {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-[2rem] border border-emerald-300/20 bg-emerald-300/[0.05] p-6 backdrop-blur-xl sm:p-7">
+          <article className="rounded-[2rem] border border-emerald-300/20 bg-emerald-300/[0.05] p-6 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-200">Входит в PRO</p>
             <ul className="mt-5 grid gap-3">
               {proIncluded.map((item) => (
@@ -29,7 +29,7 @@ export function ProExpectations() {
             </ul>
           </article>
 
-          <article className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-7">
+          <article className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Не входит в PRO</p>
             <ul className="mt-5 grid gap-3">
               {proNotIncluded.map((item) => (

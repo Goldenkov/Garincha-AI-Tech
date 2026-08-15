@@ -50,7 +50,7 @@ export function LeadForm() {
   }
 
   return (
-    <section id="lead" className="py-20 sm:py-28">
+    <section id="lead" className="scroll-mt-24 py-20 sm:py-28">
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">

@@ -12,7 +12,7 @@ export function NicheRoutes({ limit }: NicheRoutesProps) {
       {niches.map((niche, index) => (
         <article
           key={niche.id}
-          className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]"
+          className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]"
         >
           <div className="mb-5 flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">

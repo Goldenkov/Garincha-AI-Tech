@@ -1,8 +1,5 @@
-"use client";
-
-import { useState } from "react";
-
-import { Button, ButtonLink } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
+import { CopyPromptButton } from "@/components/product/CopyPromptButton";
 import { toolCards } from "@/lib/business-reboot-content";
 
 const businessXpLabels = [
@@ -38,20 +35,8 @@ type ToolCardProps = {
 };
 
 export function ToolCard({ tool, index }: ToolCardProps) {
-  const [copied, setCopied] = useState(false);
-
-  async function copyPrompt() {
-    try {
-      await navigator.clipboard.writeText(tool.example);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  }
-
   return (
-    <article className="group flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]">
+    <article className="group flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]">
       <div className="mb-6 flex items-start justify-between gap-4">
         <span className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
           {(index + 1).toString().padStart(2, "0")}
@@ -74,9 +59,7 @@ export function ToolCard({ tool, index }: ToolCardProps) {
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">{tool.example}</p>
       </div>
       <div className="mt-auto grid gap-2 pt-5">
-        <Button type="button" className="w-full" onClick={copyPrompt}>
-          {copied ? "Скопировано" : "Скопировать промпт"}
-        </Button>
+        <CopyPromptButton text={tool.example} />
         <ButtonLink href={tool.href} variant="outline" className="w-full">
           {tool.cta}
         </ButtonLink>

@@ -6,7 +6,7 @@ export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
-        "gg-card group/card shadow-2xl shadow-black/20 backdrop-blur-xl hover:bg-white/[0.075]",
+        "gg-card group/card shadow-2xl shadow-black/20 hover:bg-white/[0.075]",
         className,
       )}
       {...props}

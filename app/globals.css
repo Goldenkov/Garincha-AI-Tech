@@ -56,10 +56,7 @@ html {
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 32rem),
-    radial-gradient(circle at top right, rgba(124, 58, 237, 0.16), transparent 30rem),
-    var(--gg-bg-deep);
+  background: var(--gg-bg-deep);
   color: var(--gg-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
@@ -163,18 +160,11 @@ body::selection {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  body {
-    background-size: 140% 140%, 130% 130%, auto;
-  }
-}
-
 @layer utilities {
   .gg-glass {
     border: 1px solid var(--gg-border);
     background: var(--gg-surface-raised);
     box-shadow: 0 24px 80px rgba(2, 6, 23, 0.28);
-    backdrop-filter: blur(20px);
   }
 
   .gg-card {
@@ -198,16 +188,26 @@ body::selection {
     isolation: isolate;
   }
 
-  .gg-animated-border::before {
+  .gg-animated-border-spin {
     position: absolute;
-    z-index: 2;
-    inset: -1px;
-    padding: 1px;
+    z-index: 0;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .gg-animated-border-spin::before {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 140%;
+    aspect-ratio: 1;
     pointer-events: none;
     content: "";
-    border-radius: inherit;
+    translate: -50% -50%;
     background: conic-gradient(
-      from var(--gg-border-angle, 0deg),
+      from 0deg,
       transparent 0deg,
       var(--gg-primary) 50deg,
       transparent 105deg,
@@ -216,10 +216,71 @@ body::selection {
       transparent 340deg
     );
     opacity: 0.62;
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
+  }
+
+  .gg-header {
+    border-bottom: 1px solid var(--gg-border);
+    background: rgba(2, 6, 23, 0.88);
+    box-shadow: 0 18px 70px rgba(2, 6, 23, 0.24);
+    backdrop-filter: blur(10px);
+  }
+
+  .gg-mobile-cta {
+    background: rgba(2, 6, 23, 0.9);
+    box-shadow: 0 -24px 80px rgba(8, 145, 178, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .gg-below-fold {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 40rem;
+  }
+
+  .gg-fade-in {
+    animation: gg-fade-in 0.55s var(--gg-ease-premium) both;
+  }
+
+  .hero-spotlight {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-orb-cyan {
+    top: 0;
+    left: -8rem;
+    width: 32rem;
+    height: 32rem;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(103, 232, 249, 0.18) 0%,
+      rgba(103, 232, 249, 0.06) 38%,
+      transparent 70%
+    );
+  }
+
+  .hero-orb-violet {
+    top: 2rem;
+    right: -7rem;
+    width: 28rem;
+    height: 28rem;
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(139, 92, 246, 0.2) 0%,
+      rgba(139, 92, 246, 0.07) 40%,
+      transparent 70%
+    );
+  }
+
+  .gg-float-y {
+    animation: gg-float-y 5.4s ease-in-out infinite;
   }
 
   .premium-noise {
@@ -230,10 +291,13 @@ body::selection {
 
   .bg-premium-mesh {
     background:
-      radial-gradient(circle at 16% 14%, rgba(34, 211, 238, 0.18), transparent 28%),
-      radial-gradient(circle at 84% 8%, rgba(168, 85, 247, 0.16), transparent 30%),
-      radial-gradient(circle at 58% 46%, rgba(59, 130, 246, 0.12), transparent 34%),
-      radial-gradient(circle at 84% 74%, rgba(20, 184, 166, 0.12), transparent 26%),
+      radial-gradient(circle at 50% 0%, rgba(103, 232, 249, 0.16), transparent 42%),
+      radial-gradient(circle at 16% 14%, rgba(34, 211, 238, 0.18), transparent 32%),
+      radial-gradient(circle at 84% 8%, rgba(168, 85, 247, 0.16), transparent 34%),
+      radial-gradient(circle at 8% 42%, rgba(59, 130, 246, 0.12), transparent 36%),
+      radial-gradient(circle at 92% 18%, rgba(217, 70, 239, 0.1), transparent 34%),
+      radial-gradient(circle at 58% 46%, rgba(59, 130, 246, 0.12), transparent 38%),
+      radial-gradient(circle at 84% 74%, rgba(20, 184, 166, 0.12), transparent 30%),
       linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.84));
   }
 
@@ -303,20 +367,99 @@ body::selection {
   }
 }
 
-@property --gg-border-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+@keyframes gg-border-rotate {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes gg-border-spin {
+@keyframes gg-fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
   to {
-    --gg-border-angle: 360deg;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-orb-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(48px, 26px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(12px, 54px, 0) scale(0.96);
+  }
+}
+
+@keyframes hero-orb-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-36px, 42px, 0) scale(0.94);
+  }
+  66% {
+    transform: translate3d(-12px, 18px, 0) scale(1.06);
+  }
+}
+
+@keyframes gg-float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .gg-animated-border::before {
-    animation: gg-border-spin 8s linear infinite;
+  .gg-animated-border-spin::before {
+    animation: gg-border-rotate 8s linear infinite;
+    will-change: transform;
+  }
+
+  .hero-orb-cyan {
+    animation: hero-orb-a 16s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .hero-orb-violet {
+    animation: hero-orb-b 19s ease-in-out infinite;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gg-fade-in,
+  .gg-float-y,
+  .gg-animated-border-spin::before,
+  .hero-orb {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@media (pointer: coarse) and (update: slow) {
+  .gg-animated-border-spin::before,
+  .hero-orb,
+  .gg-float-y {
+    animation: none;
+    will-change: auto;
+  }
+}
+
+@media (update: slow), (prefers-reduced-transparency: reduce) {
+  .gg-header,
+  .gg-mobile-cta {
+    background: rgba(2, 6, 23, 0.96);
+    backdrop-filter: none;
   }
 }

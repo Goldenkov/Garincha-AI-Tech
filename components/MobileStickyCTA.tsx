@@ -3,7 +3,7 @@ import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 export function MobileStickyCTA() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-slate-950/78 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 shadow-[0_-24px_80px_rgba(8,145,178,0.2)] backdrop-blur-2xl sm:hidden">
+    <div className="gg-mobile-cta fixed inset-x-0 bottom-0 z-40 border-t border-white/10 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 sm:hidden">
       <div className="mx-auto flex max-w-md items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-cyan-200">

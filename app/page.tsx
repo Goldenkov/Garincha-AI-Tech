@@ -1,6 +1,6 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { LeadForm } from "@/components/forms/LeadForm";
 import { Container } from "@/components/Container";
 import { BeforeAfter } from "@/components/product/BeforeAfter";
 import { HeroSection } from "@/components/product/HeroSection";
@@ -8,21 +8,26 @@ import { NicheRoutes } from "@/components/product/NicheRoutes";
 import { PageLinkGrid } from "@/components/product/PageLinkGrid";
 import { ProAccessSteps } from "@/components/product/ProAccessSteps";
 import { ProExpectations } from "@/components/product/ProExpectations";
-import { RouteSelector } from "@/components/product/RouteSelector";
 import { ToolGrid } from "@/components/product/ToolGrid";
 import { ButtonLink } from "@/components/ui/button";
 import { businessRebootConfig, dashboardFaq, landingPillars, routeModes } from "@/lib/business-reboot-content";
+
+const RouteSelector = dynamic(() =>
+  import("@/components/product/RouteSelector").then((mod) => mod.RouteSelector),
+);
+
+const LeadForm = dynamic(() => import("@/components/forms/LeadForm").then((mod) => mod.LeadForm));
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
 
-      <section className="py-16 sm:py-24">
+      <section className="gg-below-fold py-16 sm:py-24">
         <Container>
           <div className="grid gap-4 lg:grid-cols-3">
             {landingPillars.map((item) => (
-              <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl">
+              <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">{item.label}</p>
                 <h2 className="mt-5 text-2xl font-semibold tracking-tight text-white">{item.title}</h2>
                 <p className="mt-4 text-sm leading-7 text-slate-400">{item.description}</p>
@@ -32,9 +37,11 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <BeforeAfter />
+      <div className="gg-below-fold">
+        <BeforeAfter />
+      </div>
 
-      <section className="py-16 sm:py-24" id="inside">
+      <section className="gg-below-fold scroll-mt-24 py-16 sm:py-24" id="inside">
         <Container>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -51,13 +58,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24">
+      <section className="gg-below-fold py-16 sm:py-24">
         <Container>
           <RouteSelector />
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24" id="dashboard-preview">
+      <section className="gg-below-fold scroll-mt-24 py-16 sm:py-24" id="dashboard-preview">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
@@ -80,7 +87,7 @@ export default function HomePage() {
                 </ButtonLink>
               </div>
             </div>
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl">
+            <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow">
               {routeModes.map((route, index) => (
                 <div key={route.name} className="border-b border-white/10 py-5 last:border-b-0">
                   <div className="flex items-center justify-between gap-4">
@@ -102,7 +109,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24" id="audience">
+      <section className="gg-below-fold scroll-mt-24 py-16 sm:py-24" id="audience">
         <Container>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -119,11 +126,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <ProExpectations />
+      <div className="gg-below-fold">
+        <ProExpectations />
+      </div>
 
-      <section className="py-16 sm:py-24" id="price">
+      <section className="gg-below-fold scroll-mt-24 py-16 sm:py-24" id="price">
         <Container>
-          <div className="relative overflow-hidden rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-8 shadow-cyan-glow backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-8 shadow-cyan-glow sm:p-12">
             <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.26em] text-cyan-200">PRO на первом запуске</p>
@@ -147,13 +156,17 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <ProAccessSteps />
+      <div className="gg-below-fold">
+        <ProAccessSteps />
+      </div>
 
-      <Container>
-        <LeadForm />
-      </Container>
+      <div className="gg-below-fold">
+        <Container>
+          <LeadForm />
+        </Container>
+      </div>
 
-      <section className="py-16 sm:py-24" id="faq">
+      <section className="gg-below-fold scroll-mt-24 py-16 sm:py-24" id="faq">
         <Container>
           <div className="mx-auto max-w-4xl">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">FAQ</p>
@@ -172,7 +185,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24">
+      <section className="gg-below-fold py-16 sm:py-24">
         <Container>
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -189,9 +202,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-20">
+      <section className="gg-below-fold py-16 sm:py-20">
         <Container>
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-8 text-center shadow-glow backdrop-blur-xl sm:p-12">
+          <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-8 text-center shadow-glow sm:p-12">
             <h2 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
               Начните не с длинного курса, а с понятного следующего действия
             </h2>
