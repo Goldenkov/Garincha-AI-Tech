@@ -64,8 +64,8 @@ export function LeadForm() {
             первом этапе не подключена.
           </p>
           <div className="mt-6 rounded-3xl border border-cyan-300/20 bg-cyan-300/10 p-5 text-sm leading-6 text-cyan-50">
-            Форма уже подготовлена под будущую интеграцию с API route, Supabase, n8n webhook,
-            Telegram bot или CRM.
+            Мы свяжемся по указанным контактам, отправим состав комплекта и инструкцию, как получить
+            код PRO-доступа после оплаты.
           </div>
         </div>
 

@@ -14,6 +14,7 @@ import { partnerFormatOptions } from "@/lib/content";
 export function PartnerForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,9 +26,10 @@ export function PartnerForm() {
 
     const formData = new FormData(form);
     setIsSubmitting(true);
+    setSubmitError("");
 
     try {
-      await submitPartnerForm({
+      const result = await submitPartnerForm({
         name: String(formData.get("name") ?? ""),
         email: String(formData.get("email") ?? ""),
         telegram: String(formData.get("telegram") ?? ""),
@@ -36,6 +38,10 @@ export function PartnerForm() {
         cooperationFormat: String(formData.get("cooperationFormat") ?? ""),
         consent: formData.get("consent") === "on",
       });
+      if (!result.ok) {
+        setSubmitError(result.error ?? "Не удалось отправить заявку партнёра. Попробуйте позже.");
+        return;
+      }
       router.push("/thanks?type=partner");
     } finally {
       setIsSubmitting(false);
@@ -90,6 +96,12 @@ export function PartnerForm() {
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-fit">
         {isSubmitting ? "Отправляем..." : "Отправить заявку партнёра"}
       </Button>
+
+      {submitError ? (
+        <div className="rounded-2xl border border-red-300/20 bg-red-300/[0.08] p-4 text-sm text-red-100">
+          {submitError}
+        </div>
+      ) : null}
     </form>
   );
 }

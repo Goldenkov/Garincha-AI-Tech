@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button, ButtonLink } from "@/components/ui/button";
 import { toolCards } from "@/lib/business-reboot-content";
 
 const businessXpLabels = [
@@ -77,9 +77,9 @@ export function ToolCard({ tool, index }: ToolCardProps) {
         <Button type="button" className="w-full" onClick={copyPrompt}>
           {copied ? "Скопировано" : "Скопировать промпт"}
         </Button>
-        <Button type="button" variant="outline" className="w-full">
+        <ButtonLink href={tool.href} variant="outline" className="w-full">
           {tool.cta}
-        </Button>
+        </ButtonLink>
       </div>
     </article>
   );

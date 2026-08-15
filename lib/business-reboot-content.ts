@@ -187,6 +187,7 @@ export const toolCards = [
     description: "Соберите вводные, чтобы AI выдавал более точные материалы.",
     example: "Я помогаю [кому] решить [какую задачу] через [формат услуги].",
     cta: "Открыть бриф",
+    href: "/journey?mission=business-recon",
   },
   {
     id: "offer-generator",
@@ -196,6 +197,7 @@ export const toolCards = [
     description: "Сформулируйте, что вы предлагаете, для кого и почему это важно.",
     example: "Собери 3 варианта оффера для моей услуги с акцентом на быстрый первый шаг.",
     cta: "Собрать оффер",
+    href: "/journey?mission=offer-packaging",
   },
   {
     id: "content-plan",
@@ -205,6 +207,7 @@ export const toolCards = [
     description: "Получите темы для первых постов, коротких видео и прогрева.",
     example: "Дай 7 тем контента: боль, кейс, разбор, ошибка, чек-лист, FAQ, CTA.",
     cta: "Собрать контент",
+    href: "/journey?mission=content-boost",
   },
   {
     id: "sales-scripts",
@@ -214,6 +217,7 @@ export const toolCards = [
     description: "Подготовьте ответы для переписок, заявок и первичного контакта.",
     example: "Напиши ответ на входящую заявку без давления и с уточняющими вопросами.",
     cta: "Подготовить скрипт",
+    href: "/journey?mission=contact-scripts",
   },
   {
     id: "objections",
@@ -223,6 +227,7 @@ export const toolCards = [
     description: "Подготовьте ответы на «дорого», «подумаю», «не сейчас» и другие сомнения.",
     example: "Разбери 5 возражений клиента и предложи спокойные ответы без манипуляций.",
     cta: "Разобрать возражения",
+    href: "/journey?mission=objection-battle",
   },
   {
     id: "quiz",
@@ -232,6 +237,7 @@ export const toolCards = [
     description: "Соберите простую форму, которая помогает понять задачу клиента.",
     example: "Собери короткий квиз для первичной заявки в моей нише.",
     cta: "Собрать квиз",
+    href: "/journey?mission=quiz-lead",
   },
   {
     id: "landing-structure",
@@ -241,6 +247,7 @@ export const toolCards = [
     description: "Соберите последовательность блоков: проблема, решение, оффер, доверие, CTA.",
     example: "Предложи структуру лендинга для услуги: первый экран, блоки, CTA, FAQ.",
     cta: "Собрать лендинг",
+    href: "/journey?mission=landing-route",
   },
   {
     id: "tables",
@@ -250,6 +257,7 @@ export const toolCards = [
     description: "Зафиксируйте первые контакты, заявки, реакции и следующие шаги.",
     example: "Собери таблицу для контроля заявок, источников, статусов и следующих действий.",
     cta: "Открыть таблицы",
+    href: "/journey?mission=market-signals",
   },
 ];
 

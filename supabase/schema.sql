@@ -45,6 +45,20 @@ create table if not exists public.feedback (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.partners (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  telegram text,
+  channel_url text not null,
+  audience_size text not null,
+  cooperation_format text not null,
+  consent boolean not null default false,
+  source text not null default 'website',
+  status text not null default 'new',
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.launch_kits (
   id uuid primary key default gen_random_uuid(),
   buyer_id uuid references public.buyers(id) on delete cascade,
@@ -59,6 +73,7 @@ alter table public.leads enable row level security;
 alter table public.buyers enable row level security;
 alter table public.access_codes enable row level security;
 alter table public.feedback enable row level security;
+alter table public.partners enable row level security;
 alter table public.launch_kits enable row level security;
 
 -- MVP uses server API routes with the service role key.
@@ -69,4 +84,5 @@ revoke all on public.leads from anon, authenticated;
 revoke all on public.buyers from anon, authenticated;
 revoke all on public.access_codes from anon, authenticated;
 revoke all on public.feedback from anon, authenticated;
+revoke all on public.partners from anon, authenticated;
 revoke all on public.launch_kits from anon, authenticated;
