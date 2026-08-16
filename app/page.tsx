@@ -23,7 +23,7 @@ export default function HomePage() {
     <>
       <HeroSection />
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24">
+      <section className="py-12 sm:py-16 lg:py-24">
         <Container>
           <div className="grid gap-4 lg:grid-cols-3">
             {landingPillars.map((item) => (
@@ -37,11 +37,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <div className="gg-below-fold">
-        <BeforeAfter />
-      </div>
+      <BeforeAfter />
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24" id="inside">
+      <section className="py-12 sm:py-16 lg:py-24" id="inside">
         <Container>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -58,13 +56,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24">
+      <section className="py-12 sm:py-16 lg:py-24">
         <Container>
           <RouteSelector />
         </Container>
       </section>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24" id="dashboard-preview">
+      <section className="py-12 sm:py-16 lg:py-24" id="dashboard-preview">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
@@ -109,7 +107,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24" id="audience">
+      <section className="py-12 sm:py-16 lg:py-24" id="audience">
         <Container>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -126,11 +124,9 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <div className="gg-below-fold">
-        <ProExpectations />
-      </div>
+      <ProExpectations />
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24" id="price">
+      <section className="py-12 sm:py-16 lg:py-24" id="price">
         <Container>
           <div className="relative overflow-hidden rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-5 shadow-cyan-glow sm:rounded-[2rem] sm:p-8 lg:p-12">
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
@@ -156,17 +152,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <div className="gg-below-fold">
-        <ProAccessSteps />
-      </div>
+      <ProAccessSteps />
 
-      <div className="gg-below-fold">
-        <Container>
-          <LeadForm />
-        </Container>
-      </div>
+      <Container>
+        <LeadForm />
+      </Container>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24" id="faq">
+      <section className="py-12 sm:py-16 lg:py-24" id="faq">
         <Container>
           <div className="mx-auto max-w-4xl">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">FAQ</p>
@@ -185,7 +177,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-24">
+      <section className="py-12 sm:py-16 lg:py-24">
         <Container>
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -202,7 +194,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="gg-below-fold py-12 sm:py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <Container>
           <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 text-center shadow-glow sm:rounded-[2rem] sm:p-8 lg:p-12">
             <h2 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">

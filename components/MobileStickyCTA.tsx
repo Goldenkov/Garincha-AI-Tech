@@ -15,15 +15,9 @@ export function MobileStickyCTA() {
         <ButtonLink
           href="/#lead"
           size="lg"
-          className="group min-h-12 min-w-0 flex-1 overflow-hidden px-3 text-sm shadow-[0_0_34px_rgba(103,232,249,0.42)] min-[380px]:flex-[1.35] min-[380px]:px-4"
+          className="min-h-12 min-w-0 flex-1 px-3 text-sm shadow-[0_0_24px_rgba(103,232,249,0.32)] min-[380px]:flex-[1.35] min-[380px]:px-4"
         >
-          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition duration-700 group-hover:translate-x-full" />
-          <span className="relative flex items-center justify-center whitespace-nowrap">
-            PRO за {businessRebootConfig.price}
-            <span className="ml-2 transition group-hover:translate-x-0.5" aria-hidden="true">
-              →
-            </span>
-          </span>
+          PRO за {businessRebootConfig.price}
         </ButtonLink>
       </div>
     </div>

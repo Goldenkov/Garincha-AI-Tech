@@ -21,7 +21,7 @@ const sizes: Record<ButtonSize, string> = {
 };
 
 const baseClasses =
-  "premium-button-3d inline-flex items-center justify-center rounded-full font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-60";
+  "premium-button-3d inline-flex max-w-full items-center justify-center overflow-hidden rounded-full font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 disabled:pointer-events-none disabled:opacity-60";
 
 type SharedProps = {
   children: ReactNode;

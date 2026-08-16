@@ -52,10 +52,7 @@ export function HeroSection() {
 export function DashboardPreview() {
   return (
     <div className="relative mx-auto w-full max-w-xl">
-      <div className="absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle,rgba(103,232,249,0.16)_0%,transparent_70%)]" />
-      <div className="gg-animated-border relative rounded-[2rem] p-px shadow-[0_40px_120px_rgba(8,145,178,0.25)]">
-        <span className="gg-animated-border-spin" aria-hidden="true" />
-        <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] border border-white/12 bg-slate-950/90 p-3 sm:rounded-[calc(2rem-1px)] sm:p-4">
+      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/12 bg-slate-950/90 p-3 shadow-[0_24px_80px_rgba(8,145,178,0.18)] sm:rounded-[2rem] sm:p-4">
         <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-3 sm:rounded-3xl sm:px-4">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboard</p>
@@ -88,7 +85,6 @@ export function DashboardPreview() {
           <p className="mt-2 text-sm leading-6 text-slate-200">
             Выберите маршрут и начните с брифа — это улучшает качество всех следующих AI-черновиков.
           </p>
-        </div>
         </div>
       </div>
     </div>

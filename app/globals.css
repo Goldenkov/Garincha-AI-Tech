@@ -67,7 +67,6 @@
 }
 
 html {
-  overflow-x: clip;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -75,11 +74,9 @@ html {
 
 body {
   min-height: 100dvh;
-  overflow-x: clip;
   background: var(--gg-bg-deep);
   color: var(--gg-text);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  text-rendering: optimizeLegibility;
   padding-bottom: var(--gg-sticky-cta);
 }
 
@@ -111,52 +108,37 @@ body::selection {
   --button-bg: #004dff;
   --button-border: var(--gg-border-strong);
   --button-glow: var(--gg-glow-cyan);
-  --button-p: 100%;
-  --button-i: -1;
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 100%;
   border: 1px solid var(--button-border);
-  background:
-    linear-gradient(90deg, transparent 33%, rgba(255, 255, 255, 0.34), transparent 67%)
-      var(--button-p) / 300% no-repeat,
-    var(--button-bg);
-  color: transparent;
+  background: var(--button-bg);
+  color: var(--button-c);
   cursor: pointer;
-  text-shadow:
-    calc(var(--button-i) * 0.075em) -0.01em 0 var(--button-c),
-    calc(var(--button-i) * -0.075em) 0.01em 2px rgba(0, 0, 0, 0.28);
-  transform: perspective(620px) rotateY(calc(12deg * var(--button-i))) translateY(0);
-  box-shadow: 0 0 34px var(--button-glow);
+  box-shadow: 0 0 22px var(--button-glow);
   transition:
-    background-position 300ms ease,
-    border-color 300ms ease,
-    box-shadow 300ms ease,
-    text-shadow 300ms ease,
-    transform 300ms ease,
-    color 300ms ease;
-  transform-style: preserve-3d;
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease,
+    filter 180ms ease;
 }
 
 .premium-button-3d:hover,
 .premium-button-3d:focus-visible {
-  --button-p: 0%;
-  --button-i: 1;
-  box-shadow: 0 0 48px var(--button-glow);
+  box-shadow: 0 0 34px var(--button-glow);
+  transform: translateY(-1px);
 }
 
 .premium-button-3d:active {
-  color: var(--button-c);
-  text-shadow: none;
-  box-shadow:
-    inset 0 0 0 999px rgba(0, 0, 0, 0.18),
-    0 0 22px var(--button-glow);
-  transform: perspective(620px) rotateY(0deg) translateY(1px);
-  transition-duration: 0ms;
+  transform: translateY(0);
+  box-shadow: 0 0 16px var(--button-glow);
 }
 
 .premium-button-3d:disabled {
   cursor: not-allowed;
   transform: none;
-  text-shadow: none;
+  box-shadow: none;
 }
 
 .button-3d-primary {
@@ -188,15 +170,12 @@ body::selection {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .premium-button-3d {
-    transform: none;
-    transition: none;
-  }
-
+  .premium-button-3d,
   .premium-button-3d:hover,
   .premium-button-3d:focus-visible,
   .premium-button-3d:active {
     transform: none;
+    transition: none;
   }
 }
 
@@ -260,15 +239,13 @@ body::selection {
 
   .gg-header {
     border-bottom: 1px solid var(--gg-border);
-    background: rgba(2, 6, 23, 0.88);
-    box-shadow: 0 18px 70px rgba(2, 6, 23, 0.24);
-    backdrop-filter: blur(10px);
+    background: rgba(2, 6, 23, 0.96);
+    box-shadow: 0 12px 40px rgba(2, 6, 23, 0.28);
   }
 
   .gg-mobile-cta {
-    background: rgba(2, 6, 23, 0.9);
-    box-shadow: 0 -24px 80px rgba(8, 145, 178, 0.2);
-    backdrop-filter: blur(10px);
+    background: rgba(2, 6, 23, 0.96);
+    box-shadow: 0 -16px 40px rgba(2, 6, 23, 0.4);
   }
 
   .gg-gutter {
@@ -278,11 +255,6 @@ body::selection {
 
   .gg-sticky-under-header {
     top: var(--gg-header-offset);
-  }
-
-  .gg-below-fold {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 40rem;
   }
 
   .gg-fade-in {
@@ -329,7 +301,7 @@ body::selection {
   }
 
   .gg-float-y {
-    animation: gg-float-y 5.4s ease-in-out infinite;
+    transform: none;
   }
 
   .premium-noise {
@@ -340,14 +312,10 @@ body::selection {
 
   .bg-premium-mesh {
     background:
-      radial-gradient(circle at 50% 0%, rgba(103, 232, 249, 0.16), transparent 42%),
-      radial-gradient(circle at 16% 14%, rgba(34, 211, 238, 0.18), transparent 32%),
-      radial-gradient(circle at 84% 8%, rgba(168, 85, 247, 0.16), transparent 34%),
-      radial-gradient(circle at 8% 42%, rgba(59, 130, 246, 0.12), transparent 36%),
-      radial-gradient(circle at 92% 18%, rgba(217, 70, 239, 0.1), transparent 34%),
-      radial-gradient(circle at 58% 46%, rgba(59, 130, 246, 0.12), transparent 38%),
-      radial-gradient(circle at 84% 74%, rgba(20, 184, 166, 0.12), transparent 30%),
-      linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.84));
+      radial-gradient(circle at 50% 0%, rgba(103, 232, 249, 0.14), transparent 38%),
+      radial-gradient(circle at 18% 16%, rgba(34, 211, 238, 0.12), transparent 28%),
+      radial-gradient(circle at 86% 10%, rgba(168, 85, 247, 0.12), transparent 30%),
+      linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.72));
   }
 
   .premium-card-hover {
@@ -404,11 +372,11 @@ body::selection {
   }
 
   .shadow-glow {
-    box-shadow: 0 0 80px rgba(71, 139, 255, 0.22);
+    box-shadow: 0 0 36px rgba(71, 139, 255, 0.14);
   }
 
   .shadow-cyan-glow {
-    box-shadow: 0 0 52px rgba(34, 211, 238, 0.24);
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.16);
   }
 
   .text-balance {
@@ -469,23 +437,6 @@ body::selection {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .gg-animated-border-spin::before {
-    animation: gg-border-rotate 8s linear infinite;
-    will-change: transform;
-  }
-
-  .hero-orb-cyan {
-    animation: hero-orb-a 16s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .hero-orb-violet {
-    animation: hero-orb-b 19s ease-in-out infinite;
-    will-change: transform;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .gg-fade-in,
   .gg-float-y,
@@ -493,23 +444,6 @@ body::selection {
   .hero-orb {
     animation: none;
     will-change: auto;
-  }
-}
-
-@media (pointer: coarse) and (update: slow) {
-  .gg-animated-border-spin::before,
-  .hero-orb,
-  .gg-float-y {
-    animation: none;
-    will-change: auto;
-  }
-}
-
-@media (update: slow), (prefers-reduced-transparency: reduce) {
-  .gg-header,
-  .gg-mobile-cta {
-    background: rgba(2, 6, 23, 0.96);
-    backdrop-filter: none;
   }
 }
 
@@ -530,18 +464,13 @@ body::selection {
 }
 
 @media (max-width: 639px) {
-  .hero-orb-cyan {
-    top: -2rem;
-    left: -6rem;
-    width: 18rem;
-    height: 18rem;
+  .hero-spotlight {
+    display: none;
   }
 
-  .hero-orb-violet {
-    top: 0;
-    right: -5rem;
-    width: 16rem;
-    height: 16rem;
+  .shadow-glow,
+  .shadow-cyan-glow {
+    box-shadow: none;
   }
 }
 
@@ -558,16 +487,17 @@ body::selection {
 
 @media (hover: none) {
   .gg-card:hover,
-  .premium-card-hover:hover {
+  .premium-card-hover:hover,
+  .premium-button-3d:hover,
+  .premium-button-3d:focus-visible {
     transform: none;
   }
 }
 
-@media (pointer: coarse) {
-  .premium-button-3d,
-  .premium-button-3d:hover,
-  .premium-button-3d:focus-visible,
-  .premium-button-3d:active {
-    transform: none;
-  }
+.backdrop-blur,
+.backdrop-blur-sm,
+.backdrop-blur-xl,
+.backdrop-blur-2xl {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
