@@ -8,9 +8,9 @@ type ProAccessStepsProps = {
 
 export function ProAccessSteps({ compact = false }: ProAccessStepsProps) {
   return (
-    <section className={compact ? "py-10" : "py-16 sm:py-24"}>
+    <section className={compact ? "py-10" : "py-12 sm:py-16 lg:py-24"}>
       <Container>
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 shadow-glow sm:p-8">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow sm:rounded-[2rem] sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Как получить PRO-доступ</p>

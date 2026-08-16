@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { PropsWithChildren } from "react";
 
 import { MobileStickyCTA } from "@/components/MobileStickyCTA";
@@ -8,6 +8,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#020617",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://garincha-ai-tech.vercel.app"),
@@ -31,7 +38,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ru" className="dark scroll-smooth">
-      <body className="min-h-screen bg-slate-950 pb-24 font-sans text-slate-100 antialiased sm:pb-0">
+      <body className="min-h-dvh bg-slate-950 font-sans text-slate-100 antialiased">
         <PremiumBackground />
         <SiteHeader />
         {children}

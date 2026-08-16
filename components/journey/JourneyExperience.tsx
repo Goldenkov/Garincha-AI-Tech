@@ -136,8 +136,8 @@ export function JourneyExperience() {
 
   return (
     <main className="py-8 sm:py-10">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 sm:px-6 lg:px-8">
-        <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7 lg:p-8">
+      <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-7 lg:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">AI-карта запуска</p>
@@ -228,7 +228,7 @@ function StickyProgress({
   nextMission?: Mission;
 }) {
   return (
-    <div className="sticky top-16 z-30 rounded-b-[1.5rem] border border-white/10 bg-slate-950/78 p-3 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+    <div className="gg-sticky-under-header sticky z-30 rounded-b-[1.5rem] border border-white/10 bg-slate-950/78 p-3 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Готовность к первому запуску</p>
@@ -278,9 +278,9 @@ function NicheSelector({ selectedNiche, onSelect }: { selectedNiche: Niche; onSe
                   : "border-white/10 bg-slate-950/35 hover:border-cyan-300/25 hover:bg-white/[0.06]"
               }`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg font-semibold text-white">{niche.title}</h3>
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-1 text-[0.65rem] uppercase tracking-[0.16em] text-slate-400">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="min-w-0 text-lg font-semibold text-white">{niche.title}</h3>
+                <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-slate-400">
                   {niche.estimatedTime}
                 </span>
               </div>

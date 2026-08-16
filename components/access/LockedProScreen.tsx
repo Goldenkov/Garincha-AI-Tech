@@ -12,8 +12,8 @@ export function LockedProScreen({ mode = "journey" }: LockedProScreenProps) {
 
   return (
     <main className="py-10 sm:py-14">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 sm:px-6 lg:px-8">
-        <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-6 shadow-glow backdrop-blur-xl sm:p-8">
+      <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">PRO-зона</p>
           <h1 className="mt-3 max-w-4xl text-4xl font-black tracking-[-0.045em] text-white sm:text-6xl">
             Это PRO-зона. После оплаты вы получите код доступа.

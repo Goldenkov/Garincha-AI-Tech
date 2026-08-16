@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/Container";
@@ -23,10 +23,27 @@ type HeaderInteractiveProps = {
 export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [menuPath, setMenuPath] = useState(pathname);
+
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
 
   return (
     <>
-      <Container className="flex h-[4.5rem] items-center justify-between gap-3">
+      <Container className="flex h-[var(--gg-header-bar)] items-center justify-between gap-2 sm:gap-3">
         {brand}
 
         <nav
@@ -62,19 +79,19 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
 
         {desktopCtas}
 
-        <div className="flex items-center gap-2 xl:hidden">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 xl:hidden">
           <Link
             href="/demo"
-            className="hidden rounded-full px-3 py-2 text-xs font-semibold text-slate-400 transition hover:bg-white/[0.05] hover:text-white md:inline-flex"
+            className="hidden min-h-10 items-center rounded-full px-3 py-2 text-xs font-semibold text-slate-400 transition hover:bg-white/[0.05] hover:text-white md:inline-flex"
           >
             Демо
           </Link>
-          <Link href="/access" className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-2 text-xs font-semibold text-cyan-100">
+          <Link href="/access" className="inline-flex min-h-10 items-center rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-2.5 py-2 text-xs font-semibold text-cyan-100 sm:px-3">
             PRO
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+            className="inline-flex size-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
             aria-label={open ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -104,7 +121,7 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
         )}
       >
         <div className="overflow-hidden">
-          <Container className="py-4">
+          <Container className="max-h-[min(70dvh,36rem)] overflow-y-auto overscroll-contain py-4">
             <div className="mb-4 rounded-3xl border border-cyan-300/15 bg-cyan-300/[0.06] p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">PRO cockpit</p>
               <p className="mt-2 text-sm leading-6 text-slate-300">

@@ -3,7 +3,7 @@ import { proIncluded, proNotIncluded } from "@/lib/business-reboot-content";
 
 export function ProExpectations() {
   return (
-    <section className="scroll-mt-24 py-16 sm:py-24" id="expectations">
+    <section className="py-12 sm:py-16 lg:py-24" id="expectations">
       <Container>
         <div className="mb-10 max-w-4xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Честные ожидания</p>

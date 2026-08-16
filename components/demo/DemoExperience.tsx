@@ -20,8 +20,8 @@ export function DemoExperience() {
 
   return (
     <main className="py-8 sm:py-12">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 sm:px-6 lg:px-8">
-        <section className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-8">
+      <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
+        <section className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Demo preview</p>

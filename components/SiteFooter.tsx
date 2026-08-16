@@ -6,7 +6,7 @@ import { heavyPrefetchRoutes } from "@/lib/nav";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 bg-slate-950/80 py-10">
+    <footer className="border-t border-white/10 bg-slate-950/80 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-10">
       <Container className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="max-w-xl">
           <p className="text-sm font-semibold text-white">{businessRebootConfig.publicName}</p>

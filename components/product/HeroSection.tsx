@@ -4,21 +4,21 @@ import { businessRebootConfig, heroStats } from "@/lib/business-reboot-content";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-5 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <section className="gg-gutter relative overflow-hidden py-12 sm:py-16 lg:py-24">
       <HeroSpotlight />
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 xl:grid-cols-[1fr_0.95fr]">
-        <div>
-          <div className="mb-6 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-100">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 xl:grid-cols-[1fr_0.95fr] xl:gap-12">
+        <div className="min-w-0">
+          <div className="mb-5 inline-flex max-w-full rounded-full border border-white/10 bg-white/[0.06] px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cyan-100 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
             Premium AI toolkit
           </div>
           <h1 className="max-w-5xl text-balance text-5xl font-black tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
             {businessRebootConfig.publicName}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:mt-6 sm:text-lg sm:leading-8">
             Соберите основу продвижения за 1–2 вечера: оффер, контент, скрипты, квиз,
             структуру лендинга и первые действия для проверки спроса.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row">
             <ButtonLink href="/quick-start" size="lg" className="w-full sm:w-auto">
               {businessRebootConfig.startCta}
             </ButtonLink>
@@ -31,11 +31,13 @@ export function HeroSection() {
             черновики и понятный маршрут действий.
           </p>
 
-          <div className="mt-10 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-8 grid max-w-3xl grid-cols-2 gap-2.5 sm:mt-10 sm:grid-cols-4 sm:gap-3">
             {heroStats.map((stat) => (
-              <div key={stat.label} className="rounded-3xl border border-white/10 bg-white/[0.045] p-4">
-                <p className="text-2xl font-semibold tracking-tight text-white">{stat.value}</p>
-                <p className="mt-1 text-xs uppercase tracking-[0.18em] text-slate-500">{stat.label}</p>
+              <div key={stat.label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-3 sm:rounded-3xl sm:p-4">
+                <p className="text-xl font-semibold tracking-tight text-white sm:text-2xl">{stat.value}</p>
+                <p className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-slate-500 sm:text-xs sm:tracking-[0.18em]">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -53,13 +55,13 @@ export function DashboardPreview() {
       <div className="absolute -inset-8 rounded-[3rem] bg-[radial-gradient(circle,rgba(103,232,249,0.16)_0%,transparent_70%)]" />
       <div className="gg-animated-border relative rounded-[2rem] p-px shadow-[0_40px_120px_rgba(8,145,178,0.25)]">
         <span className="gg-animated-border-spin" aria-hidden="true" />
-        <div className="relative overflow-hidden rounded-[calc(2rem-1px)] border border-white/12 bg-slate-950/90 p-4">
-        <div className="flex items-center justify-between rounded-3xl border border-white/10 bg-white/[0.04] px-4 py-3">
-          <div>
+        <div className="relative overflow-hidden rounded-[calc(1.5rem-1px)] border border-white/12 bg-slate-950/90 p-3 sm:rounded-[calc(2rem-1px)] sm:p-4">
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-3 sm:rounded-3xl sm:px-4">
+          <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboard</p>
             <p className="mt-1 font-semibold text-white">Маршрут первого запуска</p>
           </div>
-          <span className="rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-100">
+          <span className="shrink-0 rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1 text-xs text-emerald-100">
             38%
           </span>
         </div>

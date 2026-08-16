@@ -9,7 +9,7 @@ export function RouteSelector() {
   const route = routeModes.find((item) => item.name === active) ?? routeModes[0];
 
   return (
-    <section id="routes" className="scroll-mt-24 rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow sm:p-7">
+    <section id="routes" className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4 shadow-glow sm:rounded-[2rem] sm:p-7">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Маршруты</p>

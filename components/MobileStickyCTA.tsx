@@ -3,10 +3,10 @@ import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 export function MobileStickyCTA() {
   return (
-    <div className="gg-mobile-cta fixed inset-x-0 bottom-0 z-40 border-t border-white/10 px-4 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 sm:hidden">
-      <div className="mx-auto flex max-w-md items-center gap-3">
-        <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-cyan-200">
+    <div className="gg-mobile-cta fixed inset-x-0 bottom-0 z-40 border-t border-white/10 px-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 sm:hidden">
+      <div className="mx-auto flex max-w-md items-center gap-2 min-[380px]:gap-3">
+        <div className="hidden min-w-0 flex-1 min-[380px]:block">
+          <p className="flex items-center gap-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cyan-200">
             <span className="h-px w-4 bg-cyan-200/70" aria-hidden="true" />
             Ранний доступ
           </p>
@@ -15,10 +15,10 @@ export function MobileStickyCTA() {
         <ButtonLink
           href="/#lead"
           size="lg"
-          className="group min-h-12 flex-[1.35] overflow-hidden px-4 text-sm shadow-[0_0_34px_rgba(103,232,249,0.42)]"
+          className="group min-h-12 min-w-0 flex-1 overflow-hidden px-3 text-sm shadow-[0_0_34px_rgba(103,232,249,0.42)] min-[380px]:flex-[1.35] min-[380px]:px-4"
         >
           <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/35 to-transparent transition duration-700 group-hover:translate-x-full" />
-          <span className="relative flex items-center justify-center">
+          <span className="relative flex items-center justify-center whitespace-nowrap">
             PRO за {businessRebootConfig.price}
             <span className="ml-2 transition group-hover:translate-x-0.5" aria-hidden="true">
               →

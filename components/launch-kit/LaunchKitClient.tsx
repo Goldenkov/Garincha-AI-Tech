@@ -81,8 +81,8 @@ export function LaunchKitClient() {
 
   return (
     <main className="py-8 sm:py-10">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 sm:px-6 lg:px-8">
-        <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7">
+      <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
+        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Launch kit workspace</p>
@@ -107,7 +107,7 @@ export function LaunchKitClient() {
           </div>
         </section>
 
-        <section className="sticky top-16 z-30 rounded-[1.5rem] border border-white/10 bg-slate-950/80 p-4 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+        <section className="gg-sticky-under-header sticky z-30 rounded-[1.5rem] border border-white/10 bg-slate-950/80 p-4 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               <SummaryPill label="Выполнено миссий" value={`${state.completedMissions.length}/${missions.length}`} />

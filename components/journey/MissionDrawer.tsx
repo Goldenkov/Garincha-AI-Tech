@@ -94,7 +94,7 @@ export function MissionDrawer({
     <div className="fixed inset-0 z-[70] bg-slate-950/68 backdrop-blur-sm" role="dialog" aria-modal="true">
       <button className="absolute inset-0 cursor-default" type="button" aria-label="Закрыть миссию" onClick={onClose} />
       <aside className="absolute inset-y-0 right-0 flex h-dvh w-full max-w-3xl flex-col border-l border-white/10 bg-slate-950/92 shadow-[0_0_120px_rgba(8,145,178,0.28)] backdrop-blur-2xl">
-        <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/95 p-4 backdrop-blur-2xl sm:p-5">
+        <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/95 px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] backdrop-blur-2xl sm:p-5 sm:pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
@@ -140,7 +140,7 @@ export function MissionDrawer({
                       <input
                         value={inputs[input] ?? ""}
                         onChange={(event) => setInputs((current) => ({ ...current, [input]: event.target.value }))}
-                        className="h-11 rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40"
+                        className="h-12 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-base text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
                         placeholder="Заполните коротко"
                       />
                     </label>
@@ -200,7 +200,7 @@ export function MissionDrawer({
           )}
         </div>
 
-        <footer className="sticky bottom-0 z-10 border-t border-white/10 bg-slate-950/95 p-4 backdrop-blur-2xl sm:p-5">
+        <footer className="sticky bottom-0 z-10 border-t border-white/10 bg-slate-950/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-2xl sm:px-5 sm:pt-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs leading-5 text-slate-500">
               MVP: вводные хранятся только в состоянии панели. Прогресс миссии сохраняется в localStorage.
@@ -317,7 +317,7 @@ function MissionResultEditor({
       <textarea
         value={resultText}
         onChange={(event) => onChange(event.target.value)}
-        className="min-h-28 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40"
+        className="min-h-28 w-full resize-y rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-base leading-6 text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
         placeholder={missionResultPlaceholders[mission.id] ?? "Вставьте результат миссии..."}
       />
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

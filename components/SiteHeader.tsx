@@ -5,7 +5,7 @@ import { businessRebootConfig } from "@/lib/business-reboot-content";
 
 export function SiteHeader() {
   return (
-    <header className="gg-header sticky top-0 z-50">
+    <header className="gg-header sticky top-0 z-50 pt-[env(safe-area-inset-top)]">
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-200/35 to-transparent" />
       <HeaderInteractive brand={<BrandLockup />} desktopCtas={<DesktopCtas />} />
     </header>
@@ -14,16 +14,16 @@ export function SiteHeader() {
 
 function BrandLockup() {
   return (
-    <Link href="/" className="group inline-flex min-w-0 shrink-0 items-center gap-3" aria-label="Бизнес Перезагрузка с AI home">
-      <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-glow transition duration-300 group-hover:-translate-y-0.5 group-hover:border-cyan-200/70">
+    <Link href="/" className="group inline-flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Бизнес Перезагрузка с AI home">
+      <span className="relative flex size-9 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-glow transition duration-300 group-hover:-translate-y-0.5 group-hover:border-cyan-200/70 sm:size-10">
         <span className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-300/20 via-transparent to-violet-400/20" />
         <span className="relative text-xs font-black tracking-tight text-cyan-100">AI</span>
       </span>
-      <span className="min-w-0 whitespace-nowrap">
+      <span className="min-w-0">
         <span className="hidden text-sm font-semibold tracking-[0.06em] text-white sm:block sm:text-base">
           {businessRebootConfig.publicName}
         </span>
-        <span className="block text-sm font-semibold tracking-[0.04em] text-white sm:hidden">
+        <span className="hidden truncate text-sm font-semibold tracking-[0.04em] text-white min-[360px]:block sm:hidden">
           Перезагрузка AI
         </span>
         <span className="mt-0.5 hidden text-[0.62rem] uppercase tracking-[0.22em] text-slate-500 md:block">

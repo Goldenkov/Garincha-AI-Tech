@@ -3,7 +3,7 @@ import { beforeAfterItems } from "@/lib/business-reboot-content";
 
 export function BeforeAfter() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-12 sm:py-16 lg:py-24">
       <Container>
         <div className="mb-10 max-w-4xl">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">До / После</p>
