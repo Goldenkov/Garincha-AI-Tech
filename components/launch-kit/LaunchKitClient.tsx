@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -39,8 +39,14 @@ function readLaunchKitState(): LaunchKitState {
 }
 
 export function LaunchKitClient() {
-  const [state, setState] = useState<LaunchKitState>(() => readLaunchKitState());
+  const [state, setState] = useState<LaunchKitState>(defaultState);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    // Restore client-only progress after mount so SSR HTML stays stable.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is not available during SSR
+    setState(readLaunchKitState());
+  }, []);
 
   useEffect(() => {
     function syncResults(event: StorageEvent) {
@@ -82,7 +88,7 @@ export function LaunchKitClient() {
   return (
     <main className="py-8 sm:py-10">
       <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-7">
+        <section className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-4 sm:rounded-[2rem] sm:p-7">
           <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Launch kit workspace</p>
@@ -99,7 +105,7 @@ export function LaunchKitClient() {
                 <p className="text-xs uppercase tracking-[0.2em] text-cyan-100">Ниша</p>
                 <p className="mt-2 text-xl font-semibold text-white">{selectedNiche.title}</p>
               </div>
-              <div className="rounded-3xl border border-white/10 bg-slate-950/35 p-4">
+              <div className="rounded-3xl border border-white/10 bg-[#080d1a] p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Готовность</p>
                 <p className="mt-2 text-xl font-semibold text-white">{readinessPercent}% · {readinessLevel.label}</p>
               </div>
@@ -107,7 +113,7 @@ export function LaunchKitClient() {
           </div>
         </section>
 
-        <section className="gg-sticky-under-header sticky z-30 rounded-[1.5rem] border border-white/10 bg-slate-950/80 p-4 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+        <section className="gg-sticky-under-header sticky z-30 rounded-[1.5rem] border border-white/10 bg-[#050713] p-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
               <SummaryPill label="Выполнено миссий" value={`${state.completedMissions.length}/${missions.length}`} />
@@ -144,14 +150,14 @@ export function LaunchKitClient() {
 
 function SummaryPill({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
+    <div className="rounded-2xl border border-white/10 bg-[#080d1a] px-4 py-3">
       <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
       <p className="mt-1 text-sm font-semibold text-white">{value}</p>
     </div>
   );
 }
 
-function LaunchKitSection({
+const LaunchKitSection = memo(function LaunchKitSection({
   index,
   title,
   empty,
@@ -167,7 +173,7 @@ function LaunchKitSection({
   const filled = Boolean(resultText?.trim());
 
   return (
-    <article className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl">
+    <article className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
@@ -176,16 +182,16 @@ function LaunchKitSection({
           <h2 className="mt-3 text-xl font-semibold text-white">{title}</h2>
         </div>
         <span
-          className={`rounded-full border px-3 py-1 text-xs ${
+          className={`shrink-0 rounded-full border px-3 py-1 text-xs ${
             filled
-              ? "border-emerald-300/20 bg-emerald-300/[0.08] text-emerald-100"
-              : "border-white/10 bg-slate-950/35 text-slate-500"
+              ? "border-emerald-300/20 bg-emerald-950/40 text-emerald-100"
+              : "border-white/10 bg-[#080d1a] text-slate-500"
           }`}
         >
           {filled ? "готово" : "не заполнено"}
         </span>
       </div>
-      <div className="mt-4 min-h-28 rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+      <div className="mt-4 min-h-28 rounded-2xl border border-white/10 bg-[#080d1a] p-4">
         {filled ? (
           <p className="whitespace-pre-wrap text-sm leading-7 text-slate-200">{resultText}</p>
         ) : (
@@ -200,7 +206,7 @@ function LaunchKitSection({
       </Link>
     </article>
   );
-}
+});
 
 function parseCompleted(value: string | null) {
   if (!value) return [];
