@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +48,13 @@ export function MissionDrawer({
   const prompt = useMemo(() => buildPrompt(mission, niche), [mission, niche]);
   const example = useMemo(() => buildNicheExample(mission, niche), [mission, niche]);
 
-  if (!open) return null;
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   async function copyPrompt() {
     try {
@@ -90,11 +96,13 @@ export function MissionDrawer({
     onNext(nextMission.id);
   }
 
+  if (!open) return null;
+
   return (
-    <div className="fixed inset-0 z-[70] bg-slate-950/68 backdrop-blur-sm" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-[70] bg-slate-950/80" role="dialog" aria-modal="true">
       <button className="absolute inset-0 cursor-default" type="button" aria-label="Закрыть миссию" onClick={onClose} />
-      <aside className="absolute inset-y-0 right-0 flex h-dvh w-full max-w-3xl flex-col border-l border-white/10 bg-slate-950/92 shadow-[0_0_120px_rgba(8,145,178,0.28)] backdrop-blur-2xl">
-        <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/95 px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] backdrop-blur-2xl sm:p-5 sm:pt-[max(1.25rem,env(safe-area-inset-top))]">
+      <aside className="absolute inset-y-0 right-0 flex h-dvh w-full max-w-3xl flex-col border-l border-white/10 bg-[#050713] shadow-[0_0_40px_rgba(2,6,23,0.6)]">
+        <header className="sticky top-0 z-10 border-b border-white/10 bg-[#050713] px-4 pb-4 pt-[max(1rem,env(safe-area-inset-top))] sm:p-5 sm:pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
@@ -200,7 +208,7 @@ export function MissionDrawer({
           )}
         </div>
 
-        <footer className="sticky bottom-0 z-10 border-t border-white/10 bg-slate-950/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-2xl sm:px-5 sm:pt-5">
+        <footer className="sticky bottom-0 z-10 border-t border-white/10 bg-[#050713] px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 sm:px-5 sm:pt-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs leading-5 text-slate-500">
               MVP: вводные хранятся только в состоянии панели. Прогресс миссии сохраняется в localStorage.

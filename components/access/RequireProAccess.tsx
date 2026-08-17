@@ -28,7 +28,7 @@ function ProAccessActions({ mode }: { mode: "journey" | "launch-kit" | "dashboar
   }
 
   return (
-    <div className="fixed right-4 top-20 z-50 hidden rounded-full border border-white/10 bg-slate-950/80 px-3 py-2 text-xs text-slate-400 shadow-glow backdrop-blur-xl lg:block">
+    <div className="fixed right-4 top-20 z-50 hidden rounded-full border border-white/10 bg-[#050713] px-3 py-2 text-xs text-slate-400 lg:block">
       <span className="mr-3 text-emerald-200">PRO unlocked</span>
       <button type="button" onClick={logout} className="font-semibold transition hover:text-white">
         Выйти из PRO

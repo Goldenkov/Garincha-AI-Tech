@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 
-import { MissionDrawer } from "@/components/journey/MissionDrawer";
 import { Button } from "@/components/ui/button";
 import { getMissionResults, type MissionResult, type MissionResultsMap } from "@/lib/launch-kit";
 import {
@@ -16,6 +16,11 @@ import {
   type Niche,
   type NicheId,
 } from "@/lib/journey";
+
+const MissionDrawer = dynamic(
+  () => import("@/components/journey/MissionDrawer").then((mod) => mod.MissionDrawer),
+  { ssr: false },
+);
 
 type JourneyState = {
   selectedNiche: NicheId;
@@ -41,34 +46,39 @@ function parseCompletedMissions(value: string | null) {
 }
 
 export function JourneyExperience() {
-  const [state, setState] = useState<JourneyState>(() => {
-    if (typeof window === "undefined") return defaultState;
+  const [state, setState] = useState<JourneyState>(defaultState);
+  const [drawerMissionId, setDrawerMissionId] = useState<string | null>(null);
+  const [missionResults, setMissionResults] = useState<MissionResultsMap>({});
+  const [hydrated, setHydrated] = useState(false);
 
+  useEffect(() => {
     const selected = window.localStorage.getItem(journeyStorageKeys.selectedNiche) as NicheId | null;
     const completed = window.localStorage.getItem(journeyStorageKeys.completedMissions);
     const active = window.localStorage.getItem(journeyStorageKeys.activeMission);
     const parsedCompleted = parseCompletedMissions(completed);
+    const missionFromUrl = new URLSearchParams(window.location.search).get("mission");
 
-    return {
+    // Restore client-only progress after mount so SSR HTML stays stable.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is not available during SSR
+    setState({
       selectedNiche: selected && niches.some((niche) => niche.id === selected) ? selected : defaultState.selectedNiche,
       completedMissions: parsedCompleted,
       activeMissionId: active && missions.some((mission) => mission.id === active) ? active : defaultState.activeMissionId,
-    };
-  });
-  const [drawerMissionId, setDrawerMissionId] = useState<string | null>(() => {
-    if (typeof window === "undefined") return null;
-    const missionId = new URLSearchParams(window.location.search).get("mission");
-    return missionId && missions.some((mission) => mission.id === missionId) ? missionId : null;
-  });
-  const [missionResults, setMissionResults] = useState<MissionResultsMap>(() =>
-    typeof window === "undefined" ? {} : getMissionResults(),
-  );
+    });
+    setMissionResults(getMissionResults());
+    if (missionFromUrl && missions.some((mission) => mission.id === missionFromUrl)) {
+      setDrawerMissionId(missionFromUrl);
+    }
+    setHydrated(true);
+  }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
+
     window.localStorage.setItem(journeyStorageKeys.selectedNiche, state.selectedNiche);
     window.localStorage.setItem(journeyStorageKeys.completedMissions, JSON.stringify(state.completedMissions));
     window.localStorage.setItem(journeyStorageKeys.activeMission, state.activeMissionId);
-  }, [state]);
+  }, [hydrated, state]);
 
   const selectedNiche = niches.find((niche) => niche.id === state.selectedNiche) ?? niches[0];
   const drawerMission = missions.find((mission) => mission.id === drawerMissionId) ?? missions[0];
@@ -78,20 +88,37 @@ export function JourneyExperience() {
   const drawerMissionIndex = missions.findIndex((mission) => mission.id === drawerMission.id);
   const nextMission = missions.find((mission) => !state.completedMissions.includes(mission.id));
 
-  function selectNiche(nicheId: NicheId) {
+  const statusById = useMemo(() => {
+    const firstIncompleteIndex = missions.findIndex((item) => !state.completedMissions.includes(item.id));
+    const map: Record<string, MissionStatus> = {};
+
+    missions.forEach((mission, index) => {
+      if (state.completedMissions.includes(mission.id)) {
+        map[mission.id] = "completed";
+      } else if (index <= Math.max(firstIncompleteIndex, 0)) {
+        map[mission.id] = "active";
+      } else {
+        map[mission.id] = "locked";
+      }
+    });
+
+    return map;
+  }, [state.completedMissions]);
+
+  const selectNiche = useCallback((nicheId: NicheId) => {
     setState({
       selectedNiche: nicheId,
       completedMissions: [],
       activeMissionId: missions[0].id,
     });
-  }
+  }, []);
 
-  function startMission(missionId: string) {
+  const startMission = useCallback((missionId: string) => {
     setState((current) => ({ ...current, activeMissionId: missionId }));
     setDrawerMissionId(missionId);
-  }
+  }, []);
 
-  function completeMission(missionId: string) {
+  const completeMission = useCallback((missionId: string) => {
     setState((current) => {
       const completedMissions = current.completedMissions.includes(missionId)
         ? current.completedMissions
@@ -104,40 +131,40 @@ export function JourneyExperience() {
         activeMissionId: next?.id ?? missionId,
       };
     });
-  }
+  }, []);
 
-  function resetProgress() {
+  const resetProgress = useCallback(() => {
     setState((current) => ({
       ...current,
       completedMissions: [],
       activeMissionId: missions[0].id,
     }));
-  }
+  }, []);
 
-  function handleResultSaved(result: MissionResult) {
+  const handleResultSaved = useCallback((result: MissionResult) => {
     setMissionResults((current) => ({
       ...current,
       [result.missionId]: result,
     }));
-  }
+  }, []);
 
-  function statusFor(mission: Mission): MissionStatus {
-    if (state.completedMissions.includes(mission.id)) return "completed";
-    const firstIncompleteIndex = missions.findIndex((item) => !state.completedMissions.includes(item.id));
-    const missionIndex = missions.findIndex((item) => item.id === mission.id);
-    if (missionIndex <= Math.max(firstIncompleteIndex, 0)) return "active";
-    return "locked";
-  }
+  const closeDrawer = useCallback(() => {
+    setDrawerMissionId(null);
+  }, []);
 
-  const missingItems = missions
-    .filter((mission) => !state.completedMissions.includes(mission.id))
-    .slice(0, 4)
-    .map((mission) => `${mission.shortTitle} не готов`);
+  const missingItems = useMemo(
+    () =>
+      missions
+        .filter((mission) => !state.completedMissions.includes(mission.id))
+        .slice(0, 4)
+        .map((mission) => `${mission.shortTitle} не готов`),
+    [state.completedMissions],
+  );
 
   return (
     <main className="py-8 sm:py-10">
       <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-7 lg:p-8">
+        <section className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-4 sm:rounded-[2rem] sm:p-7 lg:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">AI-карта запуска</p>
@@ -174,13 +201,13 @@ export function JourneyExperience() {
               completedMissions={state.completedMissions}
               missionResults={missionResults}
               activeMissionId={state.activeMissionId}
-              statusFor={statusFor}
+              statusById={statusById}
               onStartMission={startMission}
               onCompleteMission={completeMission}
             />
           </div>
 
-          <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
+          <aside className="space-y-6 xl:sticky xl:top-[var(--gg-header-offset)] xl:self-start">
             <ProgressPanel
               selectedNiche={selectedNiche}
               progressPercent={progressPercent}
@@ -199,20 +226,22 @@ export function JourneyExperience() {
           </aside>
         </div>
 
-        <MissionDrawer
-          key={`${selectedNiche.id}-${drawerMission.id}`}
-          open={drawerMissionId !== null}
-          mission={drawerMission}
-          missionIndex={drawerMissionIndex}
-          niche={selectedNiche}
-          status={statusFor(drawerMission)}
-          nextMission={nextMission}
-          initialResult={missionResults[drawerMission.id]}
-          onClose={() => setDrawerMissionId(null)}
-          onComplete={() => completeMission(drawerMission.id)}
-          onNext={startMission}
-          onResultSaved={handleResultSaved}
-        />
+        {drawerMissionId ? (
+          <MissionDrawer
+            key={drawerMission.id}
+            open
+            mission={drawerMission}
+            missionIndex={drawerMissionIndex}
+            niche={selectedNiche}
+            status={statusById[drawerMission.id] ?? "active"}
+            nextMission={nextMission}
+            initialResult={missionResults[drawerMission.id]}
+            onClose={closeDrawer}
+            onComplete={() => completeMission(drawerMission.id)}
+            onNext={startMission}
+            onResultSaved={handleResultSaved}
+          />
+        ) : null}
       </div>
     </main>
   );
@@ -228,7 +257,7 @@ function StickyProgress({
   nextMission?: Mission;
 }) {
   return (
-    <div className="gg-sticky-under-header sticky z-30 rounded-b-[1.5rem] border border-white/10 bg-slate-950/78 p-3 shadow-[0_18px_70px_rgba(2,6,23,0.45)] backdrop-blur-2xl">
+    <div className="gg-sticky-under-header sticky z-30 rounded-b-[1.5rem] border border-white/10 bg-[#050713] p-3">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Готовность к первому запуску</p>
@@ -250,7 +279,7 @@ function StickyProgress({
 
 function NicheSelector({ selectedNiche, onSelect }: { selectedNiche: Niche; onSelect: (nicheId: NicheId) => void }) {
   return (
-    <section id="niche-selector" className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-7">
+    <section id="niche-selector" className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-7">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Niche selector</p>
@@ -272,10 +301,10 @@ function NicheSelector({ selectedNiche, onSelect }: { selectedNiche: Niche; onSe
               key={niche.id}
               type="button"
               onClick={() => onSelect(niche.id)}
-              className={`rounded-3xl border p-4 text-left transition duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+              className={`rounded-3xl border p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
                 active
-                  ? "border-cyan-300/45 bg-cyan-300/[0.10] shadow-cyan-glow"
-                  : "border-white/10 bg-slate-950/35 hover:border-cyan-300/25 hover:bg-white/[0.06]"
+                  ? "border-cyan-300/45 bg-cyan-300/[0.10]"
+                  : "border-white/10 bg-[#080d1a] hover:border-cyan-300/25"
               }`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -305,7 +334,7 @@ function JourneyMap({
   completedMissions,
   missionResults,
   activeMissionId,
-  statusFor,
+  statusById,
   onStartMission,
   onCompleteMission,
 }: {
@@ -313,12 +342,12 @@ function JourneyMap({
   completedMissions: string[];
   missionResults: MissionResultsMap;
   activeMissionId: string;
-  statusFor: (mission: Mission) => MissionStatus;
+  statusById: Record<string, MissionStatus>;
   onStartMission: (missionId: string) => void;
   onCompleteMission: (missionId: string) => void;
 }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-7">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-7">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Mission map</p>
@@ -336,14 +365,14 @@ function JourneyMap({
             key={mission.id}
             mission={mission}
             index={index}
-            status={statusFor(mission)}
+            status={statusById[mission.id] ?? "locked"}
             active={activeMissionId === mission.id}
             hasSavedResult={Boolean(missionResults[mission.id]?.resultText?.trim())}
             completedWithoutResult={
               completedMissions.includes(mission.id) && !missionResults[mission.id]?.resultText?.trim()
             }
-            onStart={() => onStartMission(mission.id)}
-            onComplete={() => onCompleteMission(mission.id)}
+            onStart={onStartMission}
+            onComplete={onCompleteMission}
           />
         ))}
       </div>
@@ -351,7 +380,7 @@ function JourneyMap({
   );
 }
 
-function MissionCard({
+const MissionCard = memo(function MissionCard({
   mission,
   index,
   status,
@@ -367,22 +396,22 @@ function MissionCard({
   active: boolean;
   hasSavedResult: boolean;
   completedWithoutResult: boolean;
-  onStart: () => void;
-  onComplete: () => void;
+  onStart: (missionId: string) => void;
+  onComplete: (missionId: string) => void;
 }) {
   const locked = status === "locked";
   const completed = status === "completed";
 
   return (
     <article
-      className={`relative grid gap-4 rounded-[1.5rem] border p-4 transition duration-300 md:grid-cols-[auto_1fr_auto] md:items-center ${
+      className={`relative grid gap-4 rounded-[1.5rem] border p-4 md:grid-cols-[auto_1fr_auto] md:items-center ${
         completed
-          ? "border-emerald-300/30 bg-emerald-300/[0.07]"
+          ? "border-emerald-300/30 bg-emerald-950/40"
           : active
-            ? "border-cyan-300/40 bg-cyan-300/[0.09] shadow-cyan-glow"
+            ? "border-cyan-300/40 bg-cyan-950/35"
             : locked
-              ? "border-white/8 bg-slate-950/25 opacity-65"
-              : "border-white/10 bg-slate-950/35 hover:border-cyan-300/25 hover:bg-white/[0.055]"
+              ? "border-white/8 bg-[#080d1a] opacity-65"
+              : "border-white/10 bg-[#080d1a]"
       }`}
     >
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/55 text-sm font-semibold text-cyan-100">
@@ -414,13 +443,13 @@ function MissionCard({
         <span className="text-xs uppercase tracking-[0.2em] text-slate-500">
           {completed ? "completed" : locked ? "locked" : "active"}
         </span>
-        <Button type="button" size="sm" disabled={locked} onClick={onStart}>
+        <Button type="button" size="sm" disabled={locked} onClick={() => onStart(mission.id)}>
           {locked ? "Доступно в PRO" : "Начать миссию"}
         </Button>
         <button
           type="button"
           disabled={locked || completed}
-          onClick={onComplete}
+          onClick={() => onComplete(mission.id)}
           className="rounded-full px-3 py-2 text-xs font-semibold text-slate-300 transition hover:text-white disabled:cursor-not-allowed disabled:opacity-45"
         >
           {completed ? "Готово" : "Отметить как готово"}
@@ -428,7 +457,7 @@ function MissionCard({
       </div>
     </article>
   );
-}
+});
 
 function ProgressPanel({
   selectedNiche,
@@ -446,7 +475,7 @@ function ProgressPanel({
   onReset: () => void;
 }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Progress system</p>
       <h2 className="mt-3 text-2xl font-semibold text-white">{selectedNiche.title}</h2>
       <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10">
@@ -482,7 +511,7 @@ function ProgressPanel({
 
 function BadgeGrid({ completedMissions }: { completedMissions: string[] }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Badges</p>
       <div className="mt-5 flex flex-wrap gap-2">
         <span className="rounded-full border border-cyan-300/25 bg-cyan-300/[0.08] px-3 py-2 text-xs text-cyan-100">
@@ -524,7 +553,7 @@ function LaunchReadinessScore({
     launchReadinessLevels[0];
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Launch readiness score</p>
       <h2 className="mt-3 text-2xl font-semibold text-white">Готовность к первому запуску</h2>
       <p className="mt-4 text-5xl font-black tracking-tight text-white">{progressPercent}%</p>
