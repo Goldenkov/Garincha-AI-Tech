@@ -14,7 +14,7 @@ export function PageLinkGrid({ groups = siteMapGroups, compact = false }: PageLi
       {groups.map((group) => (
         <section
           key={group.title}
-          className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow sm:p-6"
+          className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">{group.title}</p>
           {!compact ? <p className="mt-3 text-sm leading-6 text-slate-400">{group.description}</p> : null}
@@ -24,7 +24,7 @@ export function PageLinkGrid({ groups = siteMapGroups, compact = false }: PageLi
                 key={link.href}
                 href={link.href}
                 prefetch={heavyPrefetchRoutes.has(link.href) ? false : undefined}
-                className="group rounded-2xl border border-white/10 bg-slate-950/35 p-4 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/25 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                className="group rounded-2xl border border-white/10 bg-[#080d1a] p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               >
                 <span className="flex items-center justify-between gap-4">
                   <span className="font-medium text-white">{link.label}</span>

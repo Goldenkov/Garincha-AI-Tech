@@ -12,7 +12,7 @@ export function NicheRoutes({ limit }: NicheRoutesProps) {
       {niches.map((niche, index) => (
         <article
           key={niche.id}
-          className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]"
+          className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5"
         >
           <div className="mb-5 flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
@@ -26,7 +26,7 @@ export function NicheRoutes({ limit }: NicheRoutesProps) {
             {niche.recommendedTools.map((tool) => (
               <span
                 key={tool}
-                className="rounded-full border border-white/10 bg-slate-950/35 px-3 py-1 text-xs text-slate-300"
+                className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-1 text-xs text-slate-300"
               >
                 {tool}
               </span>

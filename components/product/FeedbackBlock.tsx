@@ -52,7 +52,7 @@ export function FeedbackBlock() {
   }
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-7">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Обратная связь</p>

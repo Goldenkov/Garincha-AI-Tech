@@ -15,7 +15,7 @@ export function ProgressOverview() {
   }
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-7">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Прогресс</p>
@@ -46,7 +46,7 @@ export function ProgressOverview() {
               key={item}
               type="button"
               onClick={() => toggle(item)}
-              className="rounded-2xl border border-white/10 bg-slate-950/35 p-4 text-left transition hover:-translate-y-0.5 hover:border-cyan-300/25 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              className="rounded-2xl border border-white/10 bg-[#080d1a] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
             >
               <span className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">
                 {(index + 1).toString().padStart(2, "0")}

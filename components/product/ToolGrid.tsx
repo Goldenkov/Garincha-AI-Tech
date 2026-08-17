@@ -36,7 +36,7 @@ type ToolCardProps = {
 
 export function ToolCard({ tool, index }: ToolCardProps) {
   return (
-    <article className="group flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.065]">
+    <article className="group flex h-full flex-col rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5">
       <div className="mb-6 flex items-start justify-between gap-4">
         <span className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
           {(index + 1).toString().padStart(2, "0")}
@@ -54,7 +54,7 @@ export function ToolCard({ tool, index }: ToolCardProps) {
         <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Результат</p>
         <p className="mt-2 text-sm text-slate-200">{tool.result}</p>
       </div>
-      <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/45 p-4">
+      <div className="mt-4 rounded-2xl border border-white/10 bg-[#080d1a] p-4">
         <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Prompt preview</p>
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-300">{tool.example}</p>
       </div>

@@ -21,7 +21,7 @@ export default function DashboardPage() {
     <RequireProAccess mode="dashboard">
       <main className="py-12 sm:py-16">
         <Container className="space-y-10">
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-10">
+        <section className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-10">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">PRO dashboard</p>
           <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
@@ -59,7 +59,7 @@ export default function DashboardPage() {
           <NicheRoutes limit={3} />
         </section>
 
-        <section className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-5 shadow-cyan-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
+        <section className="rounded-[1.5rem] border border-cyan-300/20 bg-cyan-950/40 p-5 sm:rounded-[2rem] sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Следующее действие</p>
