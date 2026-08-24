@@ -13,7 +13,7 @@ export function LockedProScreen({ mode = "journey" }: LockedProScreenProps) {
   return (
     <main className="py-10 sm:py-14">
       <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <section className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
+        <section className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">PRO-зона</p>
           <h1 className="mt-3 max-w-4xl text-4xl font-black tracking-[-0.045em] text-white sm:text-6xl">
             Это PRO-зона. После оплаты вы получите код доступа.
@@ -46,12 +46,12 @@ export function LockedProScreen({ mode = "journey" }: LockedProScreenProps) {
 function JourneyDemoPreview() {
   return (
     <section id="demo" className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-6">
+      <div className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Demo mode</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Ниши доступны для предпросмотра</h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {niches.map((niche) => (
-            <div key={niche.id} className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+            <div key={niche.id} className="rounded-2xl border border-white/10 bg-[#080d1a] p-4">
               <p className="font-semibold text-white">{niche.title}</p>
               <p className="mt-2 text-sm leading-6 text-slate-500">{niche.description}</p>
             </div>
@@ -59,7 +59,7 @@ function JourneyDemoPreview() {
         </div>
       </div>
 
-      <div className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-xl sm:p-6">
+      <div className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Mission preview</p>
         <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Можно увидеть первую миссию</h2>
         <div className="mt-5 grid gap-3">
@@ -69,7 +69,7 @@ function JourneyDemoPreview() {
               className={`rounded-2xl border p-4 ${
                 index === 0
                   ? "border-cyan-300/35 bg-cyan-300/[0.08]"
-                  : "border-white/10 bg-slate-950/25 blur-[1px]"
+                  : "border-white/10 bg-[#080d1a] opacity-70"
               }`}
             >
               <div className="flex items-center justify-between gap-4">

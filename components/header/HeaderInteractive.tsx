@@ -47,7 +47,7 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
         {brand}
 
         <nav
-          className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.045] p-1 shadow-[0_18px_60px_rgba(2,6,23,0.28)] xl:flex"
+          className="hidden items-center gap-1 rounded-full border border-white/10 bg-[#0b1020] p-1 xl:flex"
           aria-label="Primary navigation"
         >
           {primaryHeaderNav.map((item) => (
@@ -60,7 +60,7 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
             >
               Ещё
             </button>
-            <div className="invisible absolute right-0 top-full z-50 mt-3 w-60 translate-y-2 rounded-3xl border border-white/10 bg-slate-950/95 p-2 opacity-0 shadow-[0_28px_90px_rgba(2,6,23,0.5)] transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+            <div className="invisible absolute right-0 top-full z-50 mt-3 w-60 translate-y-2 rounded-3xl border border-white/10 bg-[#0b1020] p-2 opacity-0 transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
               {secondaryHeaderNav.map((item) => (
                 <Link
                   key={item.href}
@@ -116,7 +116,7 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
 
       <div
         className={cn(
-          "grid border-t border-white/10 bg-slate-950/95 shadow-[0_28px_90px_rgba(2,6,23,0.4)] transition-all duration-300 xl:hidden",
+          "grid border-t border-white/10 bg-[#020617] transition-all duration-300 xl:hidden",
           open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
       >
@@ -135,7 +135,7 @@ export function HeaderInteractive({ brand, desktopCtas }: HeaderInteractiveProps
                   href={item.href}
                   className={cn(
                     "rounded-2xl border border-white/10 px-4 py-3 text-sm transition hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300",
-                    isActivePath(pathname, item.href) ? "bg-cyan-300/[0.10] text-cyan-100" : "bg-white/[0.035] text-slate-200",
+                    isActivePath(pathname, item.href) ? "bg-cyan-300/[0.10] text-cyan-100" : "bg-[#0b1020] text-slate-200",
                   )}
                   onClick={() => setOpen(false)}
                 >
@@ -169,8 +169,8 @@ function HeaderNavLink({
     <Link
       href={item.href}
       className={cn(
-        "rounded-full px-3 py-2 text-sm font-medium transition duration-200 hover:-translate-y-0.5 hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300",
-        active ? "bg-cyan-300/[0.12] text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.14)]" : "text-slate-300",
+        "rounded-full px-3 py-2 text-sm font-medium transition hover:bg-white/[0.07] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300",
+        active ? "bg-cyan-300/[0.12] text-cyan-100" : "text-slate-300",
       )}
     >
       {item.label}

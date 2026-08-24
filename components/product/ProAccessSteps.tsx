@@ -10,7 +10,7 @@ export function ProAccessSteps({ compact = false }: ProAccessStepsProps) {
   return (
     <section className={compact ? "py-10" : "py-12 sm:py-16 lg:py-24"}>
       <Container>
-        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow sm:rounded-[2rem] sm:p-8">
+        <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Как получить PRO-доступ</p>
@@ -29,7 +29,7 @@ export function ProAccessSteps({ compact = false }: ProAccessStepsProps) {
 
             <div className="grid gap-3 sm:grid-cols-2">
               {proAccessSteps.map((step, index) => (
-                <article key={step.title} className="rounded-3xl border border-white/10 bg-slate-950/35 p-5">
+                <article key={step.title} className="rounded-3xl border border-white/10 bg-[#080d1a] p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
                     {(index + 1).toString().padStart(2, "0")}
                   </p>

@@ -309,7 +309,7 @@ function NicheSelector({ selectedNiche, onSelect }: { selectedNiche: Niche; onSe
             >
               <div className="flex items-start justify-between gap-3">
                 <h3 className="min-w-0 text-lg font-semibold text-white">{niche.title}</h3>
-                <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-slate-400">
+                <span className="shrink-0 rounded-full border border-white/10 bg-[#050713] px-2 py-1 text-[0.65rem] uppercase tracking-[0.12em] text-slate-400">
                   {niche.estimatedTime}
                 </span>
               </div>
@@ -420,7 +420,7 @@ const MissionCard = memo(function MissionCard({
       <div>
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-lg font-semibold text-white">{mission.title}</h3>
-          <span className="rounded-full border border-white/10 bg-white/[0.045] px-2.5 py-1 text-xs text-slate-300">
+          <span className="rounded-full border border-white/10 bg-[#080d1a] px-2.5 py-1 text-xs text-slate-300">
             {mission.time}
           </span>
           <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-2.5 py-1 text-xs text-cyan-100">

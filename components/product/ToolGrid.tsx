@@ -41,7 +41,7 @@ export function ToolCard({ tool, index }: ToolCardProps) {
         <span className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
           {(index + 1).toString().padStart(2, "0")}
         </span>
-        <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300">
+        <span className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-1 text-xs text-slate-300">
           {tool.time}
         </span>
       </div>

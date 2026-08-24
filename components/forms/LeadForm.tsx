@@ -114,7 +114,7 @@ export function LeadForm() {
               </Select>
             </FormField>
 
-            <label className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-6 text-slate-300">
+            <label className="flex gap-3 rounded-2xl border border-white/10 bg-[#080d1a] p-4 text-sm leading-6 text-slate-300">
               <Checkbox name="consent" required aria-label="Согласие на обработку персональных данных" />
               <span>
                 Я согласен с{" "}

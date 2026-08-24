@@ -23,8 +23,8 @@ export default async function ThanksPage({ searchParams }: ThanksPageProps) {
         <div className="absolute inset-0 -z-10 bg-radial-premium opacity-80" />
         <Container className="mx-auto max-w-3xl text-center">
           <Card className="p-8 sm:p-12">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl border border-cyan-300/30 bg-cyan-300/10 text-cyan-200 shadow-cyan-glow">
-              <span className="h-2.5 w-8 rounded-full bg-cyan-200 shadow-cyan-glow" aria-hidden="true" />
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl border border-cyan-300/30 bg-cyan-300/10 text-cyan-200">
+              <span className="h-2.5 w-8 rounded-full bg-cyan-200" aria-hidden="true" />
             </div>
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-cyan-200">
               {isPartner ? "Заявка партнёра принята" : "Заявка принята"}
@@ -39,7 +39,7 @@ export default async function ThanksPage({ searchParams }: ThanksPageProps) {
             </p>
             <div className="mt-8 grid gap-3 text-left sm:grid-cols-3">
               {(isPartner ? partnerSteps : leadSteps).map((step, index) => (
-                <div key={step.title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                <div key={step.title} className="rounded-2xl border border-white/10 bg-[#080d1a] p-4">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
                     {(index + 1).toString().padStart(2, "0")}
                   </p>

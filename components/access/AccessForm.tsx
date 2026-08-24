@@ -37,7 +37,7 @@ export function AccessForm() {
 
   return (
     <main className="gg-gutter grid min-h-[calc(100dvh-10rem)] place-items-center py-10">
-      <section className="w-full max-w-xl rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
+      <section className="w-full max-w-xl rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Вход в PRO</p>
         <h1 className="mt-3 text-4xl font-black tracking-[-0.045em] text-white">Введите код доступа</h1>
         <p className="mt-4 text-sm leading-7 text-slate-400">
@@ -51,7 +51,7 @@ export function AccessForm() {
             <input
               value={code}
               onChange={(event) => setCode(event.target.value)}
-              className="h-12 w-full rounded-2xl border border-white/10 bg-slate-950/55 px-4 text-base text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
+              className="h-12 w-full rounded-2xl border border-white/10 bg-[#080d1a] px-4 text-base text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
               placeholder="Введите PRO_ACCESS_CODE"
               autoComplete="one-time-code"
               required

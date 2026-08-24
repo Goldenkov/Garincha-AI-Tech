@@ -27,7 +27,7 @@ export default function HomePage() {
         <Container>
           <div className="grid gap-4 lg:grid-cols-3">
             {landingPillars.map((item) => (
-              <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 sm:p-6">
+              <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">{item.label}</p>
                 <h2 className="mt-5 text-2xl font-semibold tracking-tight text-white">{item.title}</h2>
                 <p className="mt-4 text-sm leading-7 text-slate-400">{item.description}</p>
@@ -85,7 +85,7 @@ export default function HomePage() {
                 </ButtonLink>
               </div>
             </div>
-            <div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow">
+            <div className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5">
               {routeModes.map((route, index) => (
                 <div key={route.name} className="border-b border-white/10 py-5 last:border-b-0">
                   <div className="flex items-start justify-between gap-3 sm:items-center sm:gap-4">
@@ -128,7 +128,7 @@ export default function HomePage() {
 
       <section className="py-12 sm:py-16 lg:py-24" id="price">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-5 shadow-cyan-glow sm:rounded-[2rem] sm:p-8 lg:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-cyan-300/20 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-8 lg:p-12">
             <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-200 sm:tracking-[0.26em]">PRO на первом запуске</p>
@@ -167,7 +167,7 @@ export default function HomePage() {
             </h2>
             <div className="mt-8 grid gap-4">
               {dashboardFaq.map((item) => (
-                <details key={item.question} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4 sm:rounded-3xl sm:p-6">
+                <details key={item.question} className="rounded-2xl border border-white/10 bg-[#0b1020] p-4 sm:rounded-3xl sm:p-6">
                   <summary className="cursor-pointer text-left text-base font-semibold text-white sm:text-lg">{item.question}</summary>
                   <p className="mt-4 text-sm leading-7 text-slate-400">{item.answer}</p>
                 </details>
@@ -196,7 +196,7 @@ export default function HomePage() {
 
       <section className="py-12 sm:py-16 lg:py-20">
         <Container>
-          <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-5 text-center shadow-glow sm:rounded-[2rem] sm:p-8 lg:p-12">
+          <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 text-center sm:rounded-[2rem] sm:p-8 lg:p-12">
             <h2 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
               Начните не с длинного курса, а с понятного следующего действия
             </h2>

@@ -22,7 +22,7 @@ export function LegalPage({ eyebrow = "Документ MVP", title, intro, desc
   return (
     <main className="py-16 sm:py-24">
       <Container className="max-w-4xl">
-        <div className="mb-10 rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-glow sm:p-10">
+        <div className="mb-10 rounded-[2rem] border border-white/10 bg-[#0b1020] p-6 sm:p-10">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.26em] text-cyan-200">{eyebrow}</p>
           <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h1>
           {lead ? <p className="mt-5 text-base leading-8 text-slate-300 sm:text-lg">{lead}</p> : null}
@@ -33,7 +33,7 @@ export function LegalPage({ eyebrow = "Документ MVP", title, intro, desc
             const heading = section.heading ?? section.title ?? "";
 
             return (
-              <section key={heading} className="rounded-[1.5rem] border border-white/10 bg-slate-900/45 p-6">
+              <section key={heading} className="rounded-[1.5rem] border border-white/10 bg-[#080d1a] p-6">
                 <h2 className="text-xl font-semibold text-white">{heading}</h2>
                 <div className="mt-3 text-sm leading-7 text-slate-300">{section.body}</div>
               </section>

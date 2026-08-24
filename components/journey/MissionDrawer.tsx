@@ -110,7 +110,7 @@ export function MissionDrawer({
               </p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{mission.title}</h2>
               <div className="mt-3 flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-xs uppercase tracking-[0.16em] text-slate-300">
+                <span className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-1 text-xs uppercase tracking-[0.16em] text-slate-300">
                   {status}
                 </span>
                 <span className="rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1 text-xs text-cyan-100">
@@ -124,7 +124,7 @@ export function MissionDrawer({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-slate-300 transition hover:text-white"
+              className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-2 text-sm text-slate-300 transition hover:text-white"
             >
               Закрыть
             </button>
@@ -148,7 +148,7 @@ export function MissionDrawer({
                       <input
                         value={inputs[input] ?? ""}
                         onChange={(event) => setInputs((current) => ({ ...current, [input]: event.target.value }))}
-                        className="h-12 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 text-base text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
+                        className="h-12 w-full rounded-2xl border border-white/10 bg-[#080d1a] px-4 text-base text-white outline-none placeholder:text-slate-600 focus:border-cyan-300/40 md:text-sm"
                         placeholder="Заполните коротко"
                       />
                     </label>
@@ -161,7 +161,7 @@ export function MissionDrawer({
               <MissionBlock label="Niche example" title="Пример под выбранную нишу">
                 <div className="grid gap-3 text-sm leading-7 text-slate-300">
                   <p>{example}</p>
-                  <div className="grid gap-2 rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+                  <div className="grid gap-2 rounded-2xl border border-white/10 bg-[#080d1a] p-4">
                     <p>
                       <span className="text-slate-500">Возражения:</span> {niche.objections.join(", ")}
                     </p>
@@ -244,7 +244,7 @@ function MissionBlock({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-4 sm:p-5">
+    <section className="rounded-3xl border border-white/10 bg-[#0b1020] p-4 sm:p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">{label}</p>
       <h3 className="mt-2 text-lg font-semibold text-white">{title}</h3>
       <div className="mt-3">{children}</div>

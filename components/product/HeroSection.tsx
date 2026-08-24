@@ -8,7 +8,7 @@ export function HeroSection() {
       <HeroSpotlight />
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 xl:grid-cols-[1fr_0.95fr] xl:gap-12">
         <div className="min-w-0">
-          <div className="mb-5 inline-flex max-w-full rounded-full border border-white/10 bg-white/[0.06] px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cyan-100 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
+          <div className="mb-5 inline-flex max-w-full rounded-full border border-white/10 bg-[#0b1020] px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cyan-100 sm:mb-6 sm:px-4 sm:text-xs sm:tracking-[0.24em]">
             Premium AI toolkit
           </div>
           <h1 className="max-w-5xl text-balance text-5xl font-black tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
@@ -33,7 +33,7 @@ export function HeroSection() {
 
           <div className="mt-8 grid max-w-3xl grid-cols-2 gap-2.5 sm:mt-10 sm:grid-cols-4 sm:gap-3">
             {heroStats.map((stat) => (
-              <div key={stat.label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-3 sm:rounded-3xl sm:p-4">
+              <div key={stat.label} className="rounded-2xl border border-white/10 bg-[#0b1020] p-3 sm:rounded-3xl sm:p-4">
                 <p className="text-xl font-semibold tracking-tight text-white sm:text-2xl">{stat.value}</p>
                 <p className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-slate-500 sm:text-xs sm:tracking-[0.18em]">
                   {stat.label}
@@ -52,8 +52,8 @@ export function HeroSection() {
 export function DashboardPreview() {
   return (
     <div className="relative mx-auto w-full max-w-xl">
-      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/12 bg-slate-950/90 p-3 shadow-[0_24px_80px_rgba(8,145,178,0.18)] sm:rounded-[2rem] sm:p-4">
-        <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-3 py-3 sm:rounded-3xl sm:px-4">
+      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#0b1020] p-3 sm:rounded-[2rem] sm:p-4">
+        <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-[#080d1a] px-3 py-3 sm:rounded-3xl sm:px-4">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-500">Dashboard</p>
             <p className="mt-1 font-semibold text-white">Маршрут первого запуска</p>
@@ -65,7 +65,7 @@ export function DashboardPreview() {
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {["Бриф", "Оффер", "Контент", "Скрипт"].map((item, index) => (
-            <div key={item} className="rounded-3xl border border-white/10 bg-white/[0.045] p-4">
+            <div key={item} className="rounded-3xl border border-white/10 bg-[#080d1a] p-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-white">{item}</span>
                 <span className="text-xs text-cyan-200">0{index + 1}</span>

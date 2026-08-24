@@ -29,7 +29,7 @@ export function ProExpectations() {
             </ul>
           </article>
 
-          <article className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 sm:p-7">
+          <article className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-6 sm:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Не входит в PRO</p>
             <ul className="mt-5 grid gap-3">
               {proNotIncluded.map((item) => (

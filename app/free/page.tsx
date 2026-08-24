@@ -28,14 +28,14 @@ export default function FreePage() {
           {freeMiniRoute.map((step, index) => (
             <article
               key={step.title}
-              className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-5 shadow-glow backdrop-blur-xl sm:p-7"
+              className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-7"
             >
               <div className="flex flex-wrap items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-cyan-300/25 bg-cyan-300/[0.08] text-sm font-semibold text-cyan-100">
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
                 <h2 className="text-xl font-semibold text-white sm:text-2xl">{step.title}</h2>
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-400">
+                <span className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-1 text-xs text-slate-400">
                   {step.time}
                 </span>
               </div>
@@ -48,7 +48,7 @@ export default function FreePage() {
           ))}
         </section>
 
-        <section className="rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-6 shadow-cyan-glow backdrop-blur-xl sm:p-8">
+        <section className="rounded-[2rem] border border-cyan-300/20 bg-[#0b1020] p-6 sm:p-8">
           <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Понравился формат?</p>

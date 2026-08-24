@@ -40,8 +40,8 @@ export default function PartnersPage() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-glow backdrop-blur-2xl">
-            <div className="rounded-[1.5rem] border border-cyan-300/20 bg-slate-950/70 p-6">
+          <div className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-6">
+            <div className="rounded-[1.5rem] border border-cyan-300/20 bg-[#080d1a] p-6">
               <div className="h-px w-20 bg-gradient-to-r from-cyan-200 to-transparent" aria-hidden="true" />
               <p className="mt-6 text-sm uppercase tracking-[0.3em] text-slate-500">Partner kit</p>
               <h2 className="mt-3 text-2xl font-semibold text-white">{businessRebootConfig.publicName}</h2>
@@ -51,7 +51,7 @@ export default function PartnersPage() {
               </p>
               <div className="mt-6 grid grid-cols-2 gap-3 text-sm text-slate-300">
                 {["Посты", "Креативы", "UTM", "Отчётность"].map((item) => (
-                  <span key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
+                  <span key={item} className="rounded-2xl border border-white/10 bg-[#050713] px-4 py-3">
                     {item}
                   </span>
                 ))}

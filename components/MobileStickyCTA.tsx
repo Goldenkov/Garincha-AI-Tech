@@ -15,7 +15,7 @@ export function MobileStickyCTA() {
         <ButtonLink
           href="/#lead"
           size="lg"
-          className="min-h-12 min-w-0 flex-1 px-3 text-sm shadow-[0_0_24px_rgba(103,232,249,0.32)] min-[380px]:flex-[1.35] min-[380px]:px-4"
+          className="min-h-12 min-w-0 flex-1 px-3 text-sm min-[380px]:flex-[1.35] min-[380px]:px-4"
         >
           PRO за {businessRebootConfig.price}
         </ButtonLink>

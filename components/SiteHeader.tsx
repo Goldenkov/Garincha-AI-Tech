@@ -15,7 +15,7 @@ export function SiteHeader() {
 function BrandLockup() {
   return (
     <Link href="/" className="group inline-flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Бизнес Перезагрузка с AI home">
-      <span className="relative flex size-9 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 shadow-glow transition duration-300 group-hover:-translate-y-0.5 group-hover:border-cyan-200/70 sm:size-10">
+      <span className="relative flex size-9 shrink-0 items-center justify-center rounded-2xl border border-cyan-300/40 bg-cyan-300/10 sm:size-10">
         <span className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-300/20 via-transparent to-violet-400/20" />
         <span className="relative text-xs font-black tracking-tight text-cyan-100">AI</span>
       </span>
@@ -51,7 +51,7 @@ function DesktopCtas() {
       </Link>
       <Link
         href="/#lead"
-        className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-full border border-cyan-200/40 bg-gradient-to-r from-cyan-300 to-blue-400 px-4 text-xs font-bold text-slate-950 shadow-[0_0_30px_rgba(34,211,238,0.3)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_42px_rgba(34,211,238,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200"
+        className="inline-flex h-10 items-center justify-center whitespace-nowrap rounded-full border border-cyan-200/40 bg-gradient-to-r from-cyan-300 to-blue-400 px-4 text-xs font-bold text-slate-950 transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200"
       >
         Получить PRO
       </Link>

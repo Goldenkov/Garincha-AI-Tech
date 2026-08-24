@@ -21,7 +21,7 @@ export function DemoExperience() {
   return (
     <main className="py-8 sm:py-12">
       <div className="gg-gutter mx-auto flex w-full max-w-7xl flex-col gap-6">
-        <section className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.045] p-4 shadow-glow backdrop-blur-xl sm:rounded-[2rem] sm:p-8">
+        <section className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-4 sm:rounded-[2rem] sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Demo preview</p>
@@ -53,7 +53,7 @@ export function DemoExperience() {
           <LaunchKitPreview selectedNiche={selectedNiche} />
         </section>
 
-        <section className="rounded-[2rem] border border-cyan-300/20 bg-cyan-300/[0.08] p-6 text-center shadow-cyan-glow backdrop-blur-xl sm:p-8">
+        <section className="rounded-[2rem] border border-cyan-300/20 bg-[#0b1020] p-6 text-center sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Следующий шаг</p>
           <h2 className="mx-auto mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
             Откройте полный маршрут и собирайте свой пакет первого запуска
@@ -83,7 +83,7 @@ function NicheDemoSelector({
   onSelect: (nicheId: NicheId) => void;
 }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-6">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">01 / Ниша</p>
@@ -100,15 +100,15 @@ function NicheDemoSelector({
               key={niche.id}
               type="button"
               onClick={() => onSelect(niche.id)}
-              className={`rounded-2xl border p-4 text-left transition duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+              className={`rounded-2xl border p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
                 active
-                  ? "border-cyan-300/45 bg-cyan-300/[0.10] shadow-cyan-glow"
-                  : "border-white/10 bg-slate-950/35 hover:border-cyan-300/25 hover:bg-white/[0.06]"
+                  ? "border-cyan-300/45 bg-cyan-300/[0.10]"
+                  : "border-white/10 bg-[#080d1a] hover:border-cyan-300/25"
               }`}
             >
               <div className="flex items-start justify-between gap-3">
                 <p className="font-semibold text-white">{niche.title}</p>
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-1 text-[0.65rem] text-slate-400">
+                <span className="rounded-full border border-white/10 bg-[#050713] px-2 py-1 text-[0.65rem] text-slate-400">
                   {niche.estimatedTime}
                 </span>
               </div>
@@ -123,7 +123,7 @@ function NicheDemoSelector({
 
 function MissionDemoPanel({ selectedNiche, demoPrompt }: { selectedNiche: Niche; demoPrompt: string }) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-6">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">02 / Первая миссия открыта</p>
       <div className="mt-4 rounded-3xl border border-cyan-300/30 bg-cyan-300/[0.08] p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -132,14 +132,14 @@ function MissionDemoPanel({ selectedNiche, demoPrompt }: { selectedNiche: Niche;
             <h2 className="mt-2 text-2xl font-semibold text-white">{previewMission.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-300">{previewMission.goal}</p>
           </div>
-          <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-cyan-100">
+          <span className="rounded-full border border-white/10 bg-[#080d1a] px-3 py-1 text-xs text-cyan-100">
             {previewMission.time}
           </span>
         </div>
       </div>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/35 p-5">
+        <div className="rounded-3xl border border-white/10 bg-[#080d1a] p-5">
           <p className="text-xs uppercase tracking-[0.22em] text-slate-500">Пример под нишу</p>
           <p className="mt-3 text-sm leading-7 text-slate-300">
             <span className="text-cyan-100">Оффер:</span> {selectedNiche.offerExample}
@@ -152,7 +152,7 @@ function MissionDemoPanel({ selectedNiche, demoPrompt }: { selectedNiche: Niche;
         <div className="rounded-3xl border border-cyan-300/15 bg-cyan-300/[0.06] p-5">
           <p className="text-xs uppercase tracking-[0.22em] text-cyan-200">Prompt preview</p>
           <p className="mt-3 text-sm leading-7 text-slate-200">{demoPrompt}</p>
-          <div className="mt-4 rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3 text-xs text-slate-400">
+          <div className="mt-4 rounded-2xl border border-white/10 bg-[#050713] px-4 py-3 text-xs text-slate-400">
             Полные промпты, сохранение результатов и следующие миссии — в PRO.
           </div>
         </div>
@@ -168,21 +168,21 @@ function MissionDemoPanel({ selectedNiche, demoPrompt }: { selectedNiche: Niche;
 
 function LockedPathPreview() {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-6">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">03 / Маршрут PRO</p>
       <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Следующие миссии заблокированы</h2>
       <div className="mt-5 grid gap-3">
         {lockedMissions.map((mission, index) => (
-          <div key={mission.id} className="rounded-2xl border border-white/10 bg-slate-950/30 p-4">
+          <div key={mission.id} className="rounded-2xl border border-white/10 bg-[#080d1a] p-4">
             <div className="flex items-center justify-between gap-4">
-              <p className={index === 0 ? "font-semibold text-slate-200" : "font-semibold text-slate-400 blur-[1px]"}>
+              <p className={index === 0 ? "font-semibold text-slate-200" : "font-semibold text-slate-500"}>
                 {mission.title}
               </p>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-500">
+              <span className="rounded-full border border-white/10 bg-[#050713] px-3 py-1 text-xs text-slate-500">
                 locked
               </span>
             </div>
-            <p className={index === 0 ? "mt-2 text-sm leading-6 text-slate-500" : "mt-2 text-sm leading-6 text-slate-600 blur-[1px]"}>
+            <p className={index === 0 ? "mt-2 text-sm leading-6 text-slate-500" : "mt-2 text-sm leading-6 text-slate-600"}>
               {mission.description}
             </p>
           </div>
@@ -196,7 +196,7 @@ function LaunchKitPreview({ selectedNiche }: { selectedNiche: Niche }) {
   const previewSections = launchKitSections.slice(0, 5);
 
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-5 shadow-glow backdrop-blur-xl sm:p-6">
+    <section className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
       <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">04 / Preview Launch Kit</p>
       <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Итог собирается в пакет запуска</h2>
       <p className="mt-3 text-sm leading-7 text-slate-400">
@@ -205,7 +205,7 @@ function LaunchKitPreview({ selectedNiche }: { selectedNiche: Niche }) {
       </p>
       <div className="mt-5 grid gap-3">
         {previewSections.map((section, index) => (
-          <div key={section.missionId} className="rounded-2xl border border-white/10 bg-slate-950/35 p-4">
+          <div key={section.missionId} className="rounded-2xl border border-white/10 bg-[#080d1a] p-4">
             <div className="flex items-center justify-between gap-4">
               <p className="font-semibold text-white">{section.title}</p>
               <span className="text-xs uppercase tracking-[0.18em] text-slate-500">
