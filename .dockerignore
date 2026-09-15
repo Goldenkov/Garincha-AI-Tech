@@ -1,0 +1,16 @@
+.git
+.github
+.next
+node_modules
+npm-debug.log*
+.env
+.env.local
+.env.*.local
+.env.production
+credentials.json
+service-account*.json
+.secrets
+coverage
+out
+dist
+*.tsbuildinfo
