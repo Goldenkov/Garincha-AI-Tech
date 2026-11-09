@@ -82,7 +82,7 @@ export default function HomePage() {
                 Открыть каталог
               </Link>
             </div>
-            <div className="grid gap-px overflow-hidden rounded-md border border-rule bg-rule sm:grid-cols-3">
+            <div className="grid divide-y divide-rule overflow-hidden rounded-md border border-rule bg-paper-raised sm:grid-cols-3 sm:divide-x sm:divide-y-0">
               {businessModelIds.map((id) => (
                 <div key={id} className="bg-paper-raised p-6" data-reveal>
                   <p className="font-display text-xl font-medium">{businessModels[id].title}</p>
