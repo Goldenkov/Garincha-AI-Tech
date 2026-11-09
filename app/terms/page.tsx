@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
 
-import { LegalPage } from "@/components/LegalPage";
+import { LegalPage } from "@/components/site/LegalPage";
 import { termsSections } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Условия предзаказа",
-  description: "Шаблонная структура условий предзаказа Бизнес Перезагрузка с AI.",
+  title: "Условия использования",
+  description: "Условия использования сервиса Бизнес Перезагрузка с AI.",
 };
 
 export default function TermsPage() {
   return (
     <LegalPage
-      eyebrow="Пользовательское соглашение"
-      title="Условия предзаказа"
-      description="Эта страница содержит шаблонную структуру условий ранней заявки и предзаказа. Финальная редакция должна быть подготовлена с учётом юридической модели продукта."
+      title="Условия использования"
+      lede="Что сервис делает и чего не обещает. Рабочая редакция до проверки юристом."
       sections={termsSections}
     />
   );

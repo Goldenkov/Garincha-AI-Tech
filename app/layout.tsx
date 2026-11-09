@@ -1,79 +1,79 @@
 import type { Metadata, Viewport } from "next";
+import { Golos_Text, Literata } from "next/font/google";
 import type { PropsWithChildren } from "react";
 
-import { MobileStickyCTA } from "@/components/MobileStickyCTA";
-import { PremiumBackground } from "@/components/PremiumBackground";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { businessRebootConfig } from "@/lib/business-reboot-content";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { brand } from "@/lib/brand";
 import { siteUrl } from "@/lib/site";
 
 import "./globals.css";
+
+const literata = Literata({
+  subsets: ["latin", "cyrillic"],
+  axes: ["opsz"],
+  variable: "--font-literata",
+  display: "swap",
+});
+
+const golos = Golos_Text({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-golos",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#020617",
+  themeColor: "#f4f1ea",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  applicationName: businessRebootConfig.publicName,
+  applicationName: brand.product,
   title: {
-    default: `${businessRebootConfig.publicName} | AI-комплект для бизнеса`,
-    template: `%s | ${businessRebootConfig.publicName}`,
+    default: `${brand.product} — от идеи к первому реальному шагу`,
+    template: `%s — ${brand.product}`,
   },
-  description: businessRebootConfig.description,
+  description: brand.description,
   openGraph: {
-    title: businessRebootConfig.publicName,
-    description: businessRebootConfig.description,
-    siteName: businessRebootConfig.publicName,
+    title: brand.product,
+    description: brand.description,
+    siteName: brand.product,
     type: "website",
     locale: "ru_RU",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: businessRebootConfig.publicName,
-    description: businessRebootConfig.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  formatDetection: {
-    telephone: false,
-  },
+  twitter: { card: "summary_large_image", title: brand.product, description: brand.description },
+  robots: { index: true, follow: true },
+  formatDetection: { telephone: false },
 };
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: businessRebootConfig.publicName,
+  name: brand.product,
   url: siteUrl,
-  description: businessRebootConfig.description,
+  description: brand.description,
   inLanguage: "ru-RU",
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="ru" className="dark scroll-smooth">
-      <body className="min-h-dvh bg-slate-950 font-sans text-slate-100 antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+    <html lang="ru" className={`${literata.variable} ${golos.variable}`}>
+      <body className="flex min-h-dvh flex-col">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <a
           href="#content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-cyan-300 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-paper"
         >
           Перейти к содержанию
         </a>
-        <PremiumBackground />
         <SiteHeader />
-        <div id="content">{children}</div>
+        <div id="content" className="flex-1">
+          {children}
+        </div>
         <SiteFooter />
-        <MobileStickyCTA />
       </body>
     </html>
   );

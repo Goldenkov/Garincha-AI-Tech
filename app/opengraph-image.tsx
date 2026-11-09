@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 
-import { businessRebootConfig } from "@/lib/business-reboot-content";
+import { brand } from "@/lib/brand";
 
-export const alt = businessRebootConfig.publicName;
+export const alt = brand.product;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,50 +16,17 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#050713",
-          color: "#f8fafc",
+          background: "#f4f1ea",
+          color: "#1c1b19",
           padding: "72px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 16,
-              border: "1px solid rgba(103,232,249,0.45)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#ecfeff",
-              fontSize: 20,
-              fontWeight: 800,
-            }}
-          >
-            AI
-          </div>
-          <div style={{ fontSize: 22, letterSpacing: "0.28em", color: "#67e8f9", textTransform: "uppercase" }}>
-            Premium AI toolkit
-          </div>
-        </div>
+        <div style={{ fontSize: 24, letterSpacing: "0.2em", textTransform: "uppercase" }}>Garincha AI-Tech</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 64, fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.04em", maxWidth: 980 }}>
-            {businessRebootConfig.publicName}
-          </div>
-          <div style={{ fontSize: 28, lineHeight: 1.4, color: "#94a3b8", maxWidth: 920 }}>
-            Соберите основу продвижения за 1–2 вечера: оффер, контент, скрипты, квиз, структуру лендинга и первые действия для проверки спроса.
-          </div>
+          <div style={{ fontSize: 26, letterSpacing: "0.16em", color: "#0e5d58", textTransform: "uppercase" }}>{brand.product}</div>
+          <div style={{ fontSize: 76, lineHeight: 1.05, letterSpacing: "-0.02em", maxWidth: 900 }}>Большая идея. Первый реальный шаг.</div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", color: "#64748b", fontSize: 22 }}>
-          <span>business-rebootai.ru</span>
-          <span>{businessRebootConfig.price}</span>
-        </div>
+        <div style={{ display: "flex", fontSize: 26, color: "#5c5850" }}>От выбора направления до плана проверки спроса — шаг за шагом.</div>
       </div>
     ),
     size,
