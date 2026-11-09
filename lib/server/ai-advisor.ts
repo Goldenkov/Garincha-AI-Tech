@@ -5,7 +5,7 @@ import { advisorJsonSchema, rankNiches, validateAdvisorOutput, type AdvisorResul
 import { businessModels } from "@/lib/domain/business-models";
 import { certaintyLevel, type StartupProfile } from "@/lib/domain/profile";
 import { getAiConfig, type AiConfig } from "@/lib/server/config";
-import { countAsService, insertAsService } from "@/lib/server/supabase";
+import { rpcAsService } from "@/lib/server/supabase";
 
 type Outcome = "ok" | "invalid_output" | "provider_error" | "timeout";
 
@@ -40,28 +40,32 @@ function profileBrief(profile: StartupProfile) {
   return JSON.stringify(known);
 }
 
-function startOfDayIso() {
-  const now = new Date();
-  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString();
+/**
+ * Takes one unit of the daily per-user and global budget in a single locked database call, so
+ * concurrent requests cannot overspend. Returns null when the budget is used up.
+ */
+async function reserveCall(config: AiConfig, userId: string) {
+  const id = await rpcAsService<number | null>("reserve_ai_call", {
+    p_user_id: userId,
+    p_kind: "advisor",
+    p_daily_per_user: config.dailyPerUser,
+    p_daily_global: config.dailyGlobal,
+  });
+  return typeof id === "number" ? id : null;
 }
 
-async function recordUsage(userId: string, outcome: Outcome, usage: { input?: number; output?: number }) {
-  await insertAsService("ai_usage", {
-    user_id: userId,
-    kind: "advisor",
-    outcome,
-    input_tokens: usage.input ?? 0,
-    output_tokens: usage.output ?? 0,
-  }).catch(() => console.error("[ai] usage accounting failed"));
-}
-
-async function withinBudget(config: AiConfig, userId: string) {
-  const since = encodeURIComponent(startOfDayIso());
-  const [mine, total] = await Promise.all([
-    countAsService("ai_usage", `user_id=eq.${encodeURIComponent(userId)}&created_at=gte.${since}`),
-    countAsService("ai_usage", `created_at=gte.${since}`),
-  ]);
-  return mine < config.dailyPerUser && total < config.dailyGlobal;
+/** A failure here leaves the reservation counted as used, which only ever under-spends. */
+async function finishCall(reservationId: number, outcome: Outcome, usage: { input?: number; output?: number }) {
+  try {
+    await rpcAsService("finish_ai_call", {
+      p_id: reservationId,
+      p_outcome: outcome,
+      p_input_tokens: usage.input ?? 0,
+      p_output_tokens: usage.output ?? 0,
+    });
+  } catch {
+    console.error("[ai] usage finalisation failed; the reservation stays counted");
+  }
 }
 
 export function isAiAdvisorEnabled() {
@@ -78,12 +82,15 @@ export async function adviseWithAi(profile: StartupProfile, userId: string): Pro
   const config = getAiConfig();
   if (!config) return fallback("AI-подбор не подключён. Показаны варианты по правилам каталога.");
 
+  let reservationId: number | null;
   try {
-    if (!(await withinBudget(config, userId))) {
-      return fallback("Дневной лимит AI-подбора исчерпан. Показаны варианты по правилам каталога.");
-    }
+    reservationId = await reserveCall(config, userId);
   } catch {
+    console.error("[ai] quota reservation failed; provider not called");
     return fallback("AI-подбор временно недоступен. Показаны варианты по правилам каталога.");
+  }
+  if (reservationId === null) {
+    return fallback("Дневной лимит AI-подбора исчерпан. Показаны варианты по правилам каталога.");
   }
 
   let outcome: Outcome = "provider_error";
@@ -130,6 +137,6 @@ export async function adviseWithAi(profile: StartupProfile, userId: string): Pro
     outcome = error instanceof Error && error.name === "TimeoutError" ? "timeout" : "provider_error";
     return fallback("AI-подбор не ответил. Показаны варианты по правилам каталога.");
   } finally {
-    await recordUsage(userId, outcome, usage);
+    await finishCall(reservationId, outcome, usage);
   }
 }

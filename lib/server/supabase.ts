@@ -111,20 +111,23 @@ export async function insertAsService(
   return "inserted";
 }
 
-export async function countAsService(table: string, filter: string): Promise<number> {
+/** Calls a service-role-only database function (AI quota). */
+export async function rpcAsService<T>(fn: string, args: Record<string, unknown>): Promise<T> {
   const config = requireSupabase();
   if (!config.serviceRoleKey) throw new StorageUnavailableError("service_role_not_configured");
-  const response = await timedFetch(`${config.url}/rest/v1/${table}?select=id&${filter}`, {
-    method: "HEAD",
+  const response = await timedFetch(`${config.url}/rest/v1/rpc/${fn}`, {
+    method: "POST",
     headers: {
       apikey: config.serviceRoleKey,
       Authorization: `Bearer ${config.serviceRoleKey}`,
-      Prefer: "count=exact",
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify(args),
   });
-  if (!response.ok) throw new StorageUnavailableError(`supabase_${response.status}`);
-  const range = response.headers.get("content-range") ?? "*/0";
-  return Number.parseInt(range.split("/")[1] ?? "0", 10) || 0;
+  if (response.status >= 500) throw new StorageUnavailableError(`supabase_${response.status}`);
+  if (!response.ok) throw await parseError(response);
+  const textBody = await response.text();
+  return (textBody ? JSON.parse(textBody) : null) as T;
 }
 
 // ---------------------------------------------------------------------------------------------
