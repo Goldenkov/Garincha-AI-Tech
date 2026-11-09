@@ -70,7 +70,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           Перейти к содержанию
         </a>
         <SiteHeader />
-        <div id="content" className="flex-1">
+        <div id="content" tabIndex={-1} className="flex-1 scroll-mt-[var(--header-h)] outline-none">
           {children}
         </div>
         <SiteFooter />
