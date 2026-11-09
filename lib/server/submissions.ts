@@ -13,7 +13,11 @@ export type DeliveryResult = {
   delivered: boolean;
   duplicate: boolean;
   channels: string[];
+  /** Telegram may or may not have accepted the message (timeout, network error, 5xx). */
+  unconfirmed: boolean;
 };
+
+type TelegramOutcome = "sent" | "rejected" | "unconfirmed";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iu;
@@ -26,44 +30,92 @@ export function isEmail(value: string) {
   return value.length <= 254 && emailPattern.test(value);
 }
 
-async function sendTelegram(title: string, lines: string[]) {
+/**
+ * A 2xx means Telegram posted the message and a 4xx means it refused it. A timeout, a network
+ * error or a 5xx can happen after the message was already posted, so those stay "unconfirmed".
+ */
+async function sendTelegram(text: string): Promise<TelegramOutcome | null> {
   const config = getTelegramConfig();
-  if (!config) return false;
+  if (!config) return null;
   try {
     const response = await fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: AbortSignal.timeout(8000),
-      body: JSON.stringify({ chat_id: config.chatId, text: [title, ...lines].join("\n"), disable_web_page_preview: true }),
+      body: JSON.stringify({ chat_id: config.chatId, text, disable_web_page_preview: true }),
     });
-    if (!response.ok) console.error(`[submission] telegram responded ${response.status}`);
-    return response.ok;
-  } catch {
-    console.error("[submission] telegram unreachable");
-    return false;
+    if (response.ok) return "sent";
+    console.error(`[submission] telegram responded ${response.status}`);
+    return response.status >= 500 ? "unconfirmed" : "rejected";
+  } catch (error) {
+    console.error(`[submission] telegram ${error instanceof Error && error.name === "TimeoutError" ? "timed out" : "unreachable"}`);
+    return "unconfirmed";
   }
 }
 
-/**
- * Stores the submission and notifies the team. Success means at least one channel confirmed
- * receipt. A retry with the same idempotency key is acknowledged without a second notification.
- * Payloads are never written to logs.
- */
-export async function deliverSubmission({
-  table,
-  idempotencyKey,
-  title,
-  row,
-  lines,
-}: {
+// Telegram has no idempotency of its own, so the outcome per idempotency key is remembered here.
+// Process memory matches the single-container deployment; after a restart or across several
+// instances a retry may notify twice (see docs/OPERATIONS.md). The database stays authoritative.
+const LEDGER_TTL_MS = 24 * 60 * 60 * 1000;
+const LEDGER_MAX_KEYS = 20_000;
+const telegramLedger = new Map<string, { outcome: "sent" | "unconfirmed"; at: number }>();
+const inFlight = new Map<string, Promise<DeliveryResult>>();
+
+function readLedger(key: string, now: number) {
+  const entry = telegramLedger.get(key);
+  if (entry && now - entry.at > LEDGER_TTL_MS) {
+    telegramLedger.delete(key);
+    return null;
+  }
+  return entry ?? null;
+}
+
+function writeLedger(key: string, outcome: "sent" | "unconfirmed", now: number) {
+  telegramLedger.delete(key);
+  telegramLedger.set(key, { outcome, at: now });
+  if (telegramLedger.size > LEDGER_MAX_KEYS) {
+    const oldest = telegramLedger.keys().next().value;
+    if (oldest) telegramLedger.delete(oldest);
+  }
+}
+
+export function resetDeliveryLedger() {
+  telegramLedger.clear();
+  inFlight.clear();
+}
+
+export function submissionReference(idempotencyKey: string) {
+  return idempotencyKey.replace(/-/gu, "").slice(0, 8).toUpperCase();
+}
+
+type DeliveryInput = {
   table: SubmissionTable;
   idempotencyKey: string;
   title: string;
   row: Record<string, unknown>;
   lines: string[];
-}): Promise<DeliveryResult> {
+};
+
+/**
+ * Stores the submission and notifies the team. Success means at least one channel confirmed
+ * receipt. Concurrent requests with one idempotency key share a single attempt; a confirmed
+ * Telegram notification is never repeated for that key. Delivery to Telegram is at-least-once:
+ * after an unconfirmed attempt a retry sends again, marked as a possible duplicate, and every
+ * message carries the submission reference so copies can be matched. Payloads are never logged.
+ */
+export function deliverSubmission(input: DeliveryInput): Promise<DeliveryResult> {
+  const key = `${input.table}:${input.idempotencyKey}`;
+  const running = inFlight.get(key);
+  if (running) return running;
+  const attempt = deliverOnce(input, key).finally(() => inFlight.delete(key));
+  inFlight.set(key, attempt);
+  return attempt;
+}
+
+async function deliverOnce({ table, idempotencyKey, title, row, lines }: DeliveryInput, ledgerKey: string): Promise<DeliveryResult> {
   const channels: string[] = [];
   let duplicate = false;
+  let unconfirmed = false;
 
   if (getSupabaseConfig()?.serviceRoleKey) {
     try {
@@ -75,10 +127,25 @@ export async function deliverSubmission({
     }
   }
 
-  if (!duplicate && (await sendTelegram(title, lines))) channels.push("telegram");
+  const previous = readLedger(ledgerKey, Date.now());
+  if (previous?.outcome === "sent") {
+    duplicate = true;
+    channels.push("telegram");
+  } else if (!duplicate) {
+    const header = previous?.outcome === "unconfirmed" ? ["Повторная отправка: прошлая попытка не подтвердилась, возможен дубль.", title] : [title];
+    const outcome = await sendTelegram([...header, ...lines, `Номер заявки: ${submissionReference(idempotencyKey)}`].join("\n"));
+    if (outcome === "sent") {
+      channels.push("telegram");
+      writeLedger(ledgerKey, "sent", Date.now());
+    } else if (outcome === "unconfirmed") {
+      unconfirmed = true;
+      writeLedger(ledgerKey, "unconfirmed", Date.now());
+    }
+  }
 
-  if (channels.length === 0) console.error(`[submission:${table}] not delivered: no channel accepted the submission`);
-  return { delivered: channels.length > 0, duplicate, channels };
+  const delivered = channels.length > 0;
+  if (!delivered) console.error(`[submission:${table}] not delivered: no channel confirmed the submission`);
+  return { delivered, duplicate, channels, unconfirmed: !delivered && unconfirmed };
 }
 
 type Prepared = { row: Record<string, unknown>; title: string; lines: string[] } | { error: string; field?: string };
@@ -103,6 +170,13 @@ export async function handleSubmission(request: Request, table: SubmissionTable,
 
     const key = typeof payload.idempotencyKey === "string" && uuidPattern.test(payload.idempotencyKey) ? payload.idempotencyKey : randomUUID();
     const result = await deliverSubmission({ table, idempotencyKey: key, ...prepared });
+    if (result.unconfirmed) {
+      return errorJson(
+        503,
+        "delivery_unconfirmed",
+        `Не удалось подтвердить, что заявка дошла. Можно отправить ещё раз: если первая попытка всё же дошла, мы получим две копии с номером ${submissionReference(key)} и учтём заявку один раз.`,
+      );
+    }
     if (!result.delivered) {
       return errorJson(503, "delivery_failed", "Не удалось отправить. Данные не сохранены — попробуйте ещё раз позже или напишите нам напрямую.");
     }

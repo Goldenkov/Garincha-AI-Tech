@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { sanitizeNextPath } from "@/lib/safe-redirect";
 import { rejectCrossSite } from "@/lib/server/http";
 import { rateLimit, resetRateLimits } from "@/lib/server/rate-limit";
-import { deliverSubmission, handleSubmission } from "@/lib/server/submissions";
+import { deliverSubmission, handleSubmission, resetDeliveryLedger } from "@/lib/server/submissions";
 
 describe("post-login redirect", () => {
   it.each([
@@ -46,6 +46,7 @@ describe("same-origin JSON guard", () => {
 describe("form delivery", () => {
   beforeEach(() => {
     resetRateLimits();
+    resetDeliveryLedger();
     vi.stubEnv("SUPABASE_URL", "");
     vi.stubEnv("SUPABASE_ANON_KEY", "");
     vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "");
@@ -83,10 +84,10 @@ describe("form delivery", () => {
   it("a failing channel is a failure, not a success", async () => {
     vi.stubEnv("TELEGRAM_BOT_TOKEN", "test-token");
     vi.stubEnv("TELEGRAM_LEADS_CHAT_ID", "1");
-    vi.stubGlobal("fetch", vi.fn(async () => new Response("bad", { status: 500 })));
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("bad", { status: 400 })));
     vi.spyOn(console, "error").mockImplementation(() => {});
     const result = await deliverSubmission({ table: "leads", idempotencyKey: crypto.randomUUID(), title: "t", row: {}, lines: [] });
-    expect(result).toEqual({ delivered: false, duplicate: false, channels: [] });
+    expect(result).toEqual({ delivered: false, duplicate: false, channels: [], unconfirmed: false });
   });
 
   it("honeypot submissions are dropped without delivery", async () => {
