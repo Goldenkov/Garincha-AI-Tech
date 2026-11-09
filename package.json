@@ -12,7 +12,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "sheets:test": "node --env-file=.env.local scripts/test-google-sheets.mjs"
+    "sheets:test": "node --env-file=.env.local scripts/test-google-sheets.mjs",
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "class-variance-authority": "latest",

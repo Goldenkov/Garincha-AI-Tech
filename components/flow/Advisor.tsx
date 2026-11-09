@@ -88,7 +88,7 @@ export function Advisor({ aiEnabled, signedIn, knownProfile }: Props) {
           {result.notice ? <p className="notice notice-amber mt-4">{result.notice}</p> : null}
           <ol className="mt-6 grid gap-6 lg:grid-cols-3">
             {result.options.map((option, index) => (
-              <li key={`${option.nicheId}-${option.businessModel}`} className="panel flex flex-col p-6">
+              <li key={`${option.nicheId}-${option.businessModel}`} data-advisor-option className="panel flex flex-col p-6">
                 <p className="text-sm text-muted">Вариант {index + 1}</p>
                 <h3 className="mt-1 font-display text-xl font-medium">{option.title}</h3>
                 <p className="mt-4 text-sm font-semibold">Почему подходит</p>
