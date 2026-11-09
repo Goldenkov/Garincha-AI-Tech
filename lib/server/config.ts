@@ -67,6 +67,15 @@ export function getAiConfig(): AiConfig | null {
   };
 }
 
+/**
+ * Number of reverse proxies in front of the app that write X-Forwarded-For. 0 (the default) means
+ * the header is ignored: without a proxy it is written by the client.
+ */
+export function getTrustedProxyHops() {
+  const parsed = Number.parseInt(process.env.TRUSTED_PROXY_HOPS ?? "", 10);
+  return Number.isInteger(parsed) && parsed >= 0 && parsed <= 5 ? parsed : 0;
+}
+
 export const sessionCookieNames = {
   access: "br_session",
   refresh: "br_refresh",

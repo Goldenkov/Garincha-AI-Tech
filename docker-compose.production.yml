@@ -12,6 +12,8 @@ services:
       NODE_ENV: production
       PORT: "3000"
       HOSTNAME: "0.0.0.0"
+      # Exactly one reverse proxy (deploy/nginx/business-rebootai.ru.conf) sits in front of the app.
+      TRUSTED_PROXY_HOPS: "1"
     ports:
       - "127.0.0.1:3200:3000"
     healthcheck:
