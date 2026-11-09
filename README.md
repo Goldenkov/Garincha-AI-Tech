@@ -1,40 +1,86 @@
-# Бизнес Перезагрузка с AI — MVP интерфейса
+# Бизнес Перезагрузка с AI — Garincha AI-Tech
 
-Next.js App Router MVP for a premium AI business toolkit interface and lead capture.
+Сервис ведёт от идеи к первому проверяемому шагу: выбор направления (своя идея, каталог или подбор), минимальный профиль, карточка гипотезы, подтверждение пользователем и первая проверка спроса. Дальше идут шаги запуска (часть — с PRO).
 
-## Development
+- Дизайн и движение: [`DESIGN.md`](DESIGN.md)
+- Эксплуатация, миграции, откат, резервные копии: [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
+
+## Стек
+
+Next.js 16 (App Router, `output: standalone`), React 19, TypeScript, Tailwind CSS v4, GSAP (ScrollTrigger) для сцены лендинга, Supabase (Auth по коду из письма + Postgres через REST). Пакетный менеджер — npm (`package-lock.json`).
+
+## Быстрый старт
 
 ```bash
-npm install
-npm run dev
+npm ci
+cp .env.example .env.local      # без Supabase работают публичные страницы, каталог и черновик
+npm run dev                     # http://localhost:3000
 ```
 
-Useful checks:
+Полный режим (вход, проекты, шаги) — локальный Supabase:
 
 ```bash
-npm run typecheck
-npm run lint
+supabase start                  # нужен Docker; применяет supabase/migrations
+supabase status                 # возьмите API URL, anon key, service_role key → .env.local
+```
+
+Письма с кодом входа локально приходят в Mailpit: http://127.0.0.1:54324.
+
+## Команды
+
+| Команда | Что делает |
+| --- | --- |
+| `npm run dev` | Dev-сервер |
+| `npm run build` / `npm start` | Production-сборка и запуск |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript без сборки |
+| `npm test` | Юнит-тесты (Vitest): гипотеза, советник, шаги, редиректы, лимиты, доставка форм |
+| `npm run test:integration` | Тесты базы на локальном Supabase: изоляция по UUID, RPC, гейт шагов, версии, конфликты, PRO-коды. Отказываются запускаться против не-локального URL |
+| `npm run test:e2e` | Playwright: путь «черновик → вход → сохранение → подтверждение → проверка спроса», ревизия гипотезы, чужой проект = 404, лендинг без JS и с reduced motion. Нужны dev-сервер и локальный Supabase. Браузер: `npx playwright install chromium` |
+
+## Как устроено
+
+| Область | Файлы |
+| --- | --- |
+| Лендинг и сцена | `app/page.tsx`, `components/landing/*` |
+| Входы и мастер | `app/start/*`, `components/flow/*`, `components/start/EntryRows.tsx` |
+| Каталог | `lib/catalog.ts`, `app/niches/*` — только три модели: услуги, торговля, производство на заказ |
+| Гипотеза (домен) | `lib/domain/hypothesis.ts` — обязательные поля, классификация изменений, разбор ввода |
+| Шаги | `lib/steps.ts`, `lib/domain/journey-state.ts`; гейт дублируется в базе (`public._step_gate`) |
+| Личный кабинет | `app/projects`, `app/startup/[id]/*`, `app/account`, `components/app/*` |
+| Сервер | `lib/server/*`: сессия (`session.ts`), доступ к данным токеном пользователя (`projects.ts`), формы (`submissions.ts`), AI (`ai-advisor.ts`), лимиты |
+| Проверка сессии | `proxy.ts` (Next 16): обновляет токен, закрывает `/projects`, `/startup`, `/account` |
+| База | `supabase/migrations/*` |
+
+Ключевые правила:
+
+- Черновик без входа хранится только в браузере. В аккаунт он переносится лишь после явного «Сохранить в аккаунт».
+- Подтверждение гипотезы — это решение пользователя («это гипотеза, а не доказанный спрос»). Оно открывает первую проверку спроса. Существенная правка подтверждённой гипотезы создаёт новую версию, а результаты шагов помечаются «проверить».
+- Проекты читаются и пишутся токеном пользователя. RLS разрешает только своё, запись идёт только через RPC с проверкой владельца. Чужой UUID → 404.
+- PRO — персональные коды с хэшем, сроком и отзывом. Общего кода нет.
+- AI-советник выключен по умолчанию и запускается только по кнопке. Вариантов не больше трёх, каждый с объяснением. Ответ проверяется по контракту, при сбое работает подбор по правилам.
+- Формы заявок отвечают успехом, только если база или Telegram подтвердили приём. Есть идемпотентность, honeypot и лимит частоты.
+
+## Производительность
+
+Production-сборка (`next build && next start`), Chromium 158, кэш выключен, медиана трёх прогонов, 2026-11-09:
+
+| Условия | Страница | LCP | CLS | TBT | JS (transfer) |
+| --- | --- | --- | --- | --- | --- |
+| Десктоп 1440×900, без ограничений | `/` | 0.10 s | 0 | 0 ms | 200 KB |
+| Мобильный 390×844, CPU 4×, 9 Мбит/с, RTT 170 мс | `/` | 0.62 s | 0 | 126 ms | 197 KB |
+| То же | `/niches` | 0.61 s | 0 | 45 ms | 153 KB |
+| То же | `/start/idea` | 0.64 s | 0 | 48 ms | 170 KB |
+
+CSS ≈ 11 KB, шрифты ≈ 228 KB (обоснование — в DESIGN.md), HTML лендинга ≈ 13 KB. Замер локальный: сеть до сервера эмулирована, реальный хостинг добавит свою задержку.
+
+## Проверка на секреты
+
+```bash
 npm run build
+rg -l "service_role|SUPABASE_SERVICE|TELEGRAM_BOT|AI_API_KEY" .next/static   # должно быть пусто
 ```
 
-## Where to edit
+## Деплой
 
-- Main product, section, FAQ, legal and partner texts: `lib/content.ts`
-- Main landing composition: `app/page.tsx`
-- Partner page: `app/partners/page.tsx`
-- Legal pages: `app/privacy/page.tsx`, `app/terms/page.tsx`
-- English placeholders: `app/en/page.tsx`, `app/en/partners/page.tsx`
-
-## Form delivery
-
-Lead, partner and feedback forms POST to `/api/leads`, `/api/partners` and `/api/feedback`. Delivery is best-effort:
-
-- optional Supabase insert via `SUPABASE_SERVICE_ROLE_KEY`
-- optional Telegram notification via `TELEGRAM_BOT_TOKEN` and `TELEGRAM_LEADS_CHAT_ID`
-
-If neither channel is configured, the API still accepts a valid submission and writes it to server logs.
-
-## Future integrations
-
-- Replace the 3D-like placeholder in `components/ProductBoxVisual.tsx` with a future `SplineScene` component.
-- Add analytics and payment scripts in `app/layout.tsx` or route-level components when production services are selected.
+`Dockerfile` + `docker-compose.production.yml` (один контейнер, порт 3200 на localhost за обратным прокси). Перед первым деплоем: выбрать хранилище и регион, применить миграции, настроить SMTP в Supabase Auth, задать переменные из `.env.example` — см. `docs/OPERATIONS.md`.

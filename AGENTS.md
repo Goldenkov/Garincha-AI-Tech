@@ -2,11 +2,16 @@
 
 ## Cursor Cloud specific instructions
 
-This is a single Next.js (App Router) + TypeScript + Tailwind CSS v4 web app (`business-reboot-ai`), a Russian-language marketing/lead-capture landing site with a gated "PRO" content area. Package manager is **npm** (`package-lock.json`).
+This is a single Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 web app (`business-reboot-ai`): a Russian-language product that takes a user from an idea to a confirmed business hypothesis and a first demand check, with per-user projects stored in Supabase. Package manager is **npm** (`package-lock.json`).
 
-Standard commands live in `package.json` and `README.md`: `npm run dev` (port 3000), `npm run build`, `npm run lint`, `npm run typecheck`.
+Standard commands live in `package.json` and `README.md`: `npm run dev` (port 3000), `npm run build`, `npm run lint`, `npm run typecheck`, `npm test`, `npm run test:integration`, `npm run test:e2e`. Design rules: `DESIGN.md`. Operations, migrations and rollback: `docs/OPERATIONS.md`.
 
 Non-obvious notes:
-- **PRO access gate**: `middleware.ts` gates `/journey`, `/launch-kit`, `/dashboard`; unauthenticated requests redirect to `/access`. To unlock in dev, submit the access code on the `/access` page (or POST it to `/api/verify-access`). `PRO_ACCESS_CODE` is optional in dev — it falls back to `change-me-before-production`; it is **required in production** (the verify route returns 503 if unset and `NODE_ENV=production`). Env vars are documented in `.env.example`; no `.env` file is needed to run/test in dev.
-- **Form delivery**: lead, partner and feedback forms POST to `/api/leads`, `/api/partners` and `/api/feedback`. `lib/server/submissions.ts` delivers best-effort to optional Supabase and Telegram. Missing channels do not fail the request; the payload is logged instead.
-- Public pages are statically rendered. Server routes: `/api/verify-access`, `/api/logout`, `/api/leads`, `/api/partners`, `/api/feedback`.
+- **Local Supabase is needed for sign-in, projects and steps.** Public pages, the catalog and the anonymous draft work without it. Start it with the Supabase CLI (`supabase start`, needs Docker). In this VM Docker needs `sudo`, so run `sudo env PATH=$PATH supabase start`. If containers cannot reach each other, run `sudo iptables-legacy -P FORWARD ACCEPT`. Put `SUPABASE_URL=http://127.0.0.1:54321`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` from `supabase status` into `.env.local` (git-ignored).
+- **Login codes** arrive in Mailpit at http://127.0.0.1:54324 (API: `/api/v1/search?query=to:<email>`). E2E tests read codes from there.
+- **Production URL rule**: when `NODE_ENV=production`, an `http://` `SUPABASE_URL` is treated as "not configured". So `next start` against the local stack shows private pages as unavailable. Use `npm run dev` for full flows.
+- **Request interceptor** is `proxy.ts` (Next 16 replaced `middleware.ts`). It refreshes the session and redirects `/projects`, `/startup/*` and `/account` to `/login?next=…`.
+- **Form delivery**: `/api/leads`, `/api/partners`, `/api/feedback` succeed only if the database (service role) or Telegram confirmed receipt. Otherwise they return 503. Nothing is logged with payloads.
+- **PRO** uses individual codes. Issue them with `node --env-file=.env.local scripts/access-codes.mjs issue --days 30`. The shared `PRO_ACCESS_CODE` and `/access` are gone (`/access` redirects to `/account`).
+- `npm run test:integration` refuses to run unless `SUPABASE_URL` is a localhost URL.
+- `next dev` rewrites `next-env.d.ts` (`.next/dev/types`); do not commit that change.
