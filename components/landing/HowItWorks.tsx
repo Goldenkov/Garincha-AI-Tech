@@ -7,19 +7,19 @@ import { exampleHypothesis } from "@/lib/example";
 const steps = [
   {
     title: "Идея становится гипотезой",
-    text: "Записываете мысль как есть — мы раскладываем её на понятные поля: кто клиент, какую задачу решаете, как зарабатываете.",
+    text: "Мысль как есть раскладывается на поля: кто клиент, какую задачу решаете, как зарабатываете.",
   },
   {
     title: "Главное видно сразу",
-    text: "Клиент, задача и непроверенное предположение выделены. Всё, что пока не подтверждено, так и подписано.",
+    text: "Клиент и задача выделены. Непроверенное предположение так и подписано.",
   },
   {
     title: "Предположение связано с проверкой",
-    text: "Самое рискованное предположение превращается в конкретный тест спроса: кого спросить, сколько людей, какой ответ считать сигналом.",
+    text: "Самое рискованное допущение становится тестом: кого спросить, сколько людей, какой ответ считать сигналом.",
   },
   {
     title: "Следующий шаг и честный выбор",
-    text: "Вы проводите проверку и решаете сами: продолжать, изменить гипотезу или остановиться — до вложений.",
+    text: "После проверки решаете сами: продолжать, изменить гипотезу или остановиться — до вложений.",
   },
 ];
 
@@ -44,16 +44,12 @@ export function HowItWorks() {
       const q = gsap.utils.selector(section);
       const captions = q<HTMLElement>("[data-step]");
       const rail = q<HTMLElement>("[data-rail-fill]")[0];
-      const line = q<SVGPathElement>("[data-link-line]")[0];
-
       const setActive = (phase: number) => {
         captions.forEach((caption, index) => caption.toggleAttribute("data-active", index === Math.max(phase, 1) - 1));
         section.dataset.phase = String(phase);
       };
 
       const build = () => {
-        const length = line.getTotalLength();
-        gsap.set(line, { strokeDasharray: length });
         const tl = gsap.timeline({ defaults: { ease: "power2.out", duration: 1 } });
         tl.addLabel("idea", 0)
           .from(q("[data-layer=idea]"), { xPercent: 9, yPercent: 14, rotate: 2.5, scale: 1.05, opacity: 1 }, 0)
@@ -62,8 +58,8 @@ export function HowItWorks() {
           .from(q("[data-hl]"), { scaleX: 0, transformOrigin: "0% 50%", stagger: 0.35, duration: 0.6 }, "card")
           .from(q("[data-hl-label]"), { color: "var(--color-ink)", stagger: 0.35, duration: 0.6 }, "card")
           .addLabel("focus", 2.4)
-          .from(line, { strokeDashoffset: length, duration: 0.8, ease: "none" }, "focus")
-          .from(q("[data-layer=check]"), { autoAlpha: 0, xPercent: 10, duration: 0.7 }, "focus+=0.5")
+          .from(q("[data-layer=check]"), { autoAlpha: 0, y: 14, duration: 0.6 }, "focus+=0.2")
+          .from(q("[data-link]"), { scaleY: 0, transformOrigin: "50% 0%", duration: 0.6, ease: "none" }, "focus")
           .addLabel("check", 3.6)
           .from(q("[data-layer=action]"), { autoAlpha: 0, yPercent: 30, duration: 0.6 }, "check")
           .from(q("[data-choice]"), { autoAlpha: 0, y: 8, stagger: 0.15, duration: 0.4 }, "check+=0.35")
@@ -73,7 +69,7 @@ export function HowItWorks() {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
         section.dataset.motion = "scrub";
         const tl = build();
         const header = document.querySelector("header");
@@ -103,7 +99,7 @@ export function HowItWorks() {
         };
       });
 
-      mm.add("(max-width: 767.98px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add("(max-width: 1023.98px) and (prefers-reduced-motion: no-preference)", () => {
         section.dataset.motion = "steps";
         const tl = build().pause(0);
         const go = (phase: number) => {
@@ -113,8 +109,8 @@ export function HowItWorks() {
         captions.forEach((caption, index) => {
           ScrollTrigger.create({
             trigger: caption,
-            start: "top 62%",
-            end: "bottom 62%",
+            start: "top 82%",
+            end: "bottom 82%",
             onEnter: () => go(index + 1),
             onEnterBack: () => go(index + 1),
             onLeaveBack: index === 0 ? () => go(0) : undefined,
@@ -143,23 +139,23 @@ export function HowItWorks() {
         <div className="how-grid mx-auto w-full max-w-[76rem] px-5 sm:px-8 lg:px-12">
           <div className="how-copy">
             <p className="eyebrow">Как это работает</p>
-            <h2 id="how-title" className="title mt-3 max-w-[18ch]">
+            <h2 id="how-title" className="title mt-3 max-w-[20ch]">
               От мысли «а что, если…» до первого теста
             </h2>
-            <div className="relative mt-8 md:mt-10">
-              <div aria-hidden="true" className="how-rail absolute left-[0.7rem] top-2 bottom-2 w-px bg-rule max-md:hidden">
+            <div className="relative mt-8 lg:mt-10">
+              <div aria-hidden="true" className="how-rail absolute left-[0.7rem] top-2 bottom-2 w-px bg-rule max-lg:hidden">
                 <div data-rail-fill className="h-full w-full origin-top bg-teal" />
               </div>
-              <ol className="space-y-0 md:space-y-6">
+              <ol className="space-y-0 lg:space-y-5">
                 {steps.map((step, index) => (
-                  <li key={step.title} data-step className="how-step md:pl-12">
-                    <p className="flex items-baseline gap-3 font-display text-[1.25rem] font-medium leading-snug md:block">
-                      <span className="how-step-index text-sm font-sans font-semibold text-teal md:absolute md:left-0 md:mt-1 md:flex md:size-6 md:items-center md:justify-center md:rounded-full md:bg-paper md:text-xs md:ring-1 md:ring-rule">
+                  <li key={step.title} data-step className="how-step lg:pl-12">
+                    <p className="flex items-baseline gap-3 font-display text-[1.25rem] font-medium leading-snug lg:block">
+                      <span className="how-step-index text-sm font-sans font-semibold text-teal lg:absolute lg:left-0 lg:mt-1 lg:flex lg:size-6 lg:items-center lg:justify-center lg:rounded-full lg:bg-paper lg:text-xs lg:ring-1 lg:ring-rule">
                         {index + 1}
                       </span>
                       {step.title}
                     </p>
-                    <p className="mt-2 max-w-[38ch] text-[0.98rem] leading-relaxed text-ink-soft">{step.text}</p>
+                    <p className="mt-1.5 max-w-[44ch] text-[0.98rem] leading-relaxed text-ink-soft">{step.text}</p>
                   </li>
                 ))}
               </ol>
@@ -176,12 +172,13 @@ export function HowItWorks() {
 
 function SceneStage() {
   const rows = [
-    { label: "Для кого", text: exampleHypothesis.targetCustomer },
-    { label: "Задача клиента", text: exampleHypothesis.customerProblem },
-    { label: "Предположение", text: exampleHypothesis.assumptions[1] },
+    { label: "Для кого", text: exampleHypothesis.targetCustomer, risky: false },
+    { label: "Задача клиента", text: exampleHypothesis.customerProblem, risky: false },
+    { label: "Предположение", text: exampleHypothesis.assumptions[1], risky: true },
   ];
   return (
     <div className="how-stage" aria-hidden="true">
+      <div className="stage-inner">
       <div data-layer="idea" className="stage-idea">
         <p className="stage-note-label">Заметка</p>
         <p className="stage-note">{exampleHypothesis.ideaNote}</p>
@@ -194,7 +191,7 @@ function SceneStage() {
         <p className="stage-card-title">{exampleHypothesis.title}</p>
         <dl className="stage-rows">
           {rows.map((row) => (
-            <div key={row.label} className="stage-row">
+            <div key={row.label} className="stage-row" data-risky={row.risky || undefined}>
               <dt data-hl-label>{row.label}</dt>
               <dd>
                 <span data-hl className="stage-hl" />
@@ -206,11 +203,8 @@ function SceneStage() {
         <p className="stage-status">○ Спрос ещё не проверен</p>
       </div>
 
-      <svg className="stage-line" viewBox="0 0 100 110" preserveAspectRatio="none">
-        <path data-link-line d="M 74 52 C 86 54, 88 60, 80 64" vectorEffect="non-scaling-stroke" />
-      </svg>
-
       <div data-layer="check" className="stage-check">
+        <span data-link className="stage-link" />
         <p className="stage-check-kicker">Проверка спроса</p>
         <p className="stage-check-main">{exampleHypothesis.validation.count} интервью</p>
         <p className="stage-check-text">Сигнал «да»: {exampleHypothesis.validation.successSignal.toLowerCase()}</p>
@@ -223,6 +217,7 @@ function SceneStage() {
           <span data-choice>Изменить гипотезу</span>
           <span data-choice>Остановиться</span>
         </div>
+      </div>
       </div>
     </div>
   );

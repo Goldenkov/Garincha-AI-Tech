@@ -451,8 +451,12 @@ label {
   position: relative;
   container-type: inline-size;
   width: min(100%, 34rem);
-  aspect-ratio: 10 / 11;
-  font-size: clamp(10px, 2.55cqw, 15px);
+}
+
+.stage-inner {
+  position: relative;
+  padding-top: 3.2em;
+  font-size: clamp(10px, 2.75cqw, 15px);
   line-height: 1.35;
 }
 
@@ -465,13 +469,13 @@ label {
   opacity: 0.4;
 }
 
-.how-scene[data-motion] .how-step[data-active] .how-step-index {
-  background: var(--color-teal);
-  color: #fff;
-  --tw-ring-color: var(--color-teal);
-}
+@media (min-width: 1024px) {
+  .how-scene[data-motion] .how-step[data-active] .how-step-index {
+    background: var(--color-teal);
+    color: #fff;
+    --tw-ring-color: var(--color-teal);
+  }
 
-@media (min-width: 768px) {
   .how-pin {
     min-height: calc(100svh - var(--header-h));
     display: flex;
@@ -486,13 +490,36 @@ label {
   }
 
   .how-stage {
-    width: min(100%, calc((100svh - var(--header-h) - 5rem) * 10 / 11), 36rem);
+    width: min(100%, calc((100svh - var(--header-h) - 4rem) / 1.42), 36rem);
   }
 }
 
-@media (max-width: 767.98px) {
+@media (min-width: 1024px) and (max-height: 820px) {
+  .how-pin {
+    padding-block: 1.25rem;
+  }
+
+  .how-copy > h2 {
+    font-size: 2.15rem;
+    max-width: 24ch;
+  }
+
+  .how-copy .how-step:not(:last-child) {
+    margin-block-end: 0.9rem;
+  }
+
+  .how-copy .how-step > p + p {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 1023.98px) {
   .how-grid {
     gap: 0;
+  }
+
+  .how-scene {
+    background: var(--color-paper);
   }
 
   .how-stage-wrap {
@@ -501,6 +528,10 @@ label {
     padding-bottom: 1rem;
     background: var(--color-paper);
     z-index: 2;
+  }
+
+  .how-scene[data-motion] .how-stage-wrap {
+    box-shadow: 0 1px 0 var(--color-rule);
   }
 
   .how-copy {
@@ -522,13 +553,16 @@ label {
   }
 
   .how-stage {
-    width: min(100%, calc(52svh * 10 / 12));
-    aspect-ratio: 10 / 12;
-    font-size: clamp(10.5px, 3.3cqw, 14px);
+    width: min(100%, 28rem);
+  }
+
+  .stage-inner {
+    padding-top: 2.6em;
+    font-size: clamp(10px, 3.2cqw, 13px);
   }
 
   .how-scene[data-motion] .how-step {
-    min-height: 48svh;
+    min-height: 42svh;
     padding-top: 1.5rem;
   }
 
@@ -542,7 +576,7 @@ label {
 .stage-card,
 .stage-check,
 .stage-action {
-  position: absolute;
+  position: relative;
   background: var(--color-paper-raised);
   box-shadow: var(--shadow-paper);
   border-radius: 3px;
@@ -550,8 +584,9 @@ label {
 }
 
 .stage-idea {
+  position: absolute;
   left: 2%;
-  top: 1%;
+  top: 0;
   width: 62%;
   padding: 4cqw 5cqw 6cqw;
   transform: rotate(-4deg);
@@ -594,9 +629,8 @@ label {
 }
 
 .stage-card {
-  left: 13%;
-  top: 9%;
-  width: 66%;
+  margin-left: 12%;
+  width: 72%;
   padding: 4.5cqw 5cqw 4cqw;
   z-index: 2;
 }
@@ -622,7 +656,7 @@ label {
 
 .stage-row {
   display: grid;
-  grid-template-columns: 34% 1fr;
+  grid-template-columns: 8.6em minmax(0, 1fr);
   gap: 0.8em;
   padding-block: 0.7em;
   border-bottom: 1px solid var(--color-rule);
@@ -646,36 +680,44 @@ label {
   border-radius: 2px;
 }
 
+.stage-row[data-risky] .stage-hl {
+  background: var(--color-amber-soft);
+  box-shadow: inset 2px 0 0 var(--color-amber);
+}
+
 .stage-status {
   margin-top: 0.9em;
   font-size: 0.86em;
   color: var(--color-muted);
 }
 
-.stage-line {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.stage-line path {
-  fill: none;
-  stroke: var(--color-teal);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
 .stage-check {
-  left: 55%;
-  top: 60%;
-  width: 41%;
+  margin-top: 2.2em;
+  margin-left: 40%;
+  width: 52%;
   padding: 3.4cqw 4cqw;
   border-top: 3px solid var(--color-teal);
   z-index: 4;
+}
+
+.stage-link {
+  position: absolute;
+  left: 1.6em;
+  bottom: calc(100% + 3px);
+  height: calc(2.2em + 3px);
+  width: 2px;
+  background: var(--color-teal);
+}
+
+.stage-link::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-teal);
 }
 
 .stage-check-kicker {
@@ -701,8 +743,8 @@ label {
 }
 
 .stage-action {
-  left: 4%;
-  bottom: 1.5%;
+  margin-top: 1.2em;
+  margin-left: 4%;
   width: 92%;
   padding: 3cqw 4cqw;
   background: var(--color-ink);
@@ -734,31 +776,46 @@ label {
   border-color: var(--color-teal);
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 1023.98px) {
   .stage-idea {
     width: 74%;
   }
 
   .stage-card {
-    left: 4%;
-    top: 7%;
-    width: 84%;
+    margin-left: 4%;
+    width: 88%;
   }
 
   .stage-row {
-    grid-template-columns: 1fr;
-    gap: 0.15em;
+    grid-template-columns: 9.2em minmax(0, 1fr);
+    gap: 0.6em;
     padding-block: 0.5em;
   }
 
+  .stage-row dd > span:last-child,
+  .stage-check-text {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stage-card-title {
+    font-size: 1.6em;
+  }
+
   .stage-check {
-    left: 46%;
-    top: 63%;
-    width: 50%;
+    margin-top: 1.6em;
+    margin-left: 30%;
+    width: 66%;
+  }
+
+  .stage-link {
+    height: calc(1.6em + 3px);
   }
 
   .stage-action {
-    left: 2%;
+    margin-left: 2%;
     width: 96%;
   }
 }
