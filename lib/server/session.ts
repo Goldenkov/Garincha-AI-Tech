@@ -24,14 +24,19 @@ export function sessionCookieOptions(maxAge: number) {
 
 type CookieWriter = { set: (name: string, value: string, options: ReturnType<typeof sessionCookieOptions>) => unknown };
 
+/** Non-sensitive UI hint (no token inside) so static pages can label the account link. */
+const SIGNED_IN_HINT = "br_signed_in";
+
 export function writeSessionCookies(target: CookieWriter, session: AuthSession) {
   target.set(sessionCookieNames.access, session.accessToken, sessionCookieOptions(Math.max(60, session.expiresIn)));
   target.set(sessionCookieNames.refresh, session.refreshToken, sessionCookieOptions(REFRESH_COOKIE_MAX_AGE));
+  target.set(SIGNED_IN_HINT, "1", { ...sessionCookieOptions(REFRESH_COOKIE_MAX_AGE), httpOnly: false });
 }
 
 export function clearSessionCookies(target: CookieWriter) {
   target.set(sessionCookieNames.access, "", sessionCookieOptions(0));
   target.set(sessionCookieNames.refresh, "", sessionCookieOptions(0));
+  target.set(SIGNED_IN_HINT, "", { ...sessionCookieOptions(0), httpOnly: false });
 }
 
 /**
@@ -39,8 +44,8 @@ export function clearSessionCookies(target: CookieWriter) {
  * (cached per render), so a revoked or expired token is never trusted from the cookie alone.
  */
 export const getViewer = cache(async (): Promise<ViewerSession | null> => {
-  if (!getSupabaseConfig()) return null;
   const store = await cookies();
+  if (!getSupabaseConfig()) return null;
   const accessToken = store.get(sessionCookieNames.access)?.value;
   if (!accessToken) return null;
   try {

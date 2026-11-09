@@ -73,6 +73,7 @@ export async function proxy(request: NextRequest) {
       response = NextResponse.next({ request: { headers: request.headers } });
       response.cookies.set(ACCESS_COOKIE, "", cookieOptions(0));
       response.cookies.set(REFRESH_COOKIE, "", cookieOptions(0));
+      response.cookies.set("br_signed_in", "", { ...cookieOptions(0), httpOnly: false });
     } else {
       // Auth server unreachable: let the page render its own "storage unavailable" state.
       hasSession = Boolean(access);

@@ -1,25 +1,3 @@
-export type MissionInput = string;
-
-export type MissionChecklistItem = string;
-
-export type MissionExample = {
-  offer: string;
-  objections: string[];
-  quiz: string[];
-  content: string[];
-};
-
-export type MissionPrompt = {
-  template: string;
-};
-
-export type MissionDetail = {
-  goal: string;
-  inputs: MissionInput[];
-  prompt: MissionPrompt;
-  checklist: MissionChecklistItem[];
-};
-
 export type Mission = {
   id: string;
   stage: number;
@@ -29,18 +7,9 @@ export type Mission = {
   time: string;
   expectedResult: string;
   goal: string;
-  inputs: MissionInput[];
+  inputs: string[];
   promptTemplate: string;
-  checklist: MissionChecklistItem[];
-  xpLabel: string;
-  badge: string;
-};
-
-export type ReadinessLevel = {
-  min: number;
-  max: number;
-  label: string;
-  description: string;
+  checklist: string[];
 };
 
 export const missions: Mission[] = [
@@ -61,8 +30,6 @@ export const missions: Mission[] = [
       "Я зафиксировал текущий канал заявок",
       "Я выбрал первый фокус продвижения",
     ],
-    xpLabel: "+10 к ясности бизнеса",
-    badge: "Бриф собран",
   },
   {
     id: "offer-packaging",
@@ -82,8 +49,6 @@ export const missions: Mission[] = [
       "Я подготовил 1–2 варианта оффера",
       "Я понимаю, где использовать оффер",
     ],
-    xpLabel: "+15 к ясности оффера",
-    badge: "Оффер готов",
   },
   {
     id: "content-boost",
@@ -102,8 +67,6 @@ export const missions: Mission[] = [
       "Я получил 7 тем контента",
       "Я отметил первую тему для публикации",
     ],
-    xpLabel: "+15 к контент-системе",
-    badge: "Контент запущен",
   },
   {
     id: "contact-scripts",
@@ -122,8 +85,6 @@ export const missions: Mission[] = [
       "Я добавил уточняющие вопросы",
       "Я убрал давление и лишние обещания",
     ],
-    xpLabel: "+10 к структуре контакта",
-    badge: "Скрипт готов",
   },
   {
     id: "objection-battle",
@@ -142,8 +103,6 @@ export const missions: Mission[] = [
       "Я добавил факты или пояснения",
       "Я не использую давление и манипуляции",
     ],
-    xpLabel: "+15 к устойчивости продаж",
-    badge: "Возражения разобраны",
   },
   {
     id: "quiz-lead",
@@ -162,8 +121,6 @@ export const missions: Mission[] = [
       "Я добавил вопросы для оценки задачи",
       "Я понимаю, как использовать ответы клиента",
     ],
-    xpLabel: "+20 к качеству заявок",
-    badge: "Квиз собран",
   },
   {
     id: "landing-route",
@@ -182,8 +139,6 @@ export const missions: Mission[] = [
       "Я добавил оффер и CTA",
       "Я подготовил FAQ и блок доверия",
     ],
-    xpLabel: "+20 к структуре продаж",
-    badge: "Лендинг собран",
   },
   {
     id: "market-signals",
@@ -202,8 +157,6 @@ export const missions: Mission[] = [
       "Я подготовил таблицу или список фиксации",
       "Я знаю следующий шаг после реакции",
     ],
-    xpLabel: "+15 к готовности проверки",
-    badge: "Первые сигналы получены",
   },
   {
     id: "launch-check",
@@ -223,14 +176,6 @@ export const missions: Mission[] = [
       "План действий понятен",
       "Слабые места зафиксированы",
     ],
-    xpLabel: "+25 к готовности запуска",
-    badge: "Готов к запуску",
   },
 ];
 
-export const launchReadinessLevels: ReadinessLevel[] = [
-  { min: 0, max: 30, label: "Нужна база", description: "Сначала соберите бриф, оффер и первые вводные." },
-  { min: 31, max: 60, label: "Маршрут собран", description: "Основа появилась, но не хватает ключевых блоков проверки." },
-  { min: 61, max: 85, label: "Почти готово", description: "Есть база для первого теста, осталось закрыть слабые места." },
-  { min: 86, max: 100, label: "Можно делать первый запуск", description: "Маршрут собран достаточно, чтобы переходить к проверке спроса." },
-];

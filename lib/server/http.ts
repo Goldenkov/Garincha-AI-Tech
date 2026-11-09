@@ -75,6 +75,7 @@ export function handleRouteError(error: unknown) {
     return errorJson(503, "storage_unavailable", "Хранилище временно недоступно. Изменения не сохранены — попробуйте ещё раз.");
   }
   if (error instanceof DatabaseError) {
+    if (error.code === "23505") return errorJson(409, "conflict", databaseMessages.conflict[1]);
     const key = Object.keys(databaseMessages).find((name) => error.message === name || error.message.startsWith(`${name}:`));
     if (key) {
       const [status, message] = databaseMessages[key];
