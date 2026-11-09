@@ -20,11 +20,12 @@ export function AccountLink() {
     () => false,
   );
   return signedIn ? (
-    <Link href="/projects" className="rounded px-2 py-2 font-medium text-ink hover:text-teal">
-      Мои проекты
+    <Link href="/projects" className="rounded px-1.5 py-2 font-medium text-ink hover:text-teal min-[400px]:px-2">
+      <span className="max-[399.98px]:hidden">Мои проекты</span>
+      <span className="min-[400px]:hidden">Проекты</span>
     </Link>
   ) : (
-    <Link href="/login" className="rounded px-2 py-2 text-ink hover:text-teal">
+    <Link href="/login" className="rounded px-1.5 py-2 text-ink hover:text-teal min-[400px]:px-2">
       Войти
     </Link>
   );

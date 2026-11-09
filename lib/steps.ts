@@ -190,13 +190,19 @@ export function buildMissionPrompt(mission: Mission, nicheId: string | null, con
   ].join("\n");
 }
 
+function asClause(text: string) {
+  const trimmed = text.trim().replace(/[.!?…]+$/u, "");
+  // Keep acronyms («IT», «ИП») intact; lower-case only an ordinary capitalised first word.
+  return /^[A-ZА-ЯЁ][a-zа-яё]/u.test(trimmed) ? trimmed.charAt(0).toLowerCase() + trimmed.slice(1) : trimmed;
+}
+
 export function buildInterviewGuide(context: { customer: string; problem: string }) {
   return [
-    `Расскажите, когда вы в последний раз сталкивались с этим: ${context.problem || "[задача клиента]"}?`,
+    `Когда вы в последний раз сталкивались с тем, что ${context.problem ? asClause(context.problem) : "[задача клиента]"}? Расскажите, как это было.`,
     "Как вы решали эту задачу? Что получилось, а что нет?",
     "Сколько времени и денег это заняло?",
     "Что было самым неудобным?",
     "Искали ли вы другие варианты? Почему остановились на выбранном?",
-    `Кого ещё из ваших знакомых стоит спросить? (${context.customer || "похожие люди"})`,
+    `Кого ещё стоит спросить? Подойдут ${context.customer ? asClause(context.customer) : "люди в похожей ситуации"}.`,
   ];
 }

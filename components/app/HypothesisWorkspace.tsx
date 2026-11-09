@@ -214,8 +214,8 @@ export function HypothesisWorkspace({ startupId, current, approved, history, fla
         </section>
       </div>
 
-      <aside className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
-        <div className="panel space-y-4 p-5">
+      <aside className="max-lg:contents lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
+        <div className="panel space-y-4 p-5 max-lg:sticky max-lg:bottom-0 max-lg:z-10 max-lg:-mx-5 max-lg:space-y-3 max-lg:rounded-none max-lg:border-x-0 max-lg:border-b-0 max-lg:bg-paper/95 max-lg:px-5 max-lg:py-3 max-lg:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-lg:shadow-[0_-6px_18px_-12px_rgb(28_27_25/0.35)]">
           <p className="text-sm" aria-live="polite">
             {pending === "save"
               ? "Сохраняем…"
@@ -232,12 +232,14 @@ export function HypothesisWorkspace({ startupId, current, approved, history, fla
               {error}
             </p>
           ) : null}
-          <button type="button" className="btn btn-secondary w-full" onClick={save} disabled={!dirty || pending !== null}>
-            Сохранить черновик
-          </button>
-          <button type="button" className="btn btn-primary w-full" onClick={startConfirmation} disabled={pending !== null || (!dirty && !openId)}>
-            {pending === "confirm" ? "Проверяем…" : "Подтвердить гипотезу"}
-          </button>
+          <div className="grid gap-3 max-lg:grid-cols-2 max-lg:gap-2">
+            <button type="button" className="btn btn-secondary w-full max-lg:px-3 max-lg:text-[0.95rem]" onClick={save} disabled={!dirty || pending !== null}>
+              Сохранить черновик
+            </button>
+            <button type="button" className="btn btn-primary w-full max-lg:px-3 max-lg:text-[0.95rem]" onClick={startConfirmation} disabled={pending !== null || (!dirty && !openId)}>
+              {pending === "confirm" ? "Проверяем…" : "Подтвердить гипотезу"}
+            </button>
+          </div>
           {isRevision && openId ? (
             <button type="button" className="btn btn-quiet w-full" onClick={discard} disabled={pending !== null}>
               Отменить изменения
