@@ -1,7 +1,7 @@
 -- AI quota is reserved atomically before the provider is called.
 --
 -- Additive: one nullable column, a widened check constraint and two service-role-only functions.
--- Rollback: docs/OPERATIONS.md, "Откат миграции 20261110090000".
+-- Rollback: docs/OPERATIONS.md, "Откат миграции 20261109180000".
 
 alter table public.ai_usage add column if not exists finished_at timestamptz;
 

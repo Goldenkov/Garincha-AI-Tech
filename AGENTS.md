@@ -13,5 +13,7 @@ Non-obvious notes:
 - **Request interceptor** is `proxy.ts` (Next 16 replaced `middleware.ts`). It refreshes the session and redirects `/projects`, `/startup/*` and `/account` to `/login?next=…`.
 - **Form delivery**: `/api/leads`, `/api/partners`, `/api/feedback` succeed only if the database (service role) or Telegram confirmed receipt. Otherwise they return 503. Nothing is logged with payloads.
 - **PRO** uses individual codes. Issue them with `node --env-file=.env.local scripts/access-codes.mjs issue --days 30`. The shared `PRO_ACCESS_CODE` and `/access` are gone (`/access` redirects to `/account`).
-- `npm run test:integration` refuses to run unless `SUPABASE_URL` is a localhost URL.
+- `npm run test:integration` skips unless `SUPABASE_URL` is a localhost URL. After adding a migration, apply it with `sudo env PATH=$PATH supabase migration up`.
+- **Client IP** for rate limits comes only from `X-Forwarded-For` written by trusted proxies (`TRUSTED_PROXY_HOPS`, default 0 = ignore the header, one shared bucket). Locally all requests share a bucket anyway.
+- `docker compose` is not installed in this VM; to test the production image use `sudo docker build -t business-reboot-ai .` and `sudo docker run` with the compose environment.
 - `next dev` rewrites `next-env.d.ts` (`.next/dev/types`); do not commit that change.
