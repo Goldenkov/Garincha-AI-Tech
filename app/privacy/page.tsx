@@ -1,17 +1,18 @@
-import { LegalPage } from "@/components/LegalPage";
+import type { Metadata } from "next";
+
+import { LegalPage } from "@/components/site/LegalPage";
 import { privacySections } from "@/lib/content";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Политика конфиденциальности",
-  description: "Шаблонная структура политики конфиденциальности для Бизнес Перезагрузка с AI.",
+  description: "Какие данные обрабатывает сервис Бизнес Перезагрузка с AI, где они хранятся и как ими управлять.",
 };
 
 export default function PrivacyPage() {
   return (
     <LegalPage
-      eyebrow="Шаблон документа"
       title="Политика конфиденциальности"
-      description="Эта страница содержит рабочую структуру документа для MVP и не является юридической консультацией. Перед публичным запуском текст нужно проверить с профильным специалистом."
+      lede="Коротко и по делу: что мы храним, зачем и кто это видит. Рабочая редакция до проверки юристом."
       sections={privacySections}
     />
   );

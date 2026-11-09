@@ -1,50 +1,3 @@
-export type NicheId =
-  | "services"
-  | "commerce"
-  | "beauty"
-  | "repair"
-  | "interior"
-  | "climate"
-  | "experts";
-
-export type MissionStatus = "locked" | "active" | "completed";
-
-export type Niche = {
-  id: NicheId;
-  title: string;
-  description: string;
-  recommendedPackage: string;
-  difficulty: "Лёгкий старт" | "Средний маршрут" | "Плотный маршрут";
-  estimatedTime: string;
-  offer: string;
-  offerExample: string;
-  objections: string[];
-  quiz: string[];
-  content: string[];
-};
-
-export type MissionInput = string;
-
-export type MissionChecklistItem = string;
-
-export type MissionExample = {
-  offer: string;
-  objections: string[];
-  quiz: string[];
-  content: string[];
-};
-
-export type MissionPrompt = {
-  template: string;
-};
-
-export type MissionDetail = {
-  goal: string;
-  inputs: MissionInput[];
-  prompt: MissionPrompt;
-  checklist: MissionChecklistItem[];
-};
-
 export type Mission = {
   id: string;
   stage: number;
@@ -54,119 +7,10 @@ export type Mission = {
   time: string;
   expectedResult: string;
   goal: string;
-  inputs: MissionInput[];
+  inputs: string[];
   promptTemplate: string;
-  checklist: MissionChecklistItem[];
-  xpLabel: string;
-  badge: string;
+  checklist: string[];
 };
-
-export type ReadinessLevel = {
-  min: number;
-  max: number;
-  label: string;
-  description: string;
-};
-
-export const journeyStorageKeys = {
-  selectedNiche: "business-reboot:selected-niche",
-  completedMissions: "business-reboot:completed-missions",
-  activeMission: "business-reboot:active-mission",
-};
-
-export const niches: Niche[] = [
-  {
-    id: "services",
-    title: "Услуги",
-    description: "Для специалистов, мастеров, консультантов и локальных услуг.",
-    recommendedPackage: "Service Launch",
-    difficulty: "Лёгкий старт",
-    estimatedTime: "2–4 часа",
-    offer: "первая консультация, диагностика, решение конкретной задачи",
-    offerExample: "Первая консультация или диагностика задачи с понятным следующим шагом.",
-    objections: ["дорого", "не уверен", "не сейчас", "надо подумать"],
-    quiz: ["задача", "срок", "бюджет", "текущая ситуация"],
-    content: ["ошибки", "кейсы", "экспертные советы"],
-  },
-  {
-    id: "commerce",
-    title: "Торговля",
-    description: "Для магазинов, товарных ниш и небольших продаж.",
-    recommendedPackage: "Commerce Demand",
-    difficulty: "Средний маршрут",
-    estimatedTime: "3–5 часов",
-    offer: "товарная подборка, акция, комплект, консультация",
-    offerExample: "Подбор товара или комплекта под задачу, бюджет и сроки.",
-    objections: ["дорого", "есть дешевле", "не уверен в качестве", "доставка"],
-    quiz: ["потребность", "бюджет", "предпочтения", "сроки"],
-    content: ["обзоры", "сравнения", "подборки", "польза"],
-  },
-  {
-    id: "beauty",
-    title: "Бьюти",
-    description: "Для салонов, мастеров, студий и персональных услуг.",
-    recommendedPackage: "Beauty Booking",
-    difficulty: "Лёгкий старт",
-    estimatedTime: "2–4 часа",
-    offer: "запись на услугу, пакет процедур, первый визит",
-    offerExample: "Первый визит с диагностикой и понятным планом ухода/процедуры.",
-    objections: ["дорого", "нет времени", "боюсь результата", "подумаю"],
-    quiz: ["желаемая услуга", "дата", "бюджет", "опыт", "пожелания"],
-    content: ["до/после", "экспертность", "уход", "частые ошибки"],
-  },
-  {
-    id: "repair",
-    title: "Ремонт и строительство",
-    description: "Для ремонтных бригад, мастеров и строительных услуг.",
-    recommendedPackage: "Repair Trust",
-    difficulty: "Плотный маршрут",
-    estimatedTime: "4–7 часов",
-    offer: "замер, расчёт, консультация, ремонт под ключ",
-    offerExample: "Бесплатный первичный разбор задачи и понятный план работ по объекту.",
-    objections: ["дорого", "нет доверия", "уже ищу мастеров", "боюсь сроков"],
-    quiz: ["тип объекта", "площадь", "сроки", "бюджет", "вид работ"],
-    content: ["ошибки ремонта", "сметы", "этапы", "кейсы"],
-  },
-  {
-    id: "interior",
-    title: "Мебель и интерьер",
-    description: "Для мебели, декора, интерьерных решений и шоурумов.",
-    recommendedPackage: "Interior Selection",
-    difficulty: "Средний маршрут",
-    estimatedTime: "3–5 часов",
-    offer: "подбор мебели, интерьерное решение, индивидуальный заказ",
-    offerExample: "Подбор интерьерного решения под помещение, стиль и бюджет.",
-    objections: ["дорого", "не знаю размер", "не подходит стиль", "долго ждать"],
-    quiz: ["помещение", "стиль", "размеры", "бюджет", "сроки"],
-    content: ["идеи интерьера", "материалы", "сравнения", "подборки"],
-  },
-  {
-    id: "climate",
-    title: "Климат и кондиционеры",
-    description: "Для продаж и установки климатической техники.",
-    recommendedPackage: "Seasonal Climate",
-    difficulty: "Средний маршрут",
-    estimatedTime: "3–5 часов",
-    offer: "подбор и установка кондиционера",
-    offerExample: "Подбор и установка кондиционера под помещение с понятной сметой и сроками.",
-    objections: ["дорого", "подумаю", "уже есть мастер", "не сезон", "боюсь плохой установки"],
-    quiz: ["площадь помещения", "тип объекта", "бюджет", "сроки", "нужна ли установка"],
-    content: ["сезонный спрос", "ошибки выбора", "экономия", "сервис"],
-  },
-  {
-    id: "experts",
-    title: "Онлайн-услуги и эксперты",
-    description: "Для консультантов, наставников, специалистов и авторских услуг.",
-    recommendedPackage: "Expert Authority",
-    difficulty: "Средний маршрут",
-    estimatedTime: "3–6 часов",
-    offer: "консультация, аудит, мини-разбор, пакет сопровождения",
-    offerExample: "Аудит текущей ситуации и понятный план улучшения.",
-    objections: ["дорого", "не доверяю", "нет времени", "не понимаю пользу"],
-    quiz: ["цель", "текущая точка", "проблема", "желаемый результат"],
-    content: ["экспертные посты", "кейсы", "разборы", "чек-листы"],
-  },
-];
 
 export const missions: Mission[] = [
   {
@@ -186,8 +30,6 @@ export const missions: Mission[] = [
       "Я зафиксировал текущий канал заявок",
       "Я выбрал первый фокус продвижения",
     ],
-    xpLabel: "+10 к ясности бизнеса",
-    badge: "Бриф собран",
   },
   {
     id: "offer-packaging",
@@ -207,8 +49,6 @@ export const missions: Mission[] = [
       "Я подготовил 1–2 варианта оффера",
       "Я понимаю, где использовать оффер",
     ],
-    xpLabel: "+15 к ясности оффера",
-    badge: "Оффер готов",
   },
   {
     id: "content-boost",
@@ -227,8 +67,6 @@ export const missions: Mission[] = [
       "Я получил 7 тем контента",
       "Я отметил первую тему для публикации",
     ],
-    xpLabel: "+15 к контент-системе",
-    badge: "Контент запущен",
   },
   {
     id: "contact-scripts",
@@ -247,8 +85,6 @@ export const missions: Mission[] = [
       "Я добавил уточняющие вопросы",
       "Я убрал давление и лишние обещания",
     ],
-    xpLabel: "+10 к структуре контакта",
-    badge: "Скрипт готов",
   },
   {
     id: "objection-battle",
@@ -267,8 +103,6 @@ export const missions: Mission[] = [
       "Я добавил факты или пояснения",
       "Я не использую давление и манипуляции",
     ],
-    xpLabel: "+15 к устойчивости продаж",
-    badge: "Возражения разобраны",
   },
   {
     id: "quiz-lead",
@@ -287,8 +121,6 @@ export const missions: Mission[] = [
       "Я добавил вопросы для оценки задачи",
       "Я понимаю, как использовать ответы клиента",
     ],
-    xpLabel: "+20 к качеству заявок",
-    badge: "Квиз собран",
   },
   {
     id: "landing-route",
@@ -307,8 +139,6 @@ export const missions: Mission[] = [
       "Я добавил оффер и CTA",
       "Я подготовил FAQ и блок доверия",
     ],
-    xpLabel: "+20 к структуре продаж",
-    badge: "Лендинг собран",
   },
   {
     id: "market-signals",
@@ -327,8 +157,6 @@ export const missions: Mission[] = [
       "Я подготовил таблицу или список фиксации",
       "Я знаю следующий шаг после реакции",
     ],
-    xpLabel: "+15 к готовности проверки",
-    badge: "Первые сигналы получены",
   },
   {
     id: "launch-check",
@@ -348,14 +176,6 @@ export const missions: Mission[] = [
       "План действий понятен",
       "Слабые места зафиксированы",
     ],
-    xpLabel: "+25 к готовности запуска",
-    badge: "Готов к запуску",
   },
 ];
 
-export const launchReadinessLevels: ReadinessLevel[] = [
-  { min: 0, max: 30, label: "Нужна база", description: "Сначала соберите бриф, оффер и первые вводные." },
-  { min: 31, max: 60, label: "Маршрут собран", description: "Основа появилась, но не хватает ключевых блоков проверки." },
-  { min: 61, max: 85, label: "Почти готово", description: "Есть база для первого теста, осталось закрыть слабые места." },
-  { min: 86, max: 100, label: "Можно делать первый запуск", description: "Маршрут собран достаточно, чтобы переходить к проверке спроса." },
-];

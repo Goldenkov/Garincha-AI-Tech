@@ -6,6 +6,7 @@ coverage
 .env
 .env.local
 .env.*.local
+.env.production
 credentials.json
 service-account*.json
 .secrets/
@@ -14,3 +15,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 *.tsbuildinfo
+test-results/
+playwright-report/

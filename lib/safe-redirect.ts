@@ -1,16 +1,15 @@
-const allowedRedirectPaths = new Set(["/journey", "/launch-kit", "/dashboard"]);
-const fallbackRedirect = "/journey";
+const allowedPrefixes = ["/projects", "/startup", "/account", "/start"];
+const fallbackRedirect = "/projects";
 
-export function sanitizeAccessRedirect(value: string | null | undefined) {
-  if (!value) return fallbackRedirect;
-  if (value.startsWith("http://") || value.startsWith("https://") || value.startsWith("//")) {
-    return fallbackRedirect;
-  }
-
+/** Accepts only same-site relative paths inside the product; everything else falls back to /projects. */
+export function sanitizeNextPath(value: string | null | undefined) {
+  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) return fallbackRedirect;
   try {
     const url = new URL(value, "https://local.invalid");
     if (url.origin !== "https://local.invalid") return fallbackRedirect;
-    if (!allowedRedirectPaths.has(url.pathname)) return fallbackRedirect;
+    if (!allowedPrefixes.some((prefix) => url.pathname === prefix || url.pathname.startsWith(`${prefix}/`))) {
+      return fallbackRedirect;
+    }
     return `${url.pathname}${url.search}`;
   } catch {
     return fallbackRedirect;

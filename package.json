@@ -12,12 +12,16 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "sheets:test": "node --env-file=.env.local scripts/test-google-sheets.mjs"
+    "sheets:test": "node --env-file=.env.local scripts/test-google-sheets.mjs",
+    "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "class-variance-authority": "latest",
     "clsx": "latest",
     "googleapis": "^173.0.0",
+    "gsap": "^3.15.1",
     "lucide-react": "latest",
     "next": "latest",
     "react": "latest",
@@ -26,6 +30,7 @@
     "tailwind-merge": "latest"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
@@ -35,6 +40,7 @@
     "eslint-config-next": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "vitest": "^3.2.7"
   }
 }

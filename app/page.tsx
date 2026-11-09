@@ -1,218 +1,180 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import { Container } from "@/components/Container";
-import { BeforeAfter } from "@/components/product/BeforeAfter";
-import { HeroSection } from "@/components/product/HeroSection";
-import { NicheRoutes } from "@/components/product/NicheRoutes";
-import { PageLinkGrid } from "@/components/product/PageLinkGrid";
-import { ProAccessSteps } from "@/components/product/ProAccessSteps";
-import { ProExpectations } from "@/components/product/ProExpectations";
-import { ToolGrid } from "@/components/product/ToolGrid";
-import { ButtonLink } from "@/components/ui/button";
-import { businessRebootConfig, dashboardFaq, landingPillars, routeModes } from "@/lib/business-reboot-content";
+import { HeroCard } from "@/components/landing/HeroCard";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { Reveals } from "@/components/landing/Reveals";
+import { Container } from "@/components/site/Container";
+import { EntryRows } from "@/components/start/EntryRows";
+import { catalogNiches } from "@/lib/catalog";
+import { businessModelIds, businessModels } from "@/lib/domain/business-models";
 
-const RouteSelector = dynamic(() =>
-  import("@/components/product/RouteSelector").then((mod) => mod.RouteSelector),
-);
-
-const LeadForm = dynamic(() => import("@/components/forms/LeadForm").then((mod) => mod.LeadForm));
+const faq = [
+  {
+    q: "Это гарантирует, что бизнес получится?",
+    a: "Нет. Мы помогаем быстро сформулировать гипотезу и проверить спрос до вложений. Результат зависит от рынка, вашего предложения и действий. Подтверждённая гипотеза — это решение проверять, а не доказательство спроса.",
+  },
+  {
+    q: "Нужна ли регистрация?",
+    a: "Каталог, пример и черновик своей идеи доступны без регистрации. Аккаунт по email нужен, чтобы сохранить проект на сервере и вернуться к нему с любого устройства. Черновик переносится в аккаунт только после вашего согласия.",
+  },
+  {
+    q: "Где здесь AI?",
+    a: "Там, где он реально помогает: подсказать формулировки и предложить до трёх направлений по вашему профилю — только когда вы сами нажмёте кнопку. Если AI недоступен, вы спокойно продолжаете вручную.",
+  },
+  {
+    q: "Что даёт PRO?",
+    a: "После первой проверки спроса открываются миссии запуска: упаковка предложения, контент, скрипты, ответы на возражения, квиз, структура страницы и пакет первого запуска. Первые два шага бесплатны.",
+  },
+  {
+    q: "Какие направления поддерживаются?",
+    a: "Сейчас — три модели: услуги, торговля и производство на заказ. Это сознательное ограничение: для них мы можем дать честный и проверяемый маршрут.",
+  },
+];
 
 export default function HomePage() {
+  const featured = catalogNiches.slice(0, 6);
   return (
-    <>
-      <HeroSection />
+    <main>
+      <section aria-labelledby="hero-title">
+        <Container className="grid items-center gap-12 pb-14 pt-10 sm:pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:pb-16 lg:pt-16">
+          <div>
+            <p className="eyebrow">Бизнес Перезагрузка с AI</p>
+            <h1 id="hero-title" className="display mt-5 max-w-[12ch]">
+              Большая идея. Первый реальный шаг.
+            </h1>
+            <p className="lede mt-6 max-w-[34ch]">От выбора направления до плана проверки спроса — шаг за шагом.</p>
+            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Link href="/start" className="btn btn-primary btn-lg min-w-[13rem]">
+                Выбрать идею
+              </Link>
+              <Link href="/example" className="link py-2 text-[1.05rem] font-medium">
+                Посмотреть пример
+              </Link>
+            </div>
+          </div>
+          <HeroCard />
+        </Container>
+      </section>
 
-      <section className="py-12 sm:py-16 lg:py-24">
+      <section aria-labelledby="entry-title" className="pb-16">
         <Container>
-          <div className="grid gap-4 lg:grid-cols-3">
-            {landingPillars.map((item) => (
-              <article key={item.title} className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 sm:p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">{item.label}</p>
-                <h2 className="mt-5 text-2xl font-semibold tracking-tight text-white">{item.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-slate-400">{item.description}</p>
-              </article>
+          <h2 id="entry-title" className="subtitle !text-[clamp(1.6rem,1.2rem+1.4vw,2.2rem)]">
+            Начните со своей точки
+          </h2>
+          <EntryRows className="mt-5" />
+        </Container>
+      </section>
+
+      <HowItWorks />
+
+      <section aria-labelledby="models-title" className="border-t border-rule py-20 sm:py-24">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="eyebrow">Каталог направлений</p>
+              <h2 id="models-title" className="title mt-3" data-reveal="mask">
+                Три модели, с которых можно начать
+              </h2>
+              <p className="prose-body mt-5 max-w-[42ch]">
+                Мы сознательно поддерживаем только услуги, торговлю и производство на заказ — для них маршрут проверки понятен и честен.
+              </p>
+              <Link href="/niches" className="btn btn-secondary mt-8">
+                Открыть каталог
+              </Link>
+            </div>
+            <div className="grid divide-y divide-rule overflow-hidden rounded-md border border-rule bg-paper-raised sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {businessModelIds.map((id) => (
+                <div key={id} className="bg-paper-raised p-6" data-reveal>
+                  <p className="font-display text-xl font-medium">{businessModels[id].title}</p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">{businessModels[id].short}</p>
+                  <p className="mt-4 text-sm text-muted">{businessModels[id].howItEarns}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <ul className="mt-12 grid gap-x-8 border-t border-rule sm:grid-cols-2 lg:grid-cols-3">
+            {featured.map((niche) => (
+              <li key={niche.id} className="border-b border-rule">
+                <Link href={`/niches/${niche.id}`} className="entry-row !min-h-[3.5rem] !text-base">
+                  <span>{niche.title}</span>
+                  <span className="entry-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      <section aria-labelledby="honest-title" className="border-t border-rule bg-paper-sunk/60 py-20 sm:py-24">
+        <Container className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <p className="eyebrow">Без иллюзий</p>
+            <h2 id="honest-title" className="title mt-3" data-reveal="mask">
+              Гипотеза — это ещё не бизнес
+            </h2>
+            <p className="prose-body mt-5 max-w-[46ch]">
+              Мы не выдаём догадку за факт. Всё, что не подтверждено, подписано как предположение. Первые деньги и время уходят не на запуск, а на
+              проверку: поговорить с людьми, показать предложение, собрать заявки.
+            </p>
+          </div>
+          <dl className="grid gap-6 sm:grid-cols-2">
+            {[
+              ["Бесплатно", "Каталог, пример, карточка гипотезы, первая проверка спроса и разведка рынка — с сохранением в аккаунте."],
+              ["PRO", "Миссии запуска после проверки: оффер, контент, скрипты, возражения, квиз, страница и пакет первого запуска."],
+              ["Ваши данные", "Проекты хранятся на сервере и доступны только вам. Мы не продаём и не публикуем ваши данные."],
+              ["Без обещаний", "Никаких процентов успеха и гарантированного дохода. Только понятные шаги и критерии решения."],
+            ].map(([title, text]) => (
+              <div key={title} className="border-t-2 border-ink pt-4" data-reveal>
+                <dt className="font-display text-lg font-medium">{title}</dt>
+                <dd className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{text}</dd>
+              </div>
+            ))}
+          </dl>
+        </Container>
+      </section>
+
+      <section aria-labelledby="faq-title" className="border-t border-rule py-20 sm:py-24">
+        <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <h2 id="faq-title" className="title" data-reveal="mask">
+            Частые вопросы
+          </h2>
+          <div className="border-t border-rule">
+            {faq.map((item) => (
+              <details key={item.q} className="group border-b border-rule">
+                <summary className="flex min-h-[3.75rem] cursor-pointer list-none items-center justify-between gap-6 py-4 text-[1.05rem] font-medium marker:hidden [&::-webkit-details-marker]:hidden">
+                  {item.q}
+                  <span aria-hidden="true" className="text-xl text-teal transition-transform duration-200 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <p className="prose-body max-w-[60ch] pb-6">{item.a}</p>
+              </details>
             ))}
           </div>
         </Container>
       </section>
 
-      <BeforeAfter />
-
-      <section className="py-12 sm:py-16 lg:py-24" id="inside">
+      <section aria-labelledby="final-title" className="pb-8 pt-4">
         <Container>
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Инструменты</p>
-              <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-                Не читать простыню текста — открывать нужный блок и делать шаг
-              </h2>
-            </div>
-            <ButtonLink href="/tools" variant="outline" className="w-full sm:w-auto">
-              Все инструменты
-            </ButtonLink>
-          </div>
-          <ToolGrid limit={4} />
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-24">
-        <Container>
-          <RouteSelector />
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-24" id="dashboard-preview">
-        <Container>
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
-                Demo preview
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-                PRO ощущается как рабочий cockpit, а не как папка с документами
-              </h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">
-                Внутри — маршруты, прогресс, карточки инструментов, нишевые подсказки и следующий
-                рекомендуемый шаг. Закрытые Google Drive материалы не публикуются в открытом доступе.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <ButtonLink href="/demo" size="lg">
-                  Открыть демо
-                </ButtonLink>
-                <ButtonLink href="/quick-start" variant="secondary" size="lg">
-                  Начать за 60 минут
-                </ButtonLink>
-              </div>
-            </div>
-            <div className="rounded-[2rem] border border-white/10 bg-[#0b1020] p-5">
-              {routeModes.map((route, index) => (
-                <div key={route.name} className="border-b border-white/10 py-5 last:border-b-0">
-                  <div className="flex items-start justify-between gap-3 sm:items-center sm:gap-4">
-                    <div className="min-w-0">
-                      <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                        {(index + 1).toString().padStart(2, "0")} / маршрут
-                      </p>
-                      <h3 className="mt-2 text-xl font-semibold text-white">{route.name}</h3>
-                    </div>
-                    <span className="shrink-0 rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-3 py-1 text-xs text-cyan-100">
-                      {route.duration}
-                    </span>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">{route.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-24" id="audience">
-        <Container>
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Нишевые маршруты</p>
-              <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-                Быстрее найти свой путь, если начать с похожей бизнес-модели
-              </h2>
-            </div>
-            <ButtonLink href="/niches" variant="outline" className="w-full sm:w-auto">
-              Все ниши
-            </ButtonLink>
-          </div>
-          <NicheRoutes limit={3} />
-        </Container>
-      </section>
-
-      <ProExpectations />
-
-      <section className="py-12 sm:py-16 lg:py-24" id="price">
-        <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-cyan-300/20 bg-[#0b1020] p-5 sm:rounded-[2rem] sm:p-8 lg:p-12">
-            <div className="grid gap-6 sm:gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-200 sm:tracking-[0.26em]">PRO на первом запуске</p>
-                <p className="mt-4 text-7xl font-black tracking-tight text-white">{businessRebootConfig.price}</p>
-              </div>
-              <div>
-                <h2 className="text-3xl font-semibold tracking-tight text-white">
-                  Практический интерфейс поверх базы знаний: маршрут, инструменты и первые действия.
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-slate-300">
-                  Это не обещание гарантированного дохода. Это способ быстрее навести порядок в продвижении
-                  и подготовить материалы для проверки спроса.
-                </p>
-                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                  <ButtonLink href="#lead" size="lg">{businessRebootConfig.primaryCta}</ButtonLink>
-                  <ButtonLink href="/free" variant="secondary" size="lg">Получить бесплатный маршрут</ButtonLink>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <ProAccessSteps />
-
-      <Container>
-        <LeadForm />
-      </Container>
-
-      <section className="py-12 sm:py-16 lg:py-24" id="faq">
-        <Container>
-          <div className="mx-auto max-w-4xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">FAQ</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              Важные уточнения без инфобизнесового шума
+          <div className="rounded-md bg-ink px-6 py-14 text-paper sm:px-12 sm:py-16" data-reveal="scale">
+            <h2 id="final-title" className="title max-w-[20ch] text-paper">
+              Начните с одной идеи — и одного честного теста
             </h2>
-            <div className="mt-8 grid gap-4">
-              {dashboardFaq.map((item) => (
-                <details key={item.question} className="rounded-2xl border border-white/10 bg-[#0b1020] p-4 sm:rounded-3xl sm:p-6">
-                  <summary className="cursor-pointer text-left text-base font-semibold text-white sm:text-lg">{item.question}</summary>
-                  <p className="mt-4 text-sm leading-7 text-slate-400">{item.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-24">
-        <Container>
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">Навигация</p>
-              <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-                Все страницы продукта в одном месте
-              </h2>
-            </div>
-            <ButtonLink href="/site-map" variant="outline" className="w-full sm:w-auto">
-              Полная карта сайта
-            </ButtonLink>
-          </div>
-          <PageLinkGrid compact />
-        </Container>
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-20">
-        <Container>
-          <div className="rounded-[1.5rem] border border-white/10 bg-[#0b1020] p-5 text-center sm:rounded-[2rem] sm:p-8 lg:p-12">
-            <h2 className="mx-auto max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              Начните не с длинного курса, а с понятного следующего действия
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-400">
-              Откройте демо, выберите маршрут и посмотрите, как продукт будет работать как интерфейс
-              над вашей базой знаний.
-            </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <ButtonLink href="/dashboard" size="lg">Открыть PRO dashboard</ButtonLink>
-              <Link href="/feedback" className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-slate-300 hover:text-white">
-                Оставить обратную связь
+            <p className="mt-4 max-w-[46ch] text-paper/80">Черновик можно собрать без регистрации. Сохранить и продолжить — с аккаунтом по email.</p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href="/start" className="btn btn-lg bg-paper text-ink hover:bg-white">
+                Выбрать идею
+              </Link>
+              <Link href="/example" className="btn btn-lg border-paper/40 text-paper hover:border-paper">
+                Посмотреть пример
               </Link>
             </div>
           </div>
         </Container>
       </section>
-    </>
+      <Reveals />
+    </main>
   );
 }
